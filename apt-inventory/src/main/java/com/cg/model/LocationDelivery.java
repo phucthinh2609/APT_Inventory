@@ -1,39 +1,42 @@
 package com.cg.model;
 
-
-import lombok.*;
-import lombok.experimental.Accessors;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.util.Set;
 
-@NoArgsConstructor
 @AllArgsConstructor
-@Getter
+@NoArgsConstructor
 @Setter
+@Getter
 @Entity
 @Table(name = "location_deliveries")
-@Accessors(chain = true)
 public class LocationDelivery {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
     @Column(name = "province_id")
-    private String provinceId;
+    private Long provinceId;
 
     @Column(name = "province_name")
     private String provinceName;
 
     @Column(name = "district_id")
-    private String districtId;
+
+    private Long districtId;
 
     @Column(name = "district_name")
     private String districtName;
 
     @Column(name = "ward_id")
-    private String wardId;
+
+    private Long wardId;
 
     @Column(name = "ward_name")
     private String wardName;
@@ -44,6 +47,7 @@ public class LocationDelivery {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-
+//    @OneToMany(targetEntity = Order.class, mappedBy = "locationDelivery")
+//    private Set<Order> orders;
 
 }

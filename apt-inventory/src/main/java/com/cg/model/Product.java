@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import java.math.BigDecimal;
 import java.util.Collection;
+
 import java.util.Set;
 
 @Entity
@@ -38,6 +39,17 @@ public class Product {
 
     private String description;
 
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<Inventory> inventories;
+
+//    @OneToMany(targetEntity = ProductMedia.class, mappedBy = "product", fetch = FetchType.EAGER)
+//    private Set<ProductMedia> productMedia;
+//
+//    @OneToMany(targetEntity = TechSpecTemp.class, mappedBy = "product", fetch = FetchType.EAGER)
+//    private Set<TechSpecTemp> techSpecTemps;
+
+//    @OneToMany(targetEntity = OrderDetail.class, mappedBy = "product", fetch = FetchType.EAGER)
+//    private Set<OrderDetail> orderDetails;
+
 }
