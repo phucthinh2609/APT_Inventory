@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,4 +26,13 @@ public class Product {
 
 
     private String description;
+
+//    @OneToMany(targetEntity = ProductMedia.class, mappedBy = "product", fetch = FetchType.EAGER)
+//    private Set<ProductMedia> productMedia;
+//
+//    @OneToMany(targetEntity = TechSpecTemp.class, mappedBy = "product", fetch = FetchType.EAGER)
+//    private Set<TechSpecTemp> techSpecTemps;
+
+//    @OneToMany(targetEntity = OrderDetail.class, mappedBy = "product", fetch = FetchType.EAGER)
+//    private Set<OrderDetail> orderDetails;
 }
