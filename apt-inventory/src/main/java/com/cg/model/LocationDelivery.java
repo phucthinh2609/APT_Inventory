@@ -47,7 +47,7 @@ public class LocationDelivery {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-//    @OneToMany(targetEntity = Order.class, mappedBy = "locationDelivery")
-//    private Set<Order> orders;
+    @OneToMany(targetEntity = Order.class, mappedBy = "locationDelivery")
+    private Set<Order> orders;
 
 }

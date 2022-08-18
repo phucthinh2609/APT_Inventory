@@ -33,12 +33,12 @@ public class OrderDetail {
     @Digits(integer = 12, fraction = 0)
     private BigDecimal amount;
 
-//    @ManyToOne
-//    @Column(name = "product_id", nullable = false)
-//    private Product product;
-//
-//    @ManyToOne
-//    @Column(name = "order_id", nullable = false)
-//    private Order order;
+    @ManyToOne
+    @Column(name = "product_id", nullable = false)
+    private Product product;
+
+    @ManyToOne
+    @Column(name = "order_id", nullable = false)
+    private Order order;
 
 }

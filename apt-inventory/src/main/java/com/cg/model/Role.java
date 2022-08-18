@@ -29,6 +29,9 @@ public class Role {
     @OneToMany(targetEntity = Customer.class, mappedBy = "role", fetch = FetchType.EAGER)
     private Set<Customer> customers;
 
+    @OneToMany(targetEntity = Customer.class, mappedBy = "role", fetch = FetchType.EAGER)
+    private Set<Employee> employees;
+
 //    @Override
 //    public String toString() {
 //        return "Role{" +

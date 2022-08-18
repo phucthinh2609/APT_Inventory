@@ -26,9 +26,9 @@ public class Supplier {
     @Digits(integer = 10, fraction = 2)
     private BigDecimal discount;
 
-//    @OneToOne
-//    @JoinColumn(name = "location_region_id", nullable = false)
-//    private LocationRegion locationRegion;
+    @OneToOne
+    @JoinColumn(name = "location_region_id", nullable = false)
+    private LocationRegion locationRegion;
 
 
 }

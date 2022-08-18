@@ -39,17 +39,19 @@ public class Product {
 
     private String description;
 
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Inventory.class, mappedBy = "product", fetch = FetchType.EAGER)
     private Set<Inventory> inventories;
 
-//    @OneToMany(targetEntity = ProductMedia.class, mappedBy = "product", fetch = FetchType.EAGER)
-//    private Set<ProductMedia> productMedia;
-//
-//    @OneToMany(targetEntity = TechSpecTemp.class, mappedBy = "product", fetch = FetchType.EAGER)
-//    private Set<TechSpecTemp> techSpecTemps;
+    @OneToMany(targetEntity = ProductMedia.class, mappedBy = "product", fetch = FetchType.EAGER)
+    private Set<ProductMedia> productMedia;
 
-//    @OneToMany(targetEntity = OrderDetail.class, mappedBy = "product", fetch = FetchType.EAGER)
-//    private Set<OrderDetail> orderDetails;
+    @OneToMany(targetEntity = TechSpecTemp.class, mappedBy = "product", fetch = FetchType.EAGER)
+    private Set<TechSpecTemp> techSpecTemps;
+
+    @OneToMany(targetEntity = OrderDetail.class, mappedBy = "product", fetch = FetchType.EAGER)
+    private Set<OrderDetail> orderDetails;
+
+    @OneToMany(targetEntity = Comment.class, mappedBy = "product", fetch = FetchType.EAGER)
+    private Set<Comment> comments;
 
 }
