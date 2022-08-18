@@ -22,12 +22,12 @@ public class PurchaseOrder {
     @Column(name = "quantity_total", nullable = false)
     private int quantityTotal;
 
-//    @ManyToOne
-//    @JoinColumn(name = "supplier_id")
-//    private Supplier supplier;
+    @ManyToOne
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier;
 
-//    @ManyToOne
-//    @JoinColumn(name = "employee_id")
-//    private Employee employee;
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
 }

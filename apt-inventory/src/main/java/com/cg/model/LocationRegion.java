@@ -22,19 +22,19 @@ public class LocationRegion {
     private long id;
 
     @Column(name = "province_id")
-    private String provinceId;
+    private Long provinceId;
 
     @Column(name = "province_name")
     private String provinceName;
 
     @Column(name = "district_id")
-    private String districtId;
+    private Long districtId;
 
     @Column(name = "district_name")
     private String districtName;
 
     @Column(name = "ward_id")
-    private String wardId;
+    private Long wardId;
 
     @Column(name = "ward_name")
     private String wardName;

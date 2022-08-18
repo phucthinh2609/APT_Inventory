@@ -41,6 +41,11 @@ public class LocationDelivery {
 
     private String address;
 
-//    @OneToMany(targetEntity = Order.class, mappedBy = "locationDelivery")
-//    private Set<Order> orders;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @OneToMany(targetEntity = Order.class, mappedBy = "locationDelivery")
+    private Set<Order> orders;
+
 }

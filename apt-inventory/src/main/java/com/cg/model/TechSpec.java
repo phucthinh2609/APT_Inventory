@@ -27,6 +27,6 @@ public class TechSpec {
     @Column(name = "parent_id")
     private String parentId;
 
-//    @OneToMany(targetEntity = TechSpecTemp.class, mappedBy = "techSpec")
-//    private Set<TechSpecTemp> techSpecTemps;
+    @OneToMany(targetEntity = TechSpecTemp.class, mappedBy = "techSpec")
+    private Set<TechSpecTemp> techSpecTemps;
 }

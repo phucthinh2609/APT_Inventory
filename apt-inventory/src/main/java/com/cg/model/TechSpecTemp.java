@@ -21,11 +21,11 @@ public class TechSpecTemp {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-//    @ManyToOne
-//    @Column(name = "tech_spec_id", nullable = false)
-//    private TechSpec techSpec;
-//
-//    @ManyToOne
-//    @Column(name = "product_id", nullable = false)
-//    private Product product;
+    @ManyToOne
+    @Column(name = "tech_spec_id", nullable = false)
+    private TechSpec techSpec;
+
+    @ManyToOne
+    @Column(name = "product_id", nullable = false)
+    private Product product;
 }

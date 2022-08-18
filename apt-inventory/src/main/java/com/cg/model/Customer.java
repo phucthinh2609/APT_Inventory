@@ -16,6 +16,7 @@ import java.util.Set;
 @Accessors(chain = true)
 @Table(name = "customers")
 public class Customer {
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -41,11 +42,14 @@ public class Customer {
     @JoinColumn(name = "location_region_id")
     private LocationRegion locationRegion;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "user_media_id")
+    private UserMedia userMedia;
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     private Set<LocationDelivery> locationDeliveries;
 
-//    @OneToOne
-//    @JoinColumn(name = "image_id")
-//    private Image image;
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    private Set<Comment> comments;
 
 }

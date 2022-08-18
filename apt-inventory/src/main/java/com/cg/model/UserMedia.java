@@ -39,4 +39,10 @@ public class UserMedia {
     @Column(name = "cloud_id")
     private String cloudId;
 
+    @OneToOne(mappedBy = "userMedia")
+    private Customer cusotmer;
+
+    @OneToOne(mappedBy = "userMedia")
+    private Employee employee;
+
 }

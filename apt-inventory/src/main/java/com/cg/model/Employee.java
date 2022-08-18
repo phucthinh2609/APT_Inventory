@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -26,10 +27,6 @@ public class Employee {
 
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
-
     @Column(name = "full_name")
     private String fullName;
 
@@ -39,7 +36,15 @@ public class Employee {
     @JoinColumn(name = "location_region_id")
     private LocationRegion locationRegion;
 
-//    @OneToOne
-//    @JoinColumn(name = "image_id")
-//    private Image image;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    @OneToOne
+    @JoinColumn(name = "user_media_id")
+    private UserMedia userMedia;
+
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
+    private Set<Comment> comments;
+
 }
