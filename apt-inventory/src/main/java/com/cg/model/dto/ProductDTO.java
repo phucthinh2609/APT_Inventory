@@ -4,10 +4,7 @@ import com.cg.model.*;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 
@@ -36,15 +33,15 @@ public class ProductDTO implements Serializable {
 
     private String fileType;
 
-    public Product toProduct() {
-        return new Product()
+    public ProductDemo toProduct() {
+        return new ProductDemo()
                 .setId(id)
                 .setName(name)
                 .setDescription(description);
     }
 
-    public ProductMedia toProductMedia() {
-        return new ProductMedia()
+    public ProductMediaDemo toProductMedia() {
+        return new ProductMediaDemo()
                 .setId(fileProductId)
                 .setFileName(fileName)
                 .setFileFolder(fileFolder)

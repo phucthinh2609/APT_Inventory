@@ -103,24 +103,24 @@
         page.dialogs.element.divImagePreview = $("div.image-preview, div.file-name");
         page.dialogs.element.btnClearImagePreview = $(".clear-image-preview i");
 
-        let product = new Product();
+        let productDemo = new Product();
 
         let tempProduct = jQuery.validator.format($.trim(page.element.tempProduct.val().toString()));
 
         page.commands.addRow = () => {
-            let image_thumbnail = App.BASE_URL_CLOUD_IMAGE + "/" + App.BASE_SCALE_IMAGE + "/" + product.fileFolder + "/" + product.fileName;
-            let video_thumbnail = App.BASE_URL_CLOUD_VIDEO + "/" + App.BASE_SCALE_IMAGE + "/" + product.fileFolder + "/" + product.fileId + ".jpg";
-            let imageFileUrl = App.BASE_URL_CLOUD_IMAGE + "/" + product.fileFolder + "/" + product.fileName;
-            let videoFileUrl = App.BASE_URL_CLOUD_VIDEO + "/" + product.fileFolder + "/" + product.fileName;
+            let image_thumbnail = App.BASE_URL_CLOUD_IMAGE + "/" + App.BASE_SCALE_IMAGE + "/" + productDemo.fileFolder + "/" + productDemo.fileName;
+            let video_thumbnail = App.BASE_URL_CLOUD_VIDEO + "/" + App.BASE_SCALE_IMAGE + "/" + productDemo.fileFolder + "/" + productDemo.fileId + ".jpg";
+            let imageFileUrl = App.BASE_URL_CLOUD_IMAGE + "/" + productDemo.fileFolder + "/" + productDemo.fileName;
+            let videoFileUrl = App.BASE_URL_CLOUD_VIDEO + "/" + productDemo.fileFolder + "/" + productDemo.fileName;
 
-            if (product.fileType === "image") {
+            if (productDemo.fileType === "image") {
                 let aClass = "image-popup-vertical-fit";
-                page.element.frmListProduct.prepend($(tempProduct(product.id, product.name, product.description, imageFileUrl, image_thumbnail, aClass)));
+                page.element.frmListProduct.prepend($(tempProduct(productDemo.id, productDemo.name, productDemo.description, imageFileUrl, image_thumbnail, aClass)));
             }
 
-            if (product.fileType === "video") {
+            if (productDemo.fileType === "video") {
                 let aClass = "popup-vimeo";
-                page.element.frmListProduct.prepend($(tempProduct(product.id, product.name, product.description, videoFileUrl, video_thumbnail, aClass)));
+                page.element.frmListProduct.prepend($(tempProduct(productDemo.id, productDemo.name, productDemo.description, videoFileUrl, video_thumbnail, aClass)));
             }
         }
 
@@ -132,7 +132,7 @@
             }).done((data) => {
 
                 $.each(data, (index, item) => {
-                    product = item;
+                    productDemo = item;
                     page.commands.addRow();
                 });
 
@@ -206,7 +206,7 @@
                 data: formData
             }).done((data) => {
                 console.log(data)
-                product = data;
+                productDemo = data;
 
                 page.commands.addRow();
 
@@ -234,12 +234,12 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                url: page.urls.doDelete + product.id,
+                url: page.urls.doDelete + productDemo.id,
             }).done((data) => {
 
                 App.showSuccessAlert(App.SUCCESS_DELETED);
 
-                $("#" + product.id).remove();
+                $("#" + productDemo.id).remove();
 
                 page.commands.handleImagePopup();
 
@@ -289,7 +289,7 @@
         page.initializeControlEvent = () => {
 
             page.element.btnShowCreateForm.on("click", function () {
-                delete product.id;
+                delete productDemo.id;
                 page.commands.showCreateModal();
             });
 
@@ -299,7 +299,7 @@
 
             page.element.frmListProduct.on("click", ".delete", function () {
                 // page.element.currentRow.val($(this).closest("tr").attr("id"));
-                product.id = $(this).data('id');
+                productDemo.id = $(this).data('id');
                 page.commands.showDeleteConfirm();
             });
 

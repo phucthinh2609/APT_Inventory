@@ -2,8 +2,8 @@ package com.cg.service;
 
 
 import com.cg.exception.DataInputException;
-import com.cg.model.Product;
-import com.cg.model.ProductMedia;
+import com.cg.model.ProductDemo;
+import com.cg.model.ProductMediaDemo;
 import com.cg.model.dto.IProductDTO;
 import com.cg.model.dto.ProductDTO;
 import com.cg.model.enums.FileType;
@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public Iterable<Product> findAll() {
+    public Iterable<ProductDemo> findAll() {
         return productRepository.findAll();
     }
 
@@ -47,12 +47,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<Product> findById(String id) {
+    public Optional<ProductDemo> findById(String id) {
         return productRepository.findById(id);
     }
 
     @Override
-    public Product create(ProductDTO productDTO) {
+    public ProductDemo create(ProductDTO productDTO) {
 
         String fileType = productDTO.getFile().getContentType();
 
@@ -62,19 +62,19 @@ public class ProductServiceImpl implements ProductService {
 
         productDTO.setFileType(fileType);
 
-        Product product = productRepository.save(productDTO.toProduct());
+        ProductDemo productDemo = productRepository.save(productDTO.toProduct());
 
-        ProductMedia productMedia = productMediaRepository.save(productDTO.toProductMedia());
+        ProductMediaDemo productMediaDemo = productMediaRepository.save(productDTO.toProductMedia());
 
         if (fileType.equals(FileType.IMAGE.getValue())) {
-            uploadAndSaveProductImage(productDTO, product, productMedia);
+            uploadAndSaveProductImage(productDTO, productDemo, productMediaDemo);
         }
 
         if (fileType.equals(FileType.VIDEO.getValue())) {
-            uploadAndSaveProductVideo(productDTO, product, productMedia);
+            uploadAndSaveProductVideo(productDTO, productDemo, productMediaDemo);
         }
 
-        return product;
+        return productDemo;
     }
 
 
@@ -83,18 +83,18 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findIProductDTOById(id);
     }
 
-    private void uploadAndSaveProductImage(ProductDTO productDTO, Product product, ProductMedia productMedia) {
+    private void uploadAndSaveProductImage(ProductDTO productDTO, ProductDemo productDemo, ProductMediaDemo productMediaDemo) {
         try {
-            Map uploadResult = uploadService.uploadImage(productDTO.getFile(), uploadUtils.buildImageUploadParams(productMedia));
+            Map uploadResult = uploadService.uploadImage(productDTO.getFile(), uploadUtils.buildImageUploadParams(productMediaDemo));
             String fileUrl = (String) uploadResult.get("secure_url");
             String fileFormat = (String) uploadResult.get("format");
 
-            productMedia.setFileName(productMedia.getId() + "." + fileFormat);
-            productMedia.setFileUrl(fileUrl);
-            productMedia.setFileFolder(UploadUtils.IMAGE_UPLOAD_FOLDER);
-            productMedia.setCloudId(productMedia.getFileFolder() + "/" + productMedia.getId());
-            productMedia.setProduct(product);
-            productMediaRepository.save(productMedia);
+            productMediaDemo.setFileName(productMediaDemo.getId() + "." + fileFormat);
+            productMediaDemo.setFileUrl(fileUrl);
+            productMediaDemo.setFileFolder(UploadUtils.IMAGE_UPLOAD_FOLDER);
+            productMediaDemo.setCloudId(productMediaDemo.getFileFolder() + "/" + productMediaDemo.getId());
+            productMediaDemo.setProductDemo(productDemo);
+            productMediaRepository.save(productMediaDemo);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -102,18 +102,18 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    private void uploadAndSaveProductVideo(ProductDTO productDTO, Product product, ProductMedia productMedia) {
+    private void uploadAndSaveProductVideo(ProductDTO productDTO, ProductDemo productDemo, ProductMediaDemo productMediaDemo) {
         try {
-            Map uploadResult = uploadService.uploadVideo(productDTO.getFile(), uploadUtils.buildVideoUploadParams(productMedia));
+            Map uploadResult = uploadService.uploadVideo(productDTO.getFile(), uploadUtils.buildVideoUploadParams(productMediaDemo));
             String fileUrl = (String) uploadResult.get("secure_url");
             String fileFormat = (String) uploadResult.get("format");
 
-            productMedia.setFileName(productMedia.getId() + "." + fileFormat);
-            productMedia.setFileUrl(fileUrl);
-            productMedia.setFileFolder(UploadUtils.VIDEO_UPLOAD_FOLDER);
-            productMedia.setCloudId(productMedia.getFileFolder() + "/" + productMedia.getId());
-            productMedia.setProduct(product);
-            productMediaRepository.save(productMedia);
+            productMediaDemo.setFileName(productMediaDemo.getId() + "." + fileFormat);
+            productMediaDemo.setFileUrl(fileUrl);
+            productMediaDemo.setFileFolder(UploadUtils.VIDEO_UPLOAD_FOLDER);
+            productMediaDemo.setCloudId(productMediaDemo.getFileFolder() + "/" + productMediaDemo.getId());
+            productMediaDemo.setProductDemo(productDemo);
+            productMediaRepository.save(productMediaDemo);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -122,25 +122,25 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void delete(Product product) throws IOException {
+    public void delete(ProductDemo productDemo) throws IOException {
 
-        Optional<ProductMedia> productImageVideo = productMediaRepository.findByProduct(product);
+        Optional<ProductMediaDemo> productImageVideo = productMediaRepository.findByProduct(productDemo);
 
         if (productImageVideo.isPresent()) {
             String publicId = productImageVideo.get().getCloudId();
 
             if (productImageVideo.get().getFileType().equals(FileType.IMAGE.getValue())) {
-                uploadService.destroyImage(publicId, uploadUtils.buildImageDestroyParams(product, publicId));
+                uploadService.destroyImage(publicId, uploadUtils.buildImageDestroyParams(productDemo, publicId));
             }
 
             if (productImageVideo.get().getFileType().equals(FileType.VIDEO.getValue())) {
-                uploadService.destroyVideo(publicId, uploadUtils.buildVideoDestroyParams(product, publicId));
+                uploadService.destroyVideo(publicId, uploadUtils.buildVideoDestroyParams(productDemo, publicId));
             }
 
             productMediaRepository.delete(productImageVideo.get());
         }
 
-        productRepository.delete(product);
+        productRepository.delete(productDemo);
 
     }
 }
