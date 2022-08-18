@@ -1,12 +1,12 @@
 package com.cg.repository;
 
-import com.cg.model.Product;
-import com.cg.model.ProductMedia;
+import com.cg.model.ProductDemo;
+import com.cg.model.ProductMediaDemo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface ProductMediaRepository extends JpaRepository<ProductMedia, String> {
+public interface ProductMediaRepository extends JpaRepository<ProductMediaDemo, String> {
 
-    Optional<ProductMedia> findByProduct(Product product);
+    Optional<ProductMediaDemo> findByProduct(ProductDemo productDemo);
 }
