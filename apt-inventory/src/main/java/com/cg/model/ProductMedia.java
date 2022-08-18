@@ -39,6 +39,6 @@ public class ProductMedia {
     private String cloudId;
 
     @ManyToOne
-    @Column(name = "product_id", nullable = false)
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 }

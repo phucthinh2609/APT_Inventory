@@ -29,11 +29,11 @@ public class Order {
     private int quantityTotal;
 
     @ManyToOne
-    @Column(name = "location_delivery_id", nullable = false)
+    @JoinColumn(name = "location_delivery_id", nullable = false)
     private LocationDelivery locationDelivery;
 
     @ManyToOne
-    @Column(name = "customer_id", nullable = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
     @OneToMany(targetEntity = OrderDetail.class, mappedBy = "order", fetch = FetchType.EAGER)
