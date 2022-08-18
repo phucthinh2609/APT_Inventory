@@ -41,10 +41,10 @@ public class LocationRegion {
 
     private String address;
 
-    @OneToOne(mappedBy = "customerLocationRegion")
+    @OneToOne(mappedBy = "locationRegion")
     private Customer customer;
 
-    @OneToOne(mappedBy = "employeeLocationRegion")
+    @OneToOne(mappedBy = "locationRegion")
     private Employee employee;
 
 //    public LocationRegionDTO toLocationRegionDTO() {

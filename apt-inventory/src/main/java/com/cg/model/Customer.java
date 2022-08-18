@@ -39,7 +39,7 @@ public class Customer {
 
     @OneToOne
     @JoinColumn(name = "location_region_id")
-    private LocationRegion customerLocationRegion;
+    private LocationRegion locationRegion;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<LocationDelivery> locationDeliveries;

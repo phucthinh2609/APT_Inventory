@@ -37,7 +37,7 @@ public class Employee {
 
     @OneToOne
     @JoinColumn(name = "location_region_id")
-    private LocationRegion employeeLocationRegion;
+    private LocationRegion locationRegion;
 
 //    @OneToOne
 //    @JoinColumn(name = "image_id")
