@@ -28,12 +28,14 @@ public class LocationDelivery {
     private String provinceName;
 
     @Column(name = "district_id")
+
     private Long districtId;
 
     @Column(name = "district_name")
     private String districtName;
 
     @Column(name = "ward_id")
+
     private Long wardId;
 
     @Column(name = "ward_name")
@@ -41,6 +43,11 @@ public class LocationDelivery {
 
     private String address;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
 //    @OneToMany(targetEntity = Order.class, mappedBy = "locationDelivery")
 //    private Set<Order> orders;
+
 }
