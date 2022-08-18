@@ -16,8 +16,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@Table(name = "product_media")
-public class ProductMedia {
+@Table(name = "demo-product_media")
+public class ProductMediaDemo {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -45,6 +45,6 @@ public class ProductMedia {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+    private ProductDemo productDemo;
 
 }

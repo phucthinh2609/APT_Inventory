@@ -2,7 +2,7 @@ package com.cg.controller.api;
 
 
 import com.cg.exception.DataInputException;
-import com.cg.model.Product;
+import com.cg.model.ProductDemo;
 import com.cg.model.dto.IProductDTO;
 import com.cg.model.dto.ProductDTO;
 import com.cg.service.ProductService;
@@ -54,9 +54,9 @@ public class ProductAPI {
             return appUtils.mapErrorToResponse(bindingResult);
 
         try {
-            Product createdProduct = productService.create(productDTO);
+            ProductDemo createdProductDemo = productService.create(productDTO);
 
-            IProductDTO iProductDTO =  productService.findIProductDTOById(createdProduct.getId());
+            IProductDTO iProductDTO =  productService.findIProductDTOById(createdProductDemo.getId());
 
             return new ResponseEntity<>(iProductDTO, HttpStatus.CREATED);
 
@@ -68,7 +68,7 @@ public class ProductAPI {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable String id) throws IOException {
 
-        Optional<Product> product = productService.findById(id);
+        Optional<ProductDemo> product = productService.findById(id);
 
         if (product.isPresent()) {
             productService.delete(product.get());
