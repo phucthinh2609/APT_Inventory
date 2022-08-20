@@ -86,7 +86,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public IProductDTO findIProductDTOById(String id) {
+    public Iterable<IProductDTO> findIProductDTOById(String id) {
         return productRepository.findIProductDTOById(id);
     }
 

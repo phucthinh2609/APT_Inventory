@@ -54,16 +54,23 @@ public class ProductAPI {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<?>> findById(@PathVariable String id){
-        Optional<Product> currentProduct = productService.findById(id);
+    public ResponseEntity<?> findById(@PathVariable String id){
+//        Optional<Product> currentProduct = productService.findById(id);
+//
+//        if (!currentProduct.isPresent()) {
+//            throw new DataInputException("Product is not found");
+//        }
+//
+//        List<ProductMediaDTO> currentProductMediaList = productMediaService.findAllByProductId(currentProduct.get().getId());
+//
+//        return new ResponseEntity<>(currentProductMediaList, HttpStatus.OK);
+        Iterable<IProductDTO> iProductDTOs = productService.findIProductDTOById(id);
 
-        if (!currentProduct.isPresent()) {
+        if (iProductDTOs == null) {
             throw new DataInputException("Product is not found");
         }
 
-        List<ProductMediaDTO> currentProductMediaList = productMediaService.findAllByProductId(currentProduct.get().getId());
-
-        return new ResponseEntity<>(currentProductMediaList, HttpStatus.OK);
+        return new ResponseEntity<>(iProductDTOs, HttpStatus.OK);
     }
 
     @PostMapping

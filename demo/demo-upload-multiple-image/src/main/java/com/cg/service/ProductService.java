@@ -15,7 +15,7 @@ public interface ProductService {
 
     Iterable<IProductDTO> findAllIProductDTO();
 
-    IProductDTO findIProductDTOById(String id);
+    Iterable<IProductDTO> findIProductDTOById(String id);
 
     Product create(ProductDTO productDTO);
 
