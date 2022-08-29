@@ -34,11 +34,11 @@ public class OrderDetail {
     private BigDecimal amount;
 
     @ManyToOne
-    @Column(name = "product_id", nullable = false)
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     @ManyToOne
-    @Column(name = "order_id", nullable = false)
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
 }
