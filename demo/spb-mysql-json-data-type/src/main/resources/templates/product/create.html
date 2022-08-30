@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Create</title>
+    <th:block th:include="layout/head :: head"/>
+</head>
+<body>
+    <div class="container">
+        <div class="row mt-3 mb-3">
+            <div class="col-lg-3">
+                <a href="/products">
+                    <button type="button" class="btn btn-success">
+                        List page
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <form id="frmCreate">
+                <div class="col-lg-6 fl">
+                    <label class="form-label fw-bold">Tên sản phẩm</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <div class="col-lg-6 fl">
+                    <label class="form-label fw-bold">Giá</label>
+                    <input type="number" class="form-control" id="price" name="price">
+                </div>
+            </form>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-lg-3">
+                <button type="button" class="btn btn-outline-success" id="btnCreate">
+                    Create
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:include="layout/script :: script"/>
+
+    <script>
+        let page = {
+            urls: {
+                getAllComputerConfigurationParameters: App.BASE_URL + "/v1/computer-configuration-parameters",
+                doCreate: App.BASE_URL + "/v1/products/create"
+            }
+        }
+
+        let computerConfigurationParameters = [];
+
+        let computerConfiguration = {
+            id: null,
+            name: null,
+            price: null,
+            configurationDetail: {}
+        }
+
+        function getAllComputerConfigurationParameters() {
+            return $.ajax({
+                headers: {
+                    "accept": "application/json",
+                    "content-type": "application/json"
+                },
+                type: "GET",
+                url: page.urls.getAllComputerConfigurationParameters,
+            })
+            .done((data) => {
+                computerConfigurationParameters = data;
+            })
+            .fail((jqXHR) => {
+
+            });
+        }
+
+        function doCreate() {
+            $.ajax({
+                headers: {
+                    "accept": "application/json",
+                    "content-type": "application/json"
+                },
+                type: "POST",
+                url: page.urls.doCreate,
+                data: JSON.stringify(computerConfiguration)
+            })
+            .done((data) => {
+                console.log(data);
+                App.SweetAlert.showSuccessAlert("Add new products successfully.");
+            })
+            .fail((jqXHR) => {
+                App.SweetAlert.showErrorAlert("Add new product failed")
+            });
+        }
+
+        $('#btnCreate').on('click', () => {
+
+            computerConfiguration.name = $("#name").val();
+            computerConfiguration.price = +$("#price").val();
+
+            $.each(computerConfiguration.configurationDetail, function (key, value) {
+                computerConfiguration.configurationDetail[key].content = $("#" + key).val();
+            })
+
+            doCreate();
+        });
+
+        $(() => {
+            let lines = 1, maxLines = 5;
+
+            function limitLines(obj, e) {
+                if (e.keyCode === 13) {
+                    if (obj.rows < maxLines) {
+                        lines++;
+                        $(obj).attr('rows', lines);
+                    }
+                }
+            }
+
+            function resetLines(obj) {
+                if ($(obj).val().length === 0) {
+                    lines = 1;
+                    $(obj).attr('rows', lines);
+                }
+            }
+
+            getAllComputerConfigurationParameters().then(() => {
+                $.each(computerConfigurationParameters, (i, item) => {
+
+                    let key = item.name;
+                    let obj = {}
+
+                    obj[key] = {
+                        explanation: item.explanation
+                    }
+
+                    computerConfiguration.configurationDetail[key] = obj[key];
+
+                    let str = App.renderInputCreateForm(item);
+                    let frmCreate = $('#frmCreate');
+                    frmCreate.append(str);
+
+                    let textarea = $('textarea');
+
+                    textarea.on("keydown", function (e) {
+                        return limitLines(this, e);
+                    });
+
+                    textarea.on("input", function () {
+                        return resetLines(this);
+                    });
+                })
+            });
+        })
+    </script>
+</body>
+</html>
