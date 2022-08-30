@@ -130,36 +130,36 @@
           console.log(data)
           $('#tbListCustomers tbody').html('');
           $.each(data, (i, item) => {
-            // let str1 = "";
-            //
-            // $.each(item.fileUrls, (key, value) => {
-            //   str1 += `
-            //       <td>
-            //         <img alt="${key}" id= "${key}" src="${value}"/>
-            //         <input type="file">
-            //       </td>
-            //   `;
-            // })
-            // let str = `
-            //   <tr>
-            //       <td>${item.name}</td>
-            //       ${str1}
-            //   </tr>
-            // `;
+            let str1 = "";
 
+            $.each(item.fileUrls, (key, value) => {
+              str1 += `
+                  <td>
+                    <img alt="${key}" id= "${key}" src="${value}"/>
+                    <input type="file">
+                  </td>
+              `;
+            })
             let str = `
               <tr>
                   <td>${item.name}</td>
-                  ${item.fileUrls.map((key,value) => {
-                      return `
-                           <td>
-                            <img alt="${key}" id= "${key}" src="${value}"/>
-                            <input type="file">
-                          </td>
-                      `})
-                  }
+                  ${str1}
               </tr>
             `;
+
+            // let str = `
+            //   <tr>
+            //       <td>${item.name}</td>
+            //       ${item.fileUrls.map((key,value) => {
+            //           return `
+            //                <td>
+            //                 <img alt="${key}" id= "${key}" src="${value}"/>
+            //                 <input type="file">
+            //               </td>
+            //           `})
+            //       }
+            //   </tr>
+            // `;
             $('#tbListCustomers tbody').append(str);
           })
         })
