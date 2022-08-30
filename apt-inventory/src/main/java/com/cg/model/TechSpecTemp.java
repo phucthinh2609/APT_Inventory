@@ -22,10 +22,10 @@ public class TechSpecTemp {
     private String id;
 
     @ManyToOne
-    @Column(name = "tech_spec_id", nullable = false)
+    @JoinColumn(name = "tech_spec_id", nullable = false)
     private TechSpec techSpec;
 
     @ManyToOne
-    @Column(name = "product_id", nullable = false)
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 }

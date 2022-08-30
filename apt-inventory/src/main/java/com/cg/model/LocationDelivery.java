@@ -28,14 +28,12 @@ public class LocationDelivery {
     private String provinceName;
 
     @Column(name = "district_id")
-
     private Long districtId;
 
     @Column(name = "district_name")
     private String districtName;
 
     @Column(name = "ward_id")
-
     private Long wardId;
 
     @Column(name = "ward_name")
