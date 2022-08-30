@@ -1,7 +1,7 @@
 package com.cg.service;
 
 
-import com.cg.model.ProductMedia;
+import com.cg.model.ProductMediaDemo;
 import com.cg.repository.ProductMediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,17 +16,17 @@ public class ProductMediaServiceImpl implements ProductMediaService {
     private ProductMediaRepository productMediaRepository;
 
     @Override
-    public Iterable<ProductMedia> findAll() {
+    public Iterable<ProductMediaDemo> findAll() {
         return productMediaRepository.findAll();
     }
 
     @Override
-    public ProductMedia create(ProductMedia productMedia) {
-        return productMediaRepository.save(productMedia);
+    public ProductMediaDemo create(ProductMediaDemo productMediaDemo) {
+        return productMediaRepository.save(productMediaDemo);
     }
 
     @Override
-    public void delete(ProductMedia productMedia) {
-        productMediaRepository.delete(productMedia);
+    public void delete(ProductMediaDemo productMediaDemo) {
+        productMediaRepository.delete(productMediaDemo);
     }
 }

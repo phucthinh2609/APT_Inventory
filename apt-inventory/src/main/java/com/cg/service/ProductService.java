@@ -1,6 +1,6 @@
 package com.cg.service;
 
-import com.cg.model.Product;
+import com.cg.model.ProductDemo;
 import com.cg.model.dto.IProductDTO;
 import com.cg.model.dto.ProductDTO;
 
@@ -9,17 +9,17 @@ import java.util.Optional;
 
 public interface ProductService {
 
-    Iterable<Product> findAll();
+    Iterable<ProductDemo> findAll();
 
-    Optional<Product> findById(String id);
+    Optional<ProductDemo> findById(String id);
 
     Iterable<IProductDTO> findAllIProductDTO();
 
     IProductDTO findIProductDTOById(String id);
 
-    Product create(ProductDTO productDTO);
+    ProductDemo create(ProductDTO productDTO);
 
-    void delete(Product product) throws IOException;
+    void delete(ProductDemo productDemo) throws IOException;
 
 
 }

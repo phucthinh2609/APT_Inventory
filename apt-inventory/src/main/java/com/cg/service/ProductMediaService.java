@@ -1,12 +1,12 @@
 package com.cg.service;
 
-import com.cg.model.ProductMedia;
+import com.cg.model.ProductMediaDemo;
 
 public interface ProductMediaService {
 
-    Iterable<ProductMedia> findAll();
+    Iterable<ProductMediaDemo> findAll();
 
-    ProductMedia create(ProductMedia productMedia);
+    ProductMediaDemo create(ProductMediaDemo productMediaDemo);
 
-    void delete(ProductMedia productMedia);
+    void delete(ProductMediaDemo productMediaDemo);
 }

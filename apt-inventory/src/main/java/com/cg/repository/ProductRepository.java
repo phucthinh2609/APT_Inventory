@@ -1,6 +1,6 @@
 package com.cg.repository;
 
-import com.cg.model.Product;
+import com.cg.model.ProductDemo;
 import com.cg.model.dto.IProductDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, String> {
+public interface ProductRepository extends JpaRepository<ProductDemo, String> {
 
 
     @Query("SELECT " +
@@ -21,7 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
             "pm.fileFolder AS fileFolder, " +
             "pm.fileUrl AS fileUrl, " +
             "pm.fileType AS fileType " +
-        "FROM ProductMedia pm " +
+        "FROM ProductMediaDemo pm " +
         "ORDER BY pm.product.ts ASC"
     )
     Iterable<IProductDTO> findAllIProductDTO();
@@ -36,7 +36,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
             "pm.fileFolder AS fileFolder, " +
             "pm.fileUrl AS fileUrl, " +
             "pm.fileType AS fileType " +
-        "FROM ProductMedia pm " +
+        "FROM ProductMediaDemo pm " +
         "WHERE pm.product.id = :id"
     )
     IProductDTO findIProductDTOById(@Param("id") String id);
