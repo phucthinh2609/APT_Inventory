@@ -21,7 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
             "pm.fileUrl AS fileUrl, " +
             "pm.fileType AS fileType " +
         "FROM ProductMedia pm " +
-        "ORDER BY pm.product.ts ASC"
+        "ORDER BY pm.product.id ASC"
     )
     Iterable<IProductDTO> findAllIProductDTO();
 

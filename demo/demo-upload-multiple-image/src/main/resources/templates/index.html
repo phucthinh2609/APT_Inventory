@@ -31,6 +31,18 @@
     </tbody>
   </table>
 
+  <table id="tbListCustomers">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3">Image</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+
 
 
 
@@ -68,42 +80,94 @@
       })
     })
 
-    $('#show').on('click', function (){
-      let productId = $('#productId').val();
+    // $('#show').on('click', function (){
+    //   let productId = $('#productId').val();
+    //
+    //   $.ajax({
+    //     headers: {
+    //       "accept": "application/json",
+    //       "content-type": "application/json"
+    //     },
+    //     type: "GET",
+    //     url: "http://localhost:8086/api/products/" + productId
+    //   })
+    //   .done((data) => {
+    //     console.log(data)
+    //     let name;
+    //     let images;
+    //     $.each(data, (i, item) => {
+    //       name = `  <td>${item.name}</td>`;
+    //       images += `
+    //           <td class="text-center">
+    //               <img src="${item.fileUrl}" alt="">
+    //           </td>
+    //       `;
+    //
+    //     })
+    //     let str = `
+    //       <tr>
+    //           ${name}
+    //           ${images}
+    //       </tr>
+    //     `;
+    //     $('#tbListCustomer tbody').html(str);
+    //   })
+    //   .fail((ex) => {
+    //     console.log(ex)
+    //   })
+    // })
 
+    function showAll() {
       $.ajax({
         headers: {
           "accept": "application/json",
           "content-type": "application/json"
         },
         type: "GET",
-        url: "http://localhost:8086/api/products/" + productId
+        url: "http://localhost:8086/api/products/"
       })
-      .done((data) => {
-        console.log(data)
-        let name;
-        let images;
-        $.each(data, (i, item) => {
-          name = `  <td>${item.name}</td>`;
-          images += `
-              <td class="text-center">
-                  <img src="${item.fileUrl}" alt="">
-              </td>
-          `;
+        .done((data) => {
+          console.log(data)
+          $('#tbListCustomers tbody').html('');
+          $.each(data, (i, item) => {
+            // let str1 = "";
+            //
+            // $.each(item.fileUrls, (key, value) => {
+            //   str1 += `
+            //       <td>
+            //         <img alt="${key}" id= "${key}" src="${value}"/>
+            //         <input type="file">
+            //       </td>
+            //   `;
+            // })
+            // let str = `
+            //   <tr>
+            //       <td>${item.name}</td>
+            //       ${str1}
+            //   </tr>
+            // `;
 
+            let str = `
+              <tr>
+                  <td>${item.name}</td>
+                  ${item.fileUrls.map((key,value) => {
+                      return `
+                           <td>
+                            <img alt="${key}" id= "${key}" src="${value}"/>
+                            <input type="file">
+                          </td>
+                      `})
+                  }
+              </tr>
+            `;
+            $('#tbListCustomers tbody').append(str);
+          })
         })
-        let str = `
-          <tr>
-              ${name}
-              ${images}
-          </tr>
-        `;
-        $('#tbListCustomer tbody').html(str);
-      })
-      .fail((ex) => {
-        console.log(ex)
-      })
-    })
+        .fail((ex) => {
+          console.log(ex)
+        })
+    }
+    showAll();
 
 
 </script>

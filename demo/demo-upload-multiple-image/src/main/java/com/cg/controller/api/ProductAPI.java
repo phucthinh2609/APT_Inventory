@@ -6,6 +6,7 @@ import com.cg.model.Product;
 import com.cg.model.ProductMedia;
 import com.cg.model.dto.IProductDTO;
 import com.cg.model.dto.ProductDTO;
+import com.cg.model.dto.ProductDTOs;
 import com.cg.model.dto.ProductMediaDTO;
 import com.cg.service.ProductMediaService;
 import com.cg.service.ProductService;
@@ -19,8 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @RestController
@@ -36,18 +36,35 @@ public class ProductAPI {
     @Autowired
     private AppUtils appUtils;
 
-
     @GetMapping
     public ResponseEntity<Iterable<?>> findAll() {
         try {
             Iterable<IProductDTO> iProductDTOS = productService.findAllIProductDTO();
 
-            if (((List) iProductDTOS).isEmpty()) {
+            if (iProductDTOS == null) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
+            String tempId = "";
+            HashMap<String, String> fileUrls = new HashMap<>();
+            ProductDTOs productDTOs = new ProductDTOs();
+            HashSet<ProductDTOs> productDTOsList = new HashSet<>();
 
-            return new ResponseEntity<>(iProductDTOS, HttpStatus.OK);
+            for (IProductDTO iProductDTO : iProductDTOS) {
+                if (tempId.equals(iProductDTO.getId())) {
+                    fileUrls.put(iProductDTO.getFileId(),iProductDTO.getFileUrl());
+                } else {
+                    productDTOs = new ProductDTOs();
+                    fileUrls = new HashMap<>();
+                    productDTOs.setId(iProductDTO.getId());
+                    productDTOs.setName(iProductDTO.getName());
+                    fileUrls.put(iProductDTO.getFileId(),iProductDTO.getFileUrl());
+                }
+                productDTOs.setFileUrls(fileUrls);
 
+                productDTOsList.add(productDTOs);
+                tempId = iProductDTO.getId();
+            }
+            return new ResponseEntity<>(productDTOsList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -90,6 +107,24 @@ public class ProductAPI {
             throw new DataInputException("Product creation information is not valid, please check the information again");
         }
     }
+//
+//    @PutMapping("/edit/{mediaId}")
+//    public ResponseEntity<?> editMedia(@PathVariable String mediaId) {
+//
+//        if (bindingResult.hasErrors())
+//            return appUtils.mapErrorToResponse(bindingResult);
+//
+//        try {
+//            Product createdProduct = productService.create(productDTO);
+//
+////            IProductDTO iProductDTO =  productService.findIProductDTOById(createdProduct.getId());
+//
+//            return new ResponseEntity<>(HttpStatus.CREATED);
+//
+//        } catch (DataIntegrityViolationException e) {
+//            throw new DataInputException("Product creation information is not valid, please check the information again");
+//        }
+//    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable String id) throws IOException {
