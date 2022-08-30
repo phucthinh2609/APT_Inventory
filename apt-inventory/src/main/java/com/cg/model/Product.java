@@ -1,14 +1,15 @@
 package com.cg.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import java.math.BigDecimal;
-import java.util.Collection;
-
 import java.util.Set;
 
 @Entity
@@ -53,5 +54,4 @@ public class Product {
 
     @OneToMany(targetEntity = Comment.class, mappedBy = "product", fetch = FetchType.EAGER)
     private Set<Comment> comments;
-
 }
