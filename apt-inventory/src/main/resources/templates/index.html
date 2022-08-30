@@ -1,333 +1,839 @@
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org" lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Home</title>-->
-<!--    <link rel="stylesheet" href="assets/css/bootstrap.css">-->
-<!--    <link rel="stylesheet" href="assets/css/bootstrap.css">-->
-<!--    <link rel="stylesheet" href="assets/css/sweetalert2.min.css">-->
-<!--    <link rel="stylesheet" href="assets/css/magnific-popup.css">-->
-<!--    <link rel="stylesheet" href="assets/css/preview-image.css">-->
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>-->
-<!--    <link rel="stylesheet" href="assets/css/style.css">-->
-<!--</head>-->
-<!--<body>-->
-<!--    <div class="container">-->
-
-<!--        <header>-->
-<!--            <div class="row">-->
-<!--                <div class="col-sm-5">-->
-<!--                    <h1>List of products</h1>-->
-<!--                </div>-->
-<!--                <div class="col-sm-7">-->
-<!--                    <a class="btn btn-outline-light create-modal">-->
-<!--                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>-->
-<!--                        <span> Add New Product</span>-->
-<!--                    </a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </header>-->
-
-<!--        <div class="box-body">-->
-
-<!--            <th:block th:include="frm_list_table"/>-->
-
-<!--            <th:block th:include="frm_create"/>-->
-
-<!--            <input type="hidden" id="currentRow"/>-->
-
-<!--            <table id="tbListProducts" class="table table-hover">-->
-<!--                <thead>-->
-<!--                    <tr>-->
-<!--                        <th>#</th>-->
-<!--                        <th>Name</th>-->
-<!--                        <th>Description</th>-->
-<!--                        <th>Image</th>-->
-<!--                        <th>Action</th>-->
-<!--                    </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--                </tbody>-->
-<!--            </table>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    <div class="loader hide"></div>-->
-
-<!--    <script src="assets/js/jquery-3.6.0.js"></script>-->
-<!--    <script src="assets/js/jquery.validate-1.19.3.min.js"></script>-->
-<!--    <script src="assets/js/bootstrap.bundle.min.js"></script>-->
-<!--    <script src="assets/js/sweetalert2.min.js"></script>-->
-<!--    <script src="assets/js/magnific-popup-1.1.0.js"></script>-->
-<!--    <script src="assets/js/app.js"></script>-->
-
-<!--    <script>-->
-
-<!--        let page = {-->
-<!--            urls: {-->
-<!--                getAllProducts: App.BASE_URL_PRODUCT,-->
-<!--                doSave: App.BASE_URL_PRODUCT,-->
-<!--                doDelete: App.BASE_URL_PRODUCT + "/delete/"-->
-<!--            },-->
-<!--            element: {},-->
-<!--            commands: {},-->
-<!--            loadData: {},-->
-<!--            dialogs: {-->
-<!--                element: {},-->
-<!--                commands: {}-->
-<!--            }-->
-<!--        }-->
-
-<!--        page.element.loader = $(".loader");-->
-<!--        page.element.tempProduct = $("#tempProduct");-->
-<!--        page.element.currentRow = $("#currentRow");-->
-<!--        page.element.btnShowCreateForm = $("a.create-modal");-->
-
-<!--        page.element.btnDelete = $("#tempProduct body");-->
-<!--        page.element.btnSave = $("#btnSave");-->
-
-<!--        page.element.frmListProduct = $("#tbListProducts tbody");-->
-
-<!--        page.dialogs.element.modalCreateProduct = $("#modalCreateProduct");-->
-<!--        page.dialogs.element.frmProduct = $("#frmProduct");-->
-
-<!--        page.dialogs.element.wrapper = $("section .wrapper");-->
-<!--        page.dialogs.element.productName = $("#productName");-->
-<!--        page.dialogs.element.description = $("#description");-->
-<!--        page.dialogs.element.imageFile = $("#imageFile");-->
-<!--        page.dialogs.element.wrapperContent = $("section .wrapper .content");-->
-<!--        page.dialogs.element.imagePreview = $("section .image-preview canvas");-->
-<!--        page.dialogs.element.canvas = $("#canvas");-->
-<!--        page.dialogs.element.context = page.dialogs.element.canvas[0].getContext('2d');-->
-<!--        page.dialogs.element.imagePreview.css("display", "none");-->
-<!--        page.dialogs.element.divImagePreview = $("div.image-preview, div.file-name");-->
-<!--        page.dialogs.element.btnClearImagePreview = $(".clear-image-preview i");-->
-
-<!--        let productDemo = new Product();-->
-
-<!--        let tempProduct = jQuery.validator.format($.trim(page.element.tempProduct.val().toString()));-->
-
-<!--        page.commands.addRow = () => {-->
-<!--            let image_thumbnail = App.BASE_URL_CLOUD_IMAGE + "/" + App.BASE_SCALE_IMAGE + "/" + productDemo.fileFolder + "/" + productDemo.fileName;-->
-<!--            let video_thumbnail = App.BASE_URL_CLOUD_VIDEO + "/" + App.BASE_SCALE_IMAGE + "/" + productDemo.fileFolder + "/" + productDemo.fileId + ".jpg";-->
-<!--            let imageFileUrl = App.BASE_URL_CLOUD_IMAGE + "/" + productDemo.fileFolder + "/" + productDemo.fileName;-->
-<!--            let videoFileUrl = App.BASE_URL_CLOUD_VIDEO + "/" + productDemo.fileFolder + "/" + productDemo.fileName;-->
-
-<!--            if (productDemo.fileType === "image") {-->
-<!--                let aClass = "image-popup-vertical-fit";-->
-<!--                page.element.frmListProduct.prepend($(tempProduct(productDemo.id, productDemo.name, productDemo.description, imageFileUrl, image_thumbnail, aClass)));-->
-<!--            }-->
-
-<!--            if (productDemo.fileType === "video") {-->
-<!--                let aClass = "popup-vimeo";-->
-<!--                page.element.frmListProduct.prepend($(tempProduct(productDemo.id, productDemo.name, productDemo.description, videoFileUrl, video_thumbnail, aClass)));-->
-<!--            }-->
-<!--        }-->
-
-<!--        page.loadData.getAllProducts = () => {-->
-
-<!--            return $.ajax({-->
-<!--                type: "GET",-->
-<!--                url: page.urls.getAllProducts,-->
-<!--            }).done((data) => {-->
-
-<!--                $.each(data, (index, item) => {-->
-<!--                    productDemo = item;-->
-<!--                    page.commands.addRow();-->
-<!--                });-->
-
-<!--            }).fail(function () {-->
-<!--                App.showErrorAlert(App.ERROR_404);-->
-<!--            });-->
-<!--        }-->
-
-<!--        page.commands.showCreateModal = () => {-->
-<!--            page.dialogs.element.modalCreateProduct.modal('show');-->
-<!--        }-->
-
-<!--        page.commands.showDeleteConfirm = () => {-->
-<!--            App.showDeleteConfirmDialog()-->
-<!--                .then((result) => {-->
-<!--                    if (result.isConfirmed) {-->
-<!--                        page.commands.deleteProduct();-->
-<!--                    }-->
-<!--                });-->
-<!--        }-->
-
-<!--        page.dialogs.commands.loadImageToCanvas = (imageFile) => {-->
-<!--            page.dialogs.element.imagePreview.css("display", "");-->
-<!--            page.dialogs.element.wrapper.addClass("active");-->
-<!--            page.dialogs.element.wrapperContent.css("opacity", 0);-->
-
-<!--            let imageObj = new Image();-->
-
-<!--            imageObj.onload = function () {-->
-<!--                page.dialogs.element.context.canvas.width = imageObj.width;-->
-<!--                page.dialogs.element.context.canvas.height = imageObj.height;-->
-<!--                page.dialogs.element.context.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height);-->
-<!--            };-->
-
-<!--            imageObj.src = URL.createObjectURL(imageFile)-->
-<!--        }-->
-
-<!--        page.dialogs.commands.changeImagePreview = () => {-->
-<!--            let imageFile = page.dialogs.element.imageFile[0].files[0];-->
-
-<!--            if (imageFile) {-->
-<!--                let reader = new FileReader();-->
-
-<!--                reader.readAsDataURL(imageFile);-->
-
-<!--                reader.onload = function(e){-->
-<!--                    if (e.target.readyState === FileReader.DONE) {-->
-<!--                        page.dialogs.commands.loadImageToCanvas(imageFile);-->
-<!--                    }-->
-<!--                }-->
-<!--            } else {-->
-<!--                page.dialogs.element.clearImagePreview();-->
-<!--            }-->
-<!--        }-->
-
-<!--        page.dialogs.commands.createProduct = () => {-->
-<!--            page.element.loader.removeClass("hide");-->
-<!--            page.element.btnSave.prop('disabled', true);-->
-
-<!--            let formData = new FormData();-->
-<!--            formData.append("name", page.dialogs.element.productName.val().toString());-->
-<!--            formData.append("description", page.dialogs.element.description.val().toString());-->
-<!--            formData.append("file", page.dialogs.element.imageFile[0].files[0]);-->
-
-<!--            $.ajax({-->
-<!--                type: "POST",-->
-<!--                contentType: false,-->
-<!--                cache: false,-->
-<!--                processData: false,-->
-<!--                url: page.urls.doSave,-->
-<!--                data: formData-->
-<!--            }).done((data) => {-->
-<!--                console.log(data)-->
-<!--                productDemo = data;-->
-
-<!--                page.commands.addRow();-->
-
-<!--                App.showSuccessAlert(App.SUCCESS_CREATED);-->
-
-<!--                page.dialogs.element.modalCreateProduct.modal('hide');-->
-
-<!--                page.commands.handleImagePopup();-->
-
-<!--            }).fail((err) => {-->
-<!--                console.log(err)-->
-<!--                App.showErrorAlert(App.ERROR_404);-->
-<!--            }).always(function () {-->
-<!--                page.element.loader.addClass("hide");-->
-<!--                page.element.btnSave.prop('disabled', false);-->
-<!--            });-->
-<!--        }-->
-
-<!--        page.commands.deleteProduct = () => {-->
-<!--            page.element.loader.removeClass("hide");-->
-
-<!--            $.ajax({-->
-<!--                type: "DELETE",-->
-<!--                headers: {-->
-<!--                    'Accept': 'application/json',-->
-<!--                    'Content-Type': 'application/json'-->
-<!--                },-->
-<!--                url: page.urls.doDelete + productDemo.id,-->
-<!--            }).done((data) => {-->
-
-<!--                App.showSuccessAlert(App.SUCCESS_DELETED);-->
-
-<!--                $("#" + productDemo.id).remove();-->
-
-<!--                page.commands.handleImagePopup();-->
-
-<!--            }).fail(function (jqXHR) {-->
-<!--                App.showErrorAlert(jqXHR.responseJSON.message);-->
-<!--            }).always(function () {-->
-<!--                page.element.loader.addClass("hide");-->
-<!--            });-->
-<!--        }-->
-
-<!--        page.commands.handleImagePopup = () => {-->
-
-<!--            $('.image-popup-vertical-fit').magnificPopup({-->
-<!--                type: 'image',-->
-<!--                closeOnContentClick: true,-->
-<!--                mainClass: 'mfp-img',-->
-<!--                image: {-->
-<!--                    verticalFit: true-->
-<!--                },-->
-<!--                gallery:{-->
-<!--                    enabled:true-->
-<!--                }-->
-<!--            });-->
-
-<!--            $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({-->
-<!--                disableOn: 700,-->
-<!--                type: 'iframe',-->
-<!--                mainClass: 'mfp-fade',-->
-<!--                removalDelay: 160,-->
-<!--                preloader: false,-->
-<!--                fixedContentPos: false-->
-<!--            });-->
-<!--        }-->
-
-<!--        page.dialogs.element.modalCreateProduct.on("hidden.bs.modal", function () {-->
-<!--            page.dialogs.element.frmProduct[0].reset();-->
-<!--            page.dialogs.element.btnClearImagePreview.trigger("click");-->
-<!--        });-->
-
-<!--        page.dialogs.element.clearImagePreview = () => {-->
-<!--            page.dialogs.element.imageFile.val("");-->
-<!--            page.dialogs.element.imagePreview.css("display", "none");-->
-<!--            page.dialogs.element.wrapper.removeClass("active");-->
-<!--            page.dialogs.element.wrapperContent.css("opacity", 1);-->
-<!--        }-->
-
-<!--        page.initializeControlEvent = () => {-->
-
-<!--            page.element.btnShowCreateForm.on("click", function () {-->
-<!--                delete productDemo.id;-->
-<!--                page.commands.showCreateModal();-->
-<!--            });-->
-
-<!--            page.element.btnSave.on("click", function () {-->
-<!--                page.dialogs.commands.createProduct();-->
-<!--            });-->
-
-<!--            page.element.frmListProduct.on("click", ".delete", function () {-->
-<!--                // page.element.currentRow.val($(this).closest("tr").attr("id"));-->
-<!--                productDemo.id = $(this).data('id');-->
-<!--                page.commands.showDeleteConfirm();-->
-<!--            });-->
-
-<!--            page.dialogs.element.divImagePreview.on("click", function () {-->
-<!--                page.dialogs.element.imageFile.trigger("click");-->
-<!--            });-->
-
-<!--            page.dialogs.element.imageFile.on("change", function () {-->
-<!--                page.dialogs.commands.changeImagePreview();-->
-<!--            });-->
-
-<!--            page.dialogs.element.btnClearImagePreview.on("click", function () {-->
-<!--                page.dialogs.element.clearImagePreview();-->
-<!--            });-->
-
-<!--            page.commands.handleImagePopup();-->
-
-<!--        }-->
-
-<!--        $(function () {-->
-
-<!--            page.loadData.getAllProducts().then(function () {-->
-<!--                page.initializeControlEvent();-->
-<!--            });-->
-
-<!--        });-->
-
-<!--    </script>-->
-
-<!--</body>-->
-<!--</html>-->
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Home Page</title>
+
+        <!-- Meta -->
+        <th:block th:replace="/layout/head/meta :: meta"/>
+        <!-- App-favicon -->
+        <th:block th:replace="/layout/head/app-favicon :: app-favicon"/>
+        <!-- Main -->
+        <th:block th:replace="/layout/head/main :: main"/>
+
+    </head>
+
+    <body data-sidebar="dark">
+
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+            <!-- Begin page-topbar -->
+            <th:block th:replace="/layout/page-topbar :: page-topbar"/>
+            <!-- End page-topbar -->
+
+            <!-- Begin vertical-menu -->
+            <th:block th:replace="/layout/vertical-menu :: vertical-menu"/>
+            <!-- End vertical-menu -->
+
+            <!-- Left Sidebar End -->
+
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+
+                <div class="page-content">
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex align-items-center justify-content-between">
+                                    <h4 class="mb-0 font-size-18">Dashboard</h4>
+
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
+                                            <li class="breadcrumb-item active">Dashboard</li>
+                                        </ol>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="media">
+                                                    <div class="mr-3">
+                                                        <img src="assets\images\users\avatar-1.jpg" alt="" class="avatar-md rounded-circle img-thumbnail">
+                                                    </div>
+                                                    <div class="media-body align-self-center">
+                                                        <div class="text-muted">
+                                                            <p class="mb-2">Welcome to skote dashboard</p>
+                                                            <h5 class="mb-1">Henry wells</h5>
+                                                            <p class="mb-0">UI / UX Designer</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 align-self-center">
+                                                <div class="text-lg-center mt-4 mt-lg-0">
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <div>
+                                                                <p class="text-muted text-truncate mb-2">Total Projects</p>
+                                                                <h5 class="mb-0">48</h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div>
+                                                                <p class="text-muted text-truncate mb-2">Projects</p>
+                                                                <h5 class="mb-0">40</h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div>
+                                                                <p class="text-muted text-truncate mb-2">Clients</p>
+                                                                <h5 class="mb-0">18</h5>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 d-none d-lg-block">
+                                                <div class="clearfix  mt-4 mt-lg-0">
+                                                    <div class="dropdown float-right">
+                                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="bx bxs-cog align-middle mr-1"></i> Setting
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="#">Action</a>
+                                                            <a class="dropdown-item" href="#">Another action</a>
+                                                            <a class="dropdown-item" href="#">Something else</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end row -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <div class="card bg-soft-primary">
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <div class="text-primary p-3">
+                                                    <h5 class="text-primary">Welcome Back !</h5>
+                                                    <p>Skote Saas Dashboard</p>
+
+                                                    <ul class="pl-3 mb-0">
+                                                        <li class="py-1">7 + Layouts</li>
+                                                        <li class="py-1">Multiple apps</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-5 align-self-end">
+                                                <img src="assets\images\profile-img.png" alt="" class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-8">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <div class="avatar-xs mr-3">
+                                                        <span class="avatar-title rounded-circle bg-soft-primary text-primary font-size-18">
+                                                            <i class="bx bx-copy-alt"></i>
+                                                        </span>
+                                                    </div>
+                                                    <h5 class="font-size-14 mb-0">Orders</h5>
+                                                </div>
+                                                <div class="text-muted mt-4">
+                                                    <h4>1,452 <i class="mdi mdi-chevron-up ml-1 text-success"></i></h4>
+                                                    <div class="d-flex">
+                                                        <span class="badge badge-soft-success font-size-12"> + 0.2% </span> <span class="ml-2 text-truncate">From previous period</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <div class="avatar-xs mr-3">
+                                                        <span class="avatar-title rounded-circle bg-soft-primary text-primary font-size-18">
+                                                            <i class="bx bx-archive-in"></i>
+                                                        </span>
+                                                    </div>
+                                                    <h5 class="font-size-14 mb-0">Revenue</h5>
+                                                </div>
+                                                <div class="text-muted mt-4">
+                                                    <h4>$ 28,452 <i class="mdi mdi-chevron-up ml-1 text-success"></i></h4>
+                                                    <div class="d-flex">
+                                                        <span class="badge badge-soft-success font-size-12"> + 0.2% </span> <span class="ml-2 text-truncate">From previous period</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <div class="avatar-xs mr-3">
+                                                        <span class="avatar-title rounded-circle bg-soft-primary text-primary font-size-18">
+                                                            <i class="bx bx-purchase-tag-alt"></i>
+                                                        </span>
+                                                    </div>
+                                                    <h5 class="font-size-14 mb-0">Average Price</h5>
+                                                </div>
+                                                <div class="text-muted mt-4">
+                                                    <h4>$ 16.2 <i class="mdi mdi-chevron-up ml-1 text-success"></i></h4>
+
+                                                    <div class="d-flex">
+                                                        <span class="badge badge-soft-warning font-size-12"> 0% </span> <span class="ml-2 text-truncate">From previous period</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end row -->
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-xl-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="clearfix">
+                                            <div class="float-right">
+                                                <div class="input-group input-group-sm">
+                                                    <select class="custom-select custom-select-sm">
+                                                        <option selected="">Jan</option>
+                                                        <option value="1">Dec</option>
+                                                        <option value="2">Nov</option>
+                                                        <option value="3">Oct</option>
+                                                    </select>
+                                                    <div class="input-group-append">
+                                                        <label class="input-group-text">Month</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="card-title mb-4">Earning</h4>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="text-muted">
+                                                    <div class="mb-4">
+                                                        <p>This month</p>
+                                                        <h4>$2453.35</h4>
+                                                        <div><span class="badge badge-soft-success font-size-12 mr-1"> + 0.2% </span> From previous period</div>
+                                                    </div>
+
+                                                    <div>
+                                                        <a href="#" class="btn btn-primary waves-effect waves-light btn-sm">View Details <i class="mdi mdi-chevron-right ml-1"></i></a>
+                                                    </div>
+
+                                                    <div class="mt-4">
+                                                        <p class="mb-2">Last month</p>
+                                                        <h5>$2281.04</h5>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-8">
+                                                <div id="line-chart" class="apex-charts" dir="ltr"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4">Sales Analytics</h4>
+
+                                        <div>
+                                            <div id="donut-chart" class="apex-charts"></div>
+                                        </div>
+
+                                        <div class="text-center text-muted">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <div class="mt-4">
+                                                        <p class="mb-2 text-truncate"><i class="mdi mdi-circle text-primary mr-1"></i> Product A</p>
+                                                        <h5>$ 2,132</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="mt-4">
+                                                        <p class="mb-2 text-truncate"><i class="mdi mdi-circle text-success mr-1"></i> Product B</p>
+                                                        <h5>$ 1,763</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="mt-4">
+                                                        <p class="mb-2 text-truncate"><i class="mdi mdi-circle text-danger mr-1"></i> Product C</p>
+                                                        <h5>$ 973</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="clearfix">
+                                            <div class="float-right">
+                                                <div class="input-group input-group-sm">
+                                                    <select class="custom-select custom-select-sm">
+                                                        <option selected="">Jan</option>
+                                                        <option value="1">Dec</option>
+                                                        <option value="2">Nov</option>
+                                                        <option value="3">Oct</option>
+                                                    </select>
+                                                    <div class="input-group-append">
+                                                        <label class="input-group-text">Month</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="card-title mb-4">Top Selling product</h4>
+                                        </div>
+
+                                        <div class="text-muted text-center">
+                                            <p class="mb-2">Product A</p>
+                                            <h4>$ 6385</h4>
+                                            <p class="mt-4 mb-0"><span class="badge badge-soft-success font-size-11 mr-2"> 0.6% <i class="mdi mdi-arrow-up"></i> </span> From previous period</p>
+                                        </div>
+
+                                        <div class="table-responsive mt-4">
+                                            <table class="table table-centered mb-0">
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <h5 class="font-size-14 mb-1">Product A</h5>
+                                                        <p class="text-muted mb-0">Neque quis est</p>
+                                                    </td>
+
+                                                    <td>
+                                                        <div id="radialchart-1" class="apex-charts"></div>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-muted mb-1">Sales</p>
+                                                        <h5 class="mb-0">37 %</h5>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <h5 class="font-size-14 mb-1">Product B</h5>
+                                                        <p class="text-muted mb-0">Quis autem iure</p>
+                                                    </td>
+
+                                                    <td>
+                                                        <div id="radialchart-2" class="apex-charts"></div>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-muted mb-1">Sales</p>
+                                                        <h5 class="mb-0">72 %</h5>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <h5 class="font-size-14 mb-1">Product C</h5>
+                                                        <p class="text-muted mb-0">Sed aliquam mauris.</p>
+                                                    </td>
+
+                                                    <td>
+                                                        <div id="radialchart-3" class="apex-charts"></div>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-muted mb-1">Sales</p>
+                                                        <h5 class="mb-0">54 %</h5>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4">Tasks</h4>
+
+                                        <ul class="nav nav-pills bg-light rounded">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" href="#">In Process</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">Upcoming</a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="mt-4">
+                                            <div data-simplebar="" style="max-height: 250px;">
+
+                                                <div class="table-responsive">
+                                                    <table class="table table-nowrap table-centered table-hover mb-0">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td style="width: 50px;">
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" id="customCheck1" checked="">
+                                                                    <label class="custom-control-label" for="customCheck1"></label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <h5 class="text-truncate font-size-14 mb-1"><a href="#" class="text-dark">Skote Saas Dashboard</a></h5>
+                                                                <p class="text-muted mb-0">Assigned to Mark</p>
+                                                            </td>
+                                                            <td style="width: 90px;">
+                                                                <div>
+                                                                    <ul class="list-inline mb-0 font-size-16">
+                                                                        <li class="list-inline-item">
+                                                                            <a href="#" class="text-success p-1"><i class="bx bxs-edit-alt"></i></a>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <a href="#" class="text-danger p-1"><i class="bx bxs-trash"></i></a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                                                    <label class="custom-control-label" for="customCheck2"></label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <h5 class="text-truncate font-size-14 mb-1"><a href="#" class="text-dark">New Landing UI</a></h5>
+                                                                <p class="text-muted mb-0">Assigned to Team A</p>
+                                                            </td>
+                                                            <td>
+                                                                <div>
+                                                                    <ul class="list-inline mb-0 font-size-16">
+                                                                        <li class="list-inline-item">
+                                                                            <a href="#" class="text-success p-1"><i class="bx bxs-edit-alt"></i></a>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <a href="#" class="text-danger p-1"><i class="bx bxs-trash"></i></a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" id="customCheck3">
+                                                                    <label class="custom-control-label" for="customCheck3"></label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <h5 class="text-truncate font-size-14 mb-1"><a href="#" class="text-dark">Brand logo design</a></h5>
+                                                                <p class="text-muted mb-0">Assigned to Janis</p>
+                                                            </td>
+                                                            <td>
+                                                                <div>
+                                                                    <ul class="list-inline mb-0 font-size-16">
+                                                                        <li class="list-inline-item">
+                                                                            <a href="#" class="text-success p-1"><i class="bx bxs-edit-alt"></i></a>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <a href="#" class="text-danger p-1"><i class="bx bxs-trash"></i></a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" id="customCheck4">
+                                                                    <label class="custom-control-label" for="customCheck4"></label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <h5 class="text-truncate font-size-14 mb-1"><a href="#" class="text-dark">Blog Template UI</a></h5>
+                                                                <p class="text-muted mb-0">Assigned to Dianna</p>
+                                                            </td>
+                                                            <td>
+                                                                <div>
+                                                                    <ul class="list-inline mb-0 font-size-16">
+                                                                        <li class="list-inline-item">
+                                                                            <a href="#" class="text-success p-1"><i class="bx bxs-edit-alt"></i></a>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <a href="#" class="text-danger p-1"><i class="bx bxs-trash"></i></a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" id="customCheck5">
+                                                                    <label class="custom-control-label" for="customCheck5"></label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <h5 class="text-truncate font-size-14 mb-1"><a href="#" class="text-dark">Multipurpose Landing</a></h5>
+                                                                <p class="text-muted mb-0">Assigned to Team B</p>
+                                                            </td>
+                                                            <td>
+                                                                <div>
+                                                                    <ul class="list-inline mb-0 font-size-16">
+                                                                        <li class="list-inline-item">
+                                                                            <a href="#" class="text-success p-1"><i class="bx bxs-edit-alt"></i></a>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <a href="#" class="text-danger p-1"><i class="bx bxs-trash"></i></a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" id="customCheck6">
+                                                                    <label class="custom-control-label" for="customCheck6"></label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <h5 class="text-truncate font-size-14 mb-1"><a href="#" class="text-dark">Redesign - Landing page</a></h5>
+                                                                <p class="text-muted mb-0">Assigned to Jerry</p>
+                                                            </td>
+                                                            <td>
+                                                                <div>
+                                                                    <ul class="list-inline mb-0 font-size-16">
+                                                                        <li class="list-inline-item">
+                                                                            <a href="#" class="text-success p-1"><i class="bx bxs-edit-alt"></i></a>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <a href="#" class="text-danger p-1"><i class="bx bxs-trash"></i></a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" id="customCheck7">
+                                                                    <label class="custom-control-label" for="customCheck7"></label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <h5 class="text-truncate font-size-14 mb-1"><a href="#" class="text-dark">Skote Crypto Dashboard</a></h5>
+                                                                <p class="text-muted mb-0">Assigned to Eric</p>
+                                                            </td>
+                                                            <td>
+                                                                <div>
+                                                                    <ul class="list-inline mb-0 font-size-16">
+                                                                        <li class="list-inline-item">
+                                                                            <a href="#" class="text-success p-1"><i class="bx bxs-edit-alt"></i></a>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <a href="#" class="text-danger p-1"><i class="bx bxs-trash"></i></a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-footer bg-transparent border-top">
+                                        <div class="text-center">
+                                            <a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light"> Add new Task</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4">
+                                <div class="card">
+                                    <div class="card-body border-bottom">
+                                        <div class="row">
+                                            <div class="col-md-4 col-9">
+                                                <h5 class="font-size-15 mb-1">Steven Franklin</h5>
+                                                <p class="text-muted mb-0"><i class="mdi mdi-circle text-success align-middle mr-1"></i> Active now</p>
+                                            </div>
+                                            <div class="col-md-8 col-3">
+                                                <ul class="list-inline user-chat-nav text-right mb-0">
+                                                    <li class="list-inline-item d-none d-sm-inline-block">
+                                                        <div class="dropdown">
+                                                            <button class="btn nav-btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="bx bx-search-alt-2"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-md">
+                                                                <form class="p-3">
+                                                                    <div class="form-group m-0">
+                                                                        <div class="input-group">
+                                                                            <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                                                                            <div class="input-group-append">
+                                                                                <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-inline-item  d-none d-sm-inline-block">
+                                                        <div class="dropdown">
+                                                            <button class="btn nav-btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="bx bx-cog"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                <a class="dropdown-item" href="#">View Profile</a>
+                                                                <a class="dropdown-item" href="#">Clear chat</a>
+                                                                <a class="dropdown-item" href="#">Muted</a>
+                                                                <a class="dropdown-item" href="#">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="list-inline-item">
+                                                        <div class="dropdown">
+                                                            <button class="btn nav-btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="bx bx-dots-horizontal-rounded"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                <a class="dropdown-item" href="#">Action</a>
+                                                                <a class="dropdown-item" href="#">Another action</a>
+                                                                <a class="dropdown-item" href="#">Something else</a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pb-0">
+                                        <div>
+                                            <div class="chat-conversation">
+                                                <ul class="list-unstyled" data-simplebar="" style="max-height: 260px;">
+                                                    <li>
+                                                        <div class="chat-day-title">
+                                                            <span class="title">Today</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="conversation-list">
+                                                            <div class="dropdown">
+
+                                                                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu">
+                                                                    <a class="dropdown-item" href="#">Copy</a>
+                                                                    <a class="dropdown-item" href="#">Save</a>
+                                                                    <a class="dropdown-item" href="#">Forward</a>
+                                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ctext-wrap">
+                                                                <div class="conversation-name">Steven Franklin</div>
+                                                                <p>
+                                                                    Hello!
+                                                                </p>
+                                                                <p class="chat-time mb-0"><i class="bx bx-time-five align-middle mr-1"></i> 10:00</p>
+                                                            </div>
+
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="right">
+                                                        <div class="conversation-list">
+                                                            <div class="dropdown">
+
+                                                                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu">
+                                                                    <a class="dropdown-item" href="#">Copy</a>
+                                                                    <a class="dropdown-item" href="#">Save</a>
+                                                                    <a class="dropdown-item" href="#">Forward</a>
+                                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ctext-wrap">
+                                                                <div class="conversation-name">Henry Wells</div>
+                                                                <p>
+                                                                    Hi, How are you? What about our next meeting?
+                                                                </p>
+
+                                                                <p class="chat-time mb-0"><i class="bx bx-time-five align-middle mr-1"></i> 10:02</p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="conversation-list">
+                                                            <div class="dropdown">
+
+                                                                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu">
+                                                                    <a class="dropdown-item" href="#">Copy</a>
+                                                                    <a class="dropdown-item" href="#">Save</a>
+                                                                    <a class="dropdown-item" href="#">Forward</a>
+                                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ctext-wrap">
+                                                                <div class="conversation-name">Steven Franklin</div>
+                                                                <p>
+                                                                    Yeah everything is fine
+                                                                </p>
+
+                                                                <p class="chat-time mb-0"><i class="bx bx-time-five align-middle mr-1"></i> 10:06</p>
+                                                            </div>
+
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="last-chat">
+                                                        <div class="conversation-list">
+                                                            <div class="dropdown">
+
+                                                                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu">
+                                                                    <a class="dropdown-item" href="#">Copy</a>
+                                                                    <a class="dropdown-item" href="#">Save</a>
+                                                                    <a class="dropdown-item" href="#">Forward</a>
+                                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ctext-wrap">
+                                                                <div class="conversation-name">Steven Franklin</div>
+                                                                <p>& Next meeting tomorrow 10.00AM</p>
+                                                                <p class="chat-time mb-0"><i class="bx bx-time-five align-middle mr-1"></i> 10:06</p>
+                                                            </div>
+
+                                                        </div>
+                                                    </li>
+
+                                                    <li class=" right">
+                                                        <div class="conversation-list">
+                                                            <div class="dropdown">
+
+                                                                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu">
+                                                                    <a class="dropdown-item" href="#">Copy</a>
+                                                                    <a class="dropdown-item" href="#">Save</a>
+                                                                    <a class="dropdown-item" href="#">Forward</a>
+                                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ctext-wrap">
+                                                                <div class="conversation-name">Henry Wells</div>
+                                                                <p>
+                                                                    Wow that's great
+                                                                </p>
+
+                                                                <p class="chat-time mb-0"><i class="bx bx-time-five align-middle mr-1"></i> 10:07</p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="p-3 chat-input-section">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control rounded chat-input" placeholder="Enter Message...">
+                                                    <div class="chat-input-links">
+                                                        <ul class="list-inline mb-0">
+                                                            <li class="list-inline-item"><a href="#" data-toggle="tooltip" data-placement="top" title="Emoji"><i class="mdi mdi-emoticon-happy-outline"></i></a></li>
+                                                            <li class="list-inline-item"><a href="#" data-toggle="tooltip" data-placement="top" title="Images"><i class="mdi mdi-file-image-outline"></i></a></li>
+                                                            <li class="list-inline-item"><a href="#" data-toggle="tooltip" data-placement="top" title="Add Files"><i class="mdi mdi-file-document-outline"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span class="d-none d-sm-inline-block mr-2">Send</span> <i class="mdi mdi-send"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- end row -->
+
+                    </div>
+                    <!-- container-fluid -->
+                </div>
+            </div>
+            <!-- End Page-content -->
+        </div>
+        <!-- END layout-wrapper -->
+
+        <!-- Right Sidebar -->
+        <th:block th:replace="/layout/right-bar :: right-bar"/>
+        <!-- End right-bar -->
+
+        <!-- JAVASCRIPT -->
+        <th:block th:replace="/layout/script/javascript :: javascript"/>
+
+        <!-- apexcharts -->
+        <th:block th:replace="/layout/script/apexcharts :: apexcharts"/>
+        <!-- Saas dashboard init -->
+        <th:block th:replace="/layout/script/saas-dashboard :: saas-dashboard"/>
+
+        <!-- App js -->
+        <th:block th:replace="/layout/script/app-js :: app-js"/>
+    </body>
+</html>
