@@ -38,9 +38,23 @@ public class Home {
     }
 
     @GetMapping("/products/create-description")
-    public ModelAndView showCreateDescriptionProduct() {
+    public ModelAndView showCreateDescriptionProductPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("product/create-description");
+        return modelAndView;
+    }
+
+    @GetMapping("/products/detail")
+    public ModelAndView showProductDetailPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("product/detail");
+        return modelAndView;
+    }
+
+    @GetMapping("/products/update")
+    public ModelAndView showUpdateProductPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("product/update");
         return modelAndView;
     }
 
