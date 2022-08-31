@@ -1,5 +1,6 @@
 package com.cg.model;
 
+import com.cg.model.enums.EBussinessStatus;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,6 +43,10 @@ public class Product {
     @Column(name = "configuration_detail", columnDefinition = "json")
     private Map<String, Object> configurationDetail;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "bussiness_status", length = 25)
+    private EBussinessStatus bussinessStatus;
+
     @OneToMany(targetEntity = Inventory.class, mappedBy = "product", fetch = FetchType.EAGER)
     private Set<Inventory> inventories;
 
@@ -56,4 +61,7 @@ public class Product {
 
     @OneToMany(targetEntity = Inventory.class, mappedBy = "product", fetch = FetchType.EAGER)
     private Set<InventoryDetail> inventoryDetails;
+
+    @OneToOne(mappedBy = "product")
+    private Blog blog;
 }

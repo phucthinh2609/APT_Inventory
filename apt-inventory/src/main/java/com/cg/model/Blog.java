@@ -32,7 +32,7 @@ public class Blog {
     @OneToMany(targetEntity = BlogMedia.class, mappedBy = "blog", fetch = FetchType.EAGER)
     private Set<BlogMedia> blogMedias;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
