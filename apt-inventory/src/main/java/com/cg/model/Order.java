@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import java.math.BigDecimal;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -22,8 +24,9 @@ public class Order {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
+    @Digits(integer = 15, fraction = 0)
     @Column(name = "total_amount")
-    private int totalAmount;
+    private BigDecimal totalAmount;
 
     @Column(name = "quantity_total")
     private int quantityTotal;
