@@ -1,12 +1,17 @@
-//package com.cg.repository;
-//
-//import com.cg.model.ProductDemo;
-//import com.cg.model.ProductMediaDemo;
-//import org.springframework.data.jpa.repository.JpaRepository;
-//
-//import java.util.Optional;
-//
-//public interface ProductMediaRepository extends JpaRepository<ProductMediaDemo, String> {
-//
-//    Optional<ProductMediaDemo> findByProduct(ProductDemo productDemo);
-//}
+package com.cg.repository;
+
+import com.cg.model.Product;
+import com.cg.model.ProductMedia;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface ProductMediaRepository extends JpaRepository<ProductMedia, String> {
+    Optional<ProductMedia> findByProduct(Product product);
+
+    Iterable<ProductMedia> findAllByProductId(String id);
+
+    Iterable<ProductMedia> findAllByOrderByProductIdAsc();
+}
