@@ -1,13 +1,10 @@
 package com.cg.controller.api;
 
-
 import com.cg.exception.DataInputException;
 import com.cg.model.Product;
 import com.cg.model.ProductMedia;
-import com.cg.model.dto.IProductDTO;
 import com.cg.model.dto.ProductDTO;
-import com.cg.model.dto.ProductDTOs;
-import com.cg.model.dto.ProductMediaDTO;
+import com.cg.model.dto.ProductRender;
 import com.cg.service.ProductMediaService;
 import com.cg.service.ProductService;
 import com.cg.utils.AppUtils;
@@ -39,32 +36,32 @@ public class ProductAPI {
     @GetMapping
     public ResponseEntity<Iterable<?>> findAll() {
         try {
-            Iterable<IProductDTO> iProductDTOS = productService.findAllIProductDTO();
+            Iterable<ProductMedia> productMediaList = productMediaService.findAllByOrderByProductIdAsc();
 
-            if (iProductDTOS == null) {
+            if (productMediaList == null) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
             String tempId = "";
             HashMap<String, String> fileUrls = new HashMap<>();
-            ProductDTOs productDTOs = new ProductDTOs();
-            HashSet<ProductDTOs> productDTOsList = new HashSet<>();
+            ProductRender productRender = new ProductRender();
+            HashSet<ProductRender> productRenderList = new HashSet<>();
 
-            for (IProductDTO iProductDTO : iProductDTOS) {
-                if (tempId.equals(iProductDTO.getId())) {
-                    fileUrls.put(iProductDTO.getFileId(),iProductDTO.getFileUrl());
+            for (ProductMedia productMedia : productMediaList) {
+                if (tempId.equals(productMedia.getProduct().getId())) {
+                    fileUrls.put(productMedia.getId(), productMedia.getFileUrl());
                 } else {
-                    productDTOs = new ProductDTOs();
+                    productRender = new ProductRender();
                     fileUrls = new HashMap<>();
-                    productDTOs.setId(iProductDTO.getId());
-                    productDTOs.setName(iProductDTO.getName());
-                    fileUrls.put(iProductDTO.getFileId(),iProductDTO.getFileUrl());
+                    productRender.setId(productMedia.getProduct().getId());
+                    productRender.setName(productMedia.getProduct().getName());
+                    fileUrls.put(productMedia.getId(), productMedia.getFileUrl());
                 }
-                productDTOs.setFileUrls(fileUrls);
+                productRender.setFileUrls(fileUrls);
 
-                productDTOsList.add(productDTOs);
-                tempId = iProductDTO.getId();
+                productRenderList.add(productRender);
+                tempId = productMedia.getProduct().getId();
             }
-            return new ResponseEntity<>(productDTOsList, HttpStatus.OK);
+            return new ResponseEntity<>(productRenderList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -81,13 +78,13 @@ public class ProductAPI {
 //        List<ProductMediaDTO> currentProductMediaList = productMediaService.findAllByProductId(currentProduct.get().getId());
 //
 //        return new ResponseEntity<>(currentProductMediaList, HttpStatus.OK);
-        Iterable<IProductDTO> iProductDTOs = productService.findIProductDTOById(id);
+        Iterable<ProductMedia> productMediaList = productMediaService.findAllByProductId(id);
 
-        if (iProductDTOs == null) {
+        if (productMediaList == null) {
             throw new DataInputException("Product is not found");
         }
 
-        return new ResponseEntity<>(iProductDTOs, HttpStatus.OK);
+        return new ResponseEntity<>(productMediaList, HttpStatus.OK);
     }
 
     @PostMapping
