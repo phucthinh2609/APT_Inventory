@@ -11,13 +11,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/computer-configuration-parameters")
-public class ComputerConfigurationParameterAPI {
+public class ComputerConfigurationParameterRestController {
 
     @Autowired
     private ComputerConfigurationParameterService computerConfigurationParameterService;
@@ -33,11 +36,13 @@ public class ComputerConfigurationParameterAPI {
         return new ResponseEntity<>(computerConfigurationParameters, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody ComputerConfigurationParameter computerConfigurationParameter) {
+    @PostMapping
+    public ResponseEntity<?> create(@Validated ComputerConfigurationParameter computerConfigurationParameter, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return appUtils.mapErrorToResponse(bindingResult);
         try {
-            ComputerConfigurationParameter newComputerConfigurationParameter = computerConfigurationParameterService.save(computerConfigurationParameter);
-            return new ResponseEntity<>(newComputerConfigurationParameter, HttpStatus.CREATED);
+            ComputerConfigurationParameter createdComputerConfigurationParameter = computerConfigurationParameterService.save(computerConfigurationParameter);
+            return new ResponseEntity<>(createdComputerConfigurationParameter, HttpStatus.CREATED);
         } catch (DataIntegrityViolationException e) {
             throw new DataInputException("Product creation information is not valid, please check the information again");
         }

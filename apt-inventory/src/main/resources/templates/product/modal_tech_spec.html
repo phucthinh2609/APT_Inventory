@@ -20,14 +20,14 @@
                                     <input type="text" class="form-control" id="techSpecName" name="techSpecName">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">Vietnamese name</label>
-                                    <input type="text" class="form-control" id="techSpecExplanation" name="techSpecExplanation">
+                                    <label class="form-label">Explanation</label>
+                                    <input type="text" class="form-control" id="explanation" name="explanation">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Multiline</label>
-                                    <select class="form-select" id="techSpecMultiline" name="techSpecMultiline">
-                                        <option value=false >Only one line</option>
-                                        <option value=true >Multiline</option>
+                                    <select class="form-select" id="multiline" name="ward">
+                                        <option value="false">Only one line</option>
+                                        <option value="true">Multiline</option>
                                     </select>
                                 </div>
                             </div>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="btnDoCreateTechSpec" class="btn btn-outline-primary">
+                    <button type="button" id="btnCreateTechSpec" class="btn btn-outline-primary">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                         Create Tech Spec
                     </button>
