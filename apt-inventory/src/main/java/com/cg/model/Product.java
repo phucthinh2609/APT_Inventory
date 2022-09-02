@@ -1,13 +1,21 @@
 package com.cg.model;
 
-import lombok.*;
+import com.cg.model.enums.EBussinessStatus;
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-
+import javax.validation.constraints.Digits;
+import java.math.BigDecimal;
+import java.util.Map;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -16,32 +24,44 @@ import java.util.List;
 @AllArgsConstructor
 @Accessors(chain = true)
 @Table(name = "products")
+@TypeDef(name = "json", typeClass = JsonStringType.class)
 public class Product {
-
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    private String name;
+    private String title;
+
+    @Digits(integer = 12, fraction = 0)
+    @Column(name = "purchase_order_price")
+    private BigDecimal purchaseOrderPrice;
 
     private String description;
 
-    @Column(columnDefinition = "BIGINT(20) DEFAULT 0")
-    private Long ts = new Date().getTime();
+    @Type( type = "json" )
+    @Column(name = "configuration_detail", columnDefinition = "json")
+    private Map<String, Object> configurationDetail;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "bussiness_status", length = 25)
+    private EBussinessStatus bussinessStatus;
 
-    @OneToMany(mappedBy = "product")
-    private List<ProductMedia> productMedia;
+    @OneToMany(targetEntity = Inventory.class, mappedBy = "product", fetch = FetchType.EAGER)
+    private Set<Inventory> inventories;
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", ts=" + ts +
-                ", productMedia=" + productMedia +
-                '}';
-    }
+    @OneToMany(targetEntity = ProductMedia.class, mappedBy = "product", fetch = FetchType.EAGER)
+    private Set<ProductMedia> productMedia;
+
+    @OneToMany(targetEntity = OrderDetail.class, mappedBy = "product", fetch = FetchType.EAGER)
+    private Set<OrderDetail> orderDetails;
+
+    @OneToMany(targetEntity = Comment.class, mappedBy = "product", fetch = FetchType.EAGER)
+    private Set<Comment> comments;
+
+    @OneToMany(targetEntity = Inventory.class, mappedBy = "product", fetch = FetchType.EAGER)
+    private Set<InventoryDetail> inventoryDetails;
+
+    @OneToOne(mappedBy = "product")
+    private Blog blog;
 }

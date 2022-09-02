@@ -14,5 +14,9 @@ public class HomeController {
     public ModelAndView getHome() {
         return new ModelAndView("index");
     }
+    @GetMapping("/home")
+    public ModelAndView getHomePage() {
+        return new ModelAndView("home");
+    }
 
 }
