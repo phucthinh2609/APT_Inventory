@@ -212,8 +212,50 @@
 
 
         <script>
+            let page = {
+                urls: {
+                    getAllComputerConfigurationParameters: App.BASE_URL + "/v1/computer-configuration-parameters",
+                    doCreateProduct: App.BASE_URL + "/v1/products/create",
+                    doCreateTechSpec: App.BASE_URL + "/v1/computer-configuration-parameters/create"
+                }
+            }
+
+            let computerConfigurationParameters = [];
+
+            let computerConfigurationParameter = {
+                id: null,
+                name: null,
+                explanation: null,
+                multiline: null
+            }
+
             $('#btnCreateTechSpec').on('click', () => {
                 $('#mdCreateTechSpec').modal('show');
+            })
+
+            $('#btnDoCreateTechSpec').on('click', () => {
+                computerConfigurationParameter.name = $("#techSpecName").val();
+                computerConfigurationParameter.explanation = $("#techSpecExplanation").val();
+                computerConfigurationParameter.multiline = $("#techSpecMultiline").val();
+                $.ajax({
+                    headers: {
+                        "accept": "application/json",
+                        "content-type": "application/json"
+                    },
+                    type: "POST",
+                    url: page.urls.doCreateTechSpec,
+                    data: JSON.stringify(computerConfigurationParameter)
+                })
+                    .done((data) => {
+                        console.log(data);
+                        App.SweetAlert.showSuccessAlert("Add new tech spec successfully.");
+                    })
+                    .fail((jqXHR) => {
+                        console.log(jqXHR)
+                        console.log(computerConfigurationParameter)
+                        App.SweetAlert.showErrorAlert("Add new tech spec failed")
+                    });
+
             })
 
         </script>

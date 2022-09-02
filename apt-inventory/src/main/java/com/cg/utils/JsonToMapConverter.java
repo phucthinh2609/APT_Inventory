@@ -1,24 +1,19 @@
-package com.cg.model;
+package com.cg.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@Converter
-public class JsonToMapConverter implements AttributeConverter<String, Map<String, Object>>
-{
+public class JsonToMapConverter {
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonToMapConverter.class);
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public Map<String, Object> convertToDatabaseColumn(String attribute)
+    public static Map<String, Object> convertToDatabaseColumn(String attribute)
     {
         if (attribute == null) {
             return new HashMap<>();
@@ -34,8 +29,7 @@ public class JsonToMapConverter implements AttributeConverter<String, Map<String
         return new HashMap<>();
     }
 
-    @Override
-    public String convertToEntityAttribute(Map<String, Object> dbData)
+    public static String convertToEntityAttribute(Map<String, Object> dbData)
     {
         try
         {

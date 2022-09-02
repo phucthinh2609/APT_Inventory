@@ -1,17 +1,13 @@
 package com.cg.model.dto;
 
 import com.cg.model.*;
-import com.cg.model.enums.EBussinessStatus;
+import com.cg.utils.JsonToMapConverter;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.persistence.Column;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 
 @Data
@@ -27,7 +23,9 @@ public class ProductDTO implements Serializable {
     @NotBlank(message = "Description is required")
     private String description;
 
-    private List<ComputerConfigurationParameter> computerConfigurationParameters;
+//    private List<ComputerConfigurationParameter> computerConfigurationParameters;
+
+    private String configurationDetail;
 
     private String bussinessStatus;
 
@@ -54,7 +52,7 @@ public class ProductDTO implements Serializable {
                 .setId(id)
                 .setTitle(title)
                 .setPurchaseOrderPrice(purchaseOrderPrice)
-//                .setConfigurationDetail(JsonToMapConverter.convertToDatabaseColumn())
+                .setConfigurationDetail(JsonToMapConverter.convertToDatabaseColumn(configurationDetail))
                 .setDescription(description);
     }
 

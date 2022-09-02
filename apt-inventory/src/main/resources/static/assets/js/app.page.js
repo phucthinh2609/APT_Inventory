@@ -1,6 +1,6 @@
 class App {
     static DOMAIN = location.origin;
-    static BASER_URL = this.DOMAIN + "/api";
+    static BASE_URL = this.DOMAIN + "/api";
     static GET_PROVINCES = "https://vapi.vnappmob.com/api/province";
 
     static ERROR_400 = "Giao dịch không thành công, vui lòng kiểm tra lại dữ liệu.";
