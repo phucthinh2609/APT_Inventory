@@ -38,9 +38,23 @@ public class Home {
     }
 
     @GetMapping("/products/create-description")
-    public ModelAndView showCreateDescriptionProduct() {
+    public ModelAndView showCreateDescriptionProductPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("product/create-description");
+        return modelAndView;
+    }
+
+    @GetMapping("/products/detail")
+    public ModelAndView showProductDetailPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("product/detail");
+        return modelAndView;
+    }
+
+    @GetMapping("/products/update")
+    public ModelAndView showUpdateProductPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("product/update");
         return modelAndView;
     }
 
@@ -97,6 +111,20 @@ public class Home {
     public ModelAndView showInventoryDetailPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("inventory/detail");
+        return modelAndView;
+    }
+
+    @GetMapping("/blogs/create")
+    public ModelAndView showCreateBlogPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("blog/create");
+        return modelAndView;
+    }
+
+    @GetMapping("/blogs")
+    public ModelAndView showBlogListPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("blog/list");
         return modelAndView;
     }
 
