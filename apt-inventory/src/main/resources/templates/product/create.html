@@ -109,7 +109,7 @@
                                         <h4 class="card-title">Tech specs</h4>
                                     </div>
                                     <div class="col-sm-8 text-sm-right">
-                                        <button type="button" id="btnCreateTechSpec" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 mr-2 ">
+                                        <button type="button" id="btnShowTechSpecForm" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 mr-2 ">
                                             <i class="mdi mdi-plus mr-1"></i>
                                             Add New Spec
                                         </button>
@@ -119,30 +119,8 @@
 
                                 <div class="row">
                                     <div class="container-fluid">
-                                        <div class="form-group row mb-4">
-                                            <label class="col-form-label col-lg-1">CPU : </label>
-                                            <div class="col-lg-11">
-                                                <input name="productname" type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4">
-                                            <label class="col-form-label col-lg-1">RAM : </label>
-                                            <div class="col-lg-11">
-                                                <input name="productname" type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4">
-                                            <label class="col-form-label col-lg-1">Color : </label>
-                                            <div class="col-lg-11">
-                                                <input name="productname" type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4">
-                                            <label class="col-form-label col-lg-1">Display : </label>
-                                            <div class="col-lg-11">
-                                                <input name="productname" type="text" class="form-control">
-                                            </div>
-                                        </div>
+                                        <form id="frmInputTechSpec">
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -212,8 +190,148 @@
 
 
         <script>
-            $('#btnCreateTechSpec').on('click', () => {
-                $('#mdCreateTechSpec').modal('show');
+
+
+            let page = {
+                urls: {
+                    getAllComputerConfigurationParameters: App.BASER_URL + "/v1/computer-configuration-parameters",
+                    createComputerConfigurationParameter: App.BASER_URL + "/v1/computer-configuration-parameters",
+                    doCreate: App.BASER_URL + "/v1/products/create"
+
+                },
+                elements: {
+                },
+                loadData: {},
+                commands: {},
+                dialogs: {
+                    elements: {},
+                    commands: {},
+                    alertDanger: {}
+                },
+            }
+
+            page.elements.btnCreateTechSpec = $('#btnCreateTechSpec');
+            page.elements.btnShowTechSpecForm = $('#btnShowTechSpecForm');
+
+            page.elements.name = $('#name');
+            page.elements.explanation = $('#explanation');
+            page.elements.multiline = $('#multiline');
+
+            let computerConfigurationParameters = [];
+
+            let computerConfiguration = {
+                id: null,
+                name: null,
+                price: null,
+                configurationDetail: {}
+            }
+
+            page.commands.getAllComputerConfigurationParameters = () => {
+                return $.ajax({
+                    headers: {
+                        "accept": "application/json",
+                        "content-type": "application/json"
+                    },
+                    type: "GET",
+                    url: page.urls.getAllComputerConfigurationParameters,
+                })
+                .done((data) => {
+                    computerConfigurationParameters = data;
+                })
+                .fail((jqXHR) => {
+
+                });
+            }
+
+            page.commands.createTechSpec = () => {
+                let computerConfigurationParameter = {
+                    id: 0,
+                    name: null,
+                    explanation: null,
+                    multiline: false
+                }
+
+                computerConfigurationParameter.name = page.elements.name.val();
+                computerConfigurationParameter.explanation = page.elements.explanation.val();
+                computerConfigurationParameter.multiline = page.elements.multiline.val();
+
+                $.ajax({
+                    headers: {
+                        "accept": "application/json",
+                        "content-type": "application/json"
+                    },
+                    type: "POST",
+                    url: page.urls.createComputerConfigurationParameter,
+                    data: JSON.stringify(computerConfigurationParameter)
+                })
+                .done((data) => {
+                    console.log(data)
+                })
+                .fail((jqXHR) => {
+
+                });
+
+            }
+
+
+            page.initializeControlEvent = () => {
+                page.elements.btnShowTechSpecForm.on('click', () => {
+                    $('#mdCreateTechSpec').modal('show');
+                });
+
+                page.elements.btnCreateTechSpec.on('click', () => {
+                    page.commands.createTechSpec();
+                })
+            }
+
+            $(() => {
+                let lines = 1, maxLines = 5;
+
+                function limitLines(obj, e) {
+                    if (e.keyCode === 13) {
+                        if (obj.rows < maxLines) {
+                            lines++;
+                            $(obj).attr('rows', lines);
+                        }
+                    }
+                }
+
+                function resetLines(obj) {
+                    if ($(obj).val().length === 0) {
+                        lines = 1;
+                        $(obj).attr('rows', lines);
+                    }
+                }
+
+                page.commands.getAllComputerConfigurationParameters().then(() => {
+                    $.each(computerConfigurationParameters, (i, item) => {
+
+                        let key = item.name;
+                        let obj = {}
+
+                        obj[key] = {
+                            explanation: item.explanation
+                        }
+
+                        computerConfiguration.configurationDetail[key] = obj[key];
+
+                        let str = App.renderInputTechSpecForm(item);
+                        let frmInputTechSpec = $('#frmInputTechSpec');
+                        frmInputTechSpec.append(str);
+
+                        let textarea = $('textarea');
+
+                        textarea.on("keydown", function (e) {
+                            return limitLines(this, e);
+                        });
+
+                        textarea.on("input", function () {
+                            return resetLines(this);
+                        });
+                    })
+                });
+
+                page.initializeControlEvent();
             })
 
         </script>

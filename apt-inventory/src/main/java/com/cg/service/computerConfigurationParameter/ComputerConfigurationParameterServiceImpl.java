@@ -33,7 +33,7 @@ public class ComputerConfigurationParameterServiceImpl implements ComputerConfig
 
     @Override
     public ComputerConfigurationParameter save(ComputerConfigurationParameter computerConfigurationParameter) {
-        return null;
+        return computerConfigurationParameterRepository.save(computerConfigurationParameter);
     }
 
     @Override
