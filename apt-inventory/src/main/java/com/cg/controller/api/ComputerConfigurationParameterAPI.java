@@ -33,7 +33,7 @@ public class ComputerConfigurationParameterAPI {
         return new ResponseEntity<>(computerConfigurationParameters, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody ComputerConfigurationParameter computerConfigurationParameter) {
         try {
             ComputerConfigurationParameter newComputerConfigurationParameter = computerConfigurationParameterService.save(computerConfigurationParameter);
