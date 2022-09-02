@@ -22,10 +22,16 @@ public class ProductDTO implements Serializable {
 //    @NotBlank(message = "Name is required")
     private String title;
 
+    private BigDecimal purchaseOrderPrice;
+
     @NotBlank(message = "Description is required")
     private String description;
 
     private List<ComputerConfigurationParameter> computerConfigurationParameters;
+
+    private String bussinessStatus;
+
+    private String blogId;
 
     private String fileName;
 
@@ -47,6 +53,8 @@ public class ProductDTO implements Serializable {
         return new Product()
                 .setId(id)
                 .setTitle(title)
+                .setPurchaseOrderPrice(purchaseOrderPrice)
+//                .setConfigurationDetail(JsonToMapConverter.convertToDatabaseColumn())
                 .setDescription(description);
     }
 

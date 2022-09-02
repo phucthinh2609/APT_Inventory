@@ -2,10 +2,12 @@ package com.cg.controller.api;
 
 
 import com.cg.exception.DataInputException;
+import com.cg.model.ComputerConfigurationParameter;
 import com.cg.model.Product;
 import com.cg.model.ProductMedia;
 import com.cg.model.dto.ProductDTO;
 import com.cg.model.dto.ProductRender;
+import com.cg.service.computerConfigurationParameter.ComputerConfigurationParameterService;
 import com.cg.service.product.ProductService;
 import com.cg.service.productMedia.ProductMediaService;
 import com.cg.utils.AppUtils;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -31,7 +34,10 @@ public class ProductAPI {
     private ProductService productService;
 
     @Autowired
-    private ProductMediaService productMediaService
+    private ProductMediaService productMediaService;
+
+    @Autowired
+    private ComputerConfigurationParameterService computerConfigurationParameterService;
 
     @Autowired
     private AppUtils appUtils;
@@ -40,32 +46,10 @@ public class ProductAPI {
     public ResponseEntity<Iterable<?>> findAll() {
         try {
             Iterable<ProductMedia> productMediaList = productMediaService.findAllByOrderByProductIdAsc();
-
             if (productMediaList == null) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-
-
-            String tempId = "";
-            HashMap<String, String> fileUrls = new HashMap<>();
-            ProductRender productRender = new ProductRender();
-            HashSet<ProductRender> productRenderList = new HashSet<>();
-
-            for (ProductMedia productMedia : productMediaList) {
-                if (tempId.equals(productMedia.getProduct().getId())) {
-                    fileUrls.put(productMedia.getId(), productMedia.getFileUrl());
-                } else {
-                    productRender = new ProductRender();
-                    fileUrls = new HashMap<>();
-                    productRender.setId(productMedia.getProduct().getId());
-                    productRender.setName(productMedia.getProduct().getName());
-                    fileUrls.put(productMedia.getId(), productMedia.getFileUrl());
-                }
-                productRender.setFileUrls(fileUrls);
-
-                productRenderList.add(productRender);
-                tempId = productMedia.getProduct().getId();
-            }
+            HashSet<ProductRender> productRenderList = convertToProductRender(productMediaList);
             return new ResponseEntity<>(productRenderList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -74,20 +58,12 @@ public class ProductAPI {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable String id){
-//        Optional<Product> currentProduct = productService.findById(id);
-//
-//        if (!currentProduct.isPresent()) {
-//            throw new DataInputException("Product is not found");
-//        }
-//
-//        List<ProductMediaDTO> currentProductMediaList = productMediaService.findAllByProductId(currentProduct.get().getId());
-//
-//        return new ResponseEntity<>(currentProductMediaList, HttpStatus.OK);
         Iterable<ProductMedia> productMediaList = productMediaService.findAllByProductId(id);
         if (productMediaList == null) {
             throw new DataInputException("Product is not found");
         }
-        return new ResponseEntity<>(productMediaList, HttpStatus.OK);
+        HashSet<ProductRender> productRenderList = convertToProductRender(productMediaList);
+        return new ResponseEntity<>(productRenderList, HttpStatus.OK);
     }
 
     @PostMapping
@@ -136,6 +112,7 @@ public class ProductAPI {
         HashMap<String, String> fileUrls = new HashMap<>();
         ProductRender productRender = new ProductRender();
         HashSet<ProductRender> productRenderList = new HashSet<>();
+        List<ComputerConfigurationParameter> computerConfigurationParameters = computerConfigurationParameterService.findAll();
 
         for (ProductMedia productMedia : productMediaList) {
             if (tempId.equals(productMedia.getProduct().getId())) {
@@ -144,7 +121,12 @@ public class ProductAPI {
                 productRender = new ProductRender();
                 fileUrls = new HashMap<>();
                 productRender.setId(productMedia.getProduct().getId());
-                productRender.setName(productMedia.getProduct().getName());
+                productRender.setTitle(productMedia.getProduct().getTitle());
+                productRender.setPurchaseOrderPrice(productMedia.getProduct().getPurchaseOrderPrice());
+                productRender.setDescription(productMedia.getProduct().getDescription());
+                productRender.setComputerConfigurationParameters(computerConfigurationParameters);
+                productRender.setBussinessStatus(productMedia.getProduct().getBussinessStatus().getValue());
+                productRender.setBlogId(productMedia.getProduct().getBlog().getId());
                 fileUrls.put(productMedia.getId(), productMedia.getFileUrl());
             }
             productRender.setFileUrls(fileUrls);

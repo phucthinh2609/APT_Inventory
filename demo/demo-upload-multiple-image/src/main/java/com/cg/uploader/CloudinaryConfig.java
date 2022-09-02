@@ -13,5 +13,4 @@ public class CloudinaryConfig {
     private String apiKey;
     @Value("${application.uploader.api-secret}")
     private String apiSecret;
-
 }

@@ -1,6 +1,5 @@
 package com.cg.service.upload;
 
-import com.cg.service.upload.UploadService;
 import com.cloudinary.Cloudinary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

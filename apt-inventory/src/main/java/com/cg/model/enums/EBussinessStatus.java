@@ -1,7 +1,8 @@
 package com.cg.model.enums;
 
 public enum EBussinessStatus {
-    IN_STOCK("Còn Hàng"),
+    NEW_RELEASES("Mới Ra Mắt"),
+    NEW_ARRIVAL("Hàng Mới Về"),
     OUT_OF_STOCK("Tạm Hết Hàng"),
     STOP_SELLING("Ngừng Kinh Doanh");
 
