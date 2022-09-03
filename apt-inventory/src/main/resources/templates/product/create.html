@@ -212,7 +212,7 @@
             page.elements.btnCreateTechSpec = $('#btnCreateTechSpec');
             page.elements.btnShowTechSpecForm = $('#btnShowTechSpecForm');
 
-            page.elements.name = $('#name');
+            page.elements.name = $('#techSpecName');
             page.elements.explanation = $('#explanation');
             page.elements.multiline = $('#multiline');
 
@@ -267,7 +267,7 @@
                     console.log(data)
                 })
                 .fail((jqXHR) => {
-
+                    console.log(jqXHR)
                 });
 
             }
