@@ -1,5 +1,6 @@
 package com.cg.model;
 
+import com.cg.model.dto.ProductDTO;
 import com.cg.model.enums.EBussinessStatus;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.AllArgsConstructor;
@@ -64,4 +65,12 @@ public class Product {
 
     @OneToOne(mappedBy = "product")
     private Blog blog;
+
+    public ProductDTO toProductDTO() {
+        return new ProductDTO()
+                .setId(id)
+                .setTitle(title)
+                .setPurchaseOrderPrice(purchaseOrderPrice)
+                .setDescription(description);
+    }
 }

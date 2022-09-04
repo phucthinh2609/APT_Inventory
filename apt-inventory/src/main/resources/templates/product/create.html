@@ -71,15 +71,24 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label for="metatitle">Title</label>
-                                                <input id="metatitle" name="productname" type="text" class="form-control">
+                                                <label for="title">Title</label>
+                                                <input id="title" name="title" type="text" class="form-control">
                                             </div>
                                             <div class="form-group">
-                                                <label for="metakeywords">Description</label>
-                                                <input id="metakeywords" name="manufacturername" type="text" class="form-control">
+                                                <label for="description">Description</label>
+                                                <input id="description" name="description" type="text" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="slug">Slug</label>
+                                                <input id="slug" name="slug" type="text" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="price">Purchase Order Price</label>
+                                                <input id="price" name="price" type="text" class="form-control">
                                             </div>
                                         </div>
                                     </div>
+                                    <input type="file" id="imageFile" accept="image/jpeg, image/png" required multiple />
                                 </form>
 
                                 <div class="form-group">
@@ -116,7 +125,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="row">
                                     <div class="container-fluid">
                                         <form id="frmInputTechSpec">
@@ -126,32 +134,7 @@
                             </div>
                         </div>
 
-                        <!-- start blog form -->
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title mb-4">Create New Task</h4>
-                                <form class="outer-repeater">
-                                    <div data-repeater-list="outer-group" class="outer">
-                                        <div data-repeater-item="" class="outer">
-                                            <div class="form-group row mb-4">
-                                                <label for="taskname2" class="col-form-label col-lg-12">Task Name</label>
-                                                <div class="col-lg-12">
-                                                    <input id="taskname2" name="taskname" type="text" class="form-control" placeholder="Enter Task Name...">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-4">
-                                                <label class="col-form-label col-lg-12">Task Description</label>
-                                                <div class="col-lg-12">
-                                                    <div class="summernote">Hello Summernote</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Save</button>
+                        <button type="submit" id="btnCreateProduct" class="btn btn-primary mr-1 waves-effect waves-light">Save</button>
                         <button type="submit" class="btn btn-secondary waves-effect">Cancel</button>
 
                     </div>
@@ -195,7 +178,7 @@
                 urls: {
                     getAllComputerConfigurationParameters: App.BASER_URL + "/v1/computer-configuration-parameters",
                     createComputerConfigurationParameter: App.BASER_URL + "/v1/computer-configuration-parameters",
-                    doCreate: App.BASER_URL + "/v1/products/create"
+                    doCreate: App.BASER_URL + "/products"
 
                 },
                 elements: {
@@ -211,6 +194,7 @@
 
             page.elements.btnCreateTechSpec = $('#btnCreateTechSpec');
             page.elements.btnShowTechSpecForm = $('#btnShowTechSpecForm');
+            page.elements.btnCreateProduct = $('#btnCreateProduct');
 
             page.elements.name = $('#techSpecName');
             page.elements.explanation = $('#explanation');
@@ -220,8 +204,10 @@
 
             let computerConfiguration = {
                 id: null,
-                name: null,
-                price: null,
+                title: null,
+                description : null,
+                slug:null,
+                purchaseOrderPrice: null,
                 configurationDetail: {}
             }
 
@@ -332,6 +318,53 @@
 
                 page.initializeControlEvent();
 
+            })
+
+            page.commands.createProduct = () => {
+                computerConfiguration.title = $("#title").val();
+                computerConfiguration.purchaseOrderPrice = +$("#price").val();
+                computerConfiguration.description = $("#description").val();
+                computerConfiguration.slug = $("#slug").val();
+
+                $.each(computerConfiguration.configurationDetail, function (key, value) {
+                    computerConfiguration.configurationDetail[key].content = $("#" + key).val();
+                })
+                console.log(computerConfiguration);
+
+                let formData  = new FormData();
+
+                let fileInput = $('#imageFile')[0].files;
+
+                if (fileInput.length !== 3)
+                    return alert("Should be have 3 images");
+
+                formData.append("title", computerConfiguration.title);
+                formData.append("purchaseOrderPrice", computerConfiguration.purchaseOrderPrice);
+                formData.append("description", computerConfiguration.description);
+                formData.append("slug", computerConfiguration.slug);
+                formData.append("configurationDetail", JSON.stringify(computerConfiguration.configurationDetail));
+                formData.append("files", fileInput[0]);
+                formData.append("files", fileInput[1]);
+                formData.append("files", fileInput[2]);
+
+                $.ajax({
+                    type: "POST",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    url: "http://localhost:8080/api/products",
+                    data: formData
+                })
+                .done((data) => {
+                    console.log("done");
+                })
+                .fail((jqXHR) => {
+                    console.log(jqXHR);
+                })
+            }
+
+            page.elements.btnCreateProduct.on('click',() => {
+                page.commands.createProduct();
             })
 
         </script>
