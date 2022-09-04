@@ -23,8 +23,13 @@ public class InventoryDetailServiceImpl implements InventoryDetailService {
     }
 
     @Override
-    public List<InventoryDetailDTO> findAllDTO() {
-        return inventoryDetailRepository.findAllDTO();
+    public List<InventoryDetailDTO> getAllInventoryDetails() {
+        return inventoryDetailRepository.getAllInventoryDetails();
+    }
+
+    @Override
+    public List<InventoryDetailDTO> getInventoryGroupByProduct() {
+        return inventoryDetailRepository.getInventoryGroupByProduct();
     }
 
     @Override

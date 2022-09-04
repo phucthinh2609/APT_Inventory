@@ -13,15 +13,24 @@ public interface InventoryDetailRepository extends JpaRepository<InventoryDetail
                 "inDe.id, " +
                 "p.title, " +
                 "inDe.productCode, " +
-                "inDe.purchaseOrderPrice, " +
-                "inDe.stockInPrice, " +
-                "inDe.selled, " +
-                "inDe.grossProfit " +
+                "inDe.stockInPrice " +
                 ") " +
             "FROM InventoryDetail AS inDe, Product AS p " +
-            "WHERE inDe.product.id = p.id" +
-            ""
+            "WHERE inDe.product.id = p.id " +
+                "AND inDe.selled = false"
+    )
+    List<InventoryDetailDTO> getAllInventoryDetails();
+
+
+    @Query(value = "SELECT new com.cg.model.dto.InventoryDetailDTO (" +
+                "p.title, " +
+                "COUNT(inDe.product) " +
+                ") " +
+            "FROM InventoryDetail AS inDe, Product AS p " +
+            "WHERE inDe.product.id = p.id " +
+                "AND inDe.selled = false " +
+            "GROUP BY inDe.product "
     )
 
-    List<InventoryDetailDTO> findAllDTO();
+    List<InventoryDetailDTO> getInventoryGroupByProduct();
 }

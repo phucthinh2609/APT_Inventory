@@ -1,6 +1,5 @@
 package com.cg.controller.api;
 
-import com.cg.model.InventoryDetail;
 import com.cg.model.dto.InventoryDetailDTO;
 import com.cg.service.inventoryDetail.InventoryDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +12,27 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/inventoryDetails")
-public class InventoryDetailAPI {
+@RequestMapping("/api/inventories")
+public class InventoryAPI {
 
     @Autowired
     private InventoryDetailService inventoryDetailService;
 
-    @GetMapping
-    public ResponseEntity<?> getAllDTO() {
+    @GetMapping("")
+    public ResponseEntity<?> getInventoryOverview() {
 
-        List<InventoryDetailDTO> inventoryDetails = inventoryDetailService.findAllDTO();
+        List<InventoryDetailDTO> inventoryDetails = inventoryDetailService.getInventoryGroupByProduct();
 
         return new ResponseEntity<>(inventoryDetails, HttpStatus.OK);
     }
+
+    @GetMapping("/details")
+    public ResponseEntity<?> getAllInventoryDetails() {
+
+        List<InventoryDetailDTO> inventoryDetails = inventoryDetailService.getAllInventoryDetails();
+
+        return new ResponseEntity<>(inventoryDetails, HttpStatus.OK);
+    }
+
+
 }

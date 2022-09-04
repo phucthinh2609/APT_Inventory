@@ -7,5 +7,7 @@ import com.cg.service.IGeneralService;
 import java.util.List;
 
 public interface InventoryDetailService extends IGeneralService<InventoryDetail> {
-    List<InventoryDetailDTO> findAllDTO();
+    List<InventoryDetailDTO> getAllInventoryDetails();
+
+    List<InventoryDetailDTO> getInventoryGroupByProduct();
 }

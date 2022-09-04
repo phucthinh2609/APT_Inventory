@@ -103,14 +103,14 @@ public class Home {
     @GetMapping("/inventories")
     public ModelAndView showInventoryListPage() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("inventory/list");
+        modelAndView.setViewName("inventory/overview");
         return modelAndView;
     }
 
     @GetMapping("/inventories/details")
     public ModelAndView showInventoryDetailPage() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("inventory/detail");
+        modelAndView.setViewName("inventory/details");
         return modelAndView;
     }
 
