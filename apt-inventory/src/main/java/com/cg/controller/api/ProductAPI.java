@@ -73,8 +73,8 @@ public class ProductAPI {
         try {
             Product createdProduct = productService.create(productDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (DataIntegrityViolationException e) {
-            throw new DataInputException("Product creation information is not valid, please check the information again");
+        } catch (Exception e) {
+            throw new DataInputException(e.getMessage());
         }
     }
 //

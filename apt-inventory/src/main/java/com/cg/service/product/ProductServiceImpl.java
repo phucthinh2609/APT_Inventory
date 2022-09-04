@@ -5,6 +5,7 @@ import com.cg.exception.DataInputException;
 import com.cg.model.Product;
 import com.cg.model.ProductMedia;
 import com.cg.model.dto.ProductDTO;
+import com.cg.model.enums.EBussinessStatus;
 import com.cg.model.enums.FileType;
 import com.cg.repository.ProductMediaRepository;
 import com.cg.repository.ProductRepository;
@@ -65,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
             productDTO.setFileType(fileType);
             productDTO.setFile(file);
 
-            ProductMedia productMedia = productMediaRepository.save(productDTO.toProductMedia());
+            ProductMedia productMedia = productMediaRepository.save(productDTO.toProductMedia(product));
 
             if (fileType.equals(FileType.IMAGE.getValue())) {
                 uploadAndSaveProductImage(productDTO, product, productMedia);
@@ -75,7 +76,6 @@ public class ProductServiceImpl implements ProductService {
                 uploadAndSaveProductVideo(productDTO, product, productMedia);
             }
         }
-
         return product;
     }
 

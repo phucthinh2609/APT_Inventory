@@ -1,8 +1,10 @@
 package com.cg.model.dto;
 
 import com.cg.model.*;
+import com.cg.model.enums.EBussinessStatus;
 import com.cg.utils.JsonToMapConverter;
-import lombok.Data;
+import lombok.*;
+import lombok.experimental.Accessors;
 import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -11,6 +13,11 @@ import java.util.List;
 
 
 @Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Accessors(chain = true)
 public class ProductDTO implements Serializable {
 
     private String id;
@@ -26,8 +33,6 @@ public class ProductDTO implements Serializable {
 //    private List<ComputerConfigurationParameter> computerConfigurationParameters;
 
     private String configurationDetail;
-
-    private String bussinessStatus;
 
     private String blogId;
 
@@ -47,22 +52,31 @@ public class ProductDTO implements Serializable {
 
     private String fileType;
 
+    public ProductDTO(String id, String title, BigDecimal purchaseOrderPrice, String description) {
+        this.id = id;
+        this.title = title;
+        this.purchaseOrderPrice = purchaseOrderPrice;
+        this.description = description;
+    }
+
     public Product toProduct() {
         return new Product()
                 .setId(id)
                 .setTitle(title)
                 .setPurchaseOrderPrice(purchaseOrderPrice)
                 .setConfigurationDetail(JsonToMapConverter.convertToDatabaseColumn(configurationDetail))
-                .setDescription(description);
+                .setDescription(description)
+                .setBussinessStatus(EBussinessStatus.NEW_RELEASES);
     }
 
-    public ProductMedia toProductMedia() {
+    public ProductMedia toProductMedia(Product product) {
         return new ProductMedia()
                 .setId(fileProductId)
                 .setFileName(fileName)
                 .setFileFolder(fileFolder)
                 .setFileUrl(fileUrl)
                 .setCloudId(cloudId)
-                .setFileType(fileType);
+                .setFileType(fileType)
+                .setProduct(product);
     }
 }
