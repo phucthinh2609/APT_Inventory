@@ -90,8 +90,6 @@ public class ProductServiceImpl implements ProductService {
         }
         String title = (productDTO.getTitle()).trim().replaceAll("\\s+", " ") + " " + strTitle;
 
-
-
         Product product = productRepository.save(productDTO.toProduct());
 
         for (MultipartFile file : fileList) {
