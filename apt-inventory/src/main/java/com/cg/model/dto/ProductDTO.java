@@ -21,18 +21,16 @@ import java.util.List;
 public class ProductDTO implements Serializable {
 
     private String id;
-
-//    @NotBlank(message = "Name is required")
     private String title;
-
+    private String slug;
     private BigDecimal purchaseOrderPrice;
 
     @NotBlank(message = "Description is required")
     private String description;
 
-//    private List<ComputerConfigurationParameter> computerConfigurationParameters;
-
     private String configurationDetail;
+
+    private EBussinessStatus bussinessStatus;
 
     private String blogId;
 
@@ -63,10 +61,11 @@ public class ProductDTO implements Serializable {
         return new Product()
                 .setId(id)
                 .setTitle(title)
+                .setSlug(slug)
                 .setPurchaseOrderPrice(purchaseOrderPrice)
-                .setConfigurationDetail(JsonToMapConverter.convertToDatabaseColumn(configurationDetail))
                 .setDescription(description)
-                .setBussinessStatus(EBussinessStatus.NEW_RELEASES);
+                .setConfigurationDetail(JsonToMapConverter.convertToDatabaseColumn(configurationDetail))
+                .setBussinessStatus(bussinessStatus);
     }
 
     public ProductMedia toProductMedia(Product product) {

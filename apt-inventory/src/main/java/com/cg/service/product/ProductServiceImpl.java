@@ -17,9 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.Normalizer;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 
 @Service
@@ -38,6 +42,16 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private UploadUtils uploadUtils;
 
+    private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
+    private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
+
+    public static String toSlug(String input) {
+        String noWhitespace = WHITESPACE.matcher(input).replaceAll("-");
+        String normalized = Normalizer.normalize(noWhitespace, Normalizer.Form.NFD);
+        String slug = NONLATIN.matcher(normalized).replaceAll("");
+        return slug.toLowerCase(Locale.ENGLISH);
+    }
+
 
     @Override
     public Iterable<Product> findAll() {
@@ -53,6 +67,30 @@ public class ProductServiceImpl implements ProductService {
     public Product create(ProductDTO productDTO) {
 
         List<MultipartFile> fileList = productDTO.getFiles();
+        productDTO.setPurchaseOrderPrice(new BigDecimal(0L));
+        String config = productDTO.getConfigurationDetail();
+        String[] ary = config.split("\"content\":\"");
+        String strTitle = "";
+        String strSlug ="";
+
+        for (int i = 1;i < ary.length;i++) {
+            int indexValue = ary[i].indexOf("\"");
+            ary[i] = ary[i].substring(0,indexValue-1);
+            if (i != ary.length - 1) {
+                int indexValue1 = ary[i].indexOf(",");
+                ary[i] = ary[i].substring(0,indexValue1);
+                strTitle += ary[i].trim() +"/ ";
+                strSlug += ary[i].trim() + " ";
+            }else {
+                int indexValue1 = ary[i].indexOf(",");
+                ary[i] = ary[i].substring(0,indexValue1);
+                strTitle += ary[i].trim();
+                strSlug += ary[i].trim();
+            }
+        }
+        String title = (productDTO.getTitle()).trim().replaceAll("\\s+", " ") + " " + strTitle;
+
+
 
         Product product = productRepository.save(productDTO.toProduct());
 
