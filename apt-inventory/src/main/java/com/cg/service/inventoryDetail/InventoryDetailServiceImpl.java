@@ -28,8 +28,8 @@ public class InventoryDetailServiceImpl implements InventoryDetailService {
     }
 
     @Override
-    public List<InventoryDetailDTO> getInventoryGroupByProduct() {
-        return inventoryDetailRepository.getInventoryGroupByProduct();
+    public List<InventoryDetailDTO> getInventoryOverView() {
+        return inventoryDetailRepository.getInventoryOverView();
     }
 
     @Override

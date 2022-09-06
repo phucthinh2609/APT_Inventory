@@ -24,8 +24,6 @@ public class InventoryDetail {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    private String title;
-
     @Column(name = "product_code")
     private String productCode;
 

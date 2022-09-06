@@ -56,9 +56,8 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-
                                     <div class="row">
-                                        <h1>GROUP BY PRODUCT TITLE</h1>
+                                        <h1>Tổng Quan Kho Hàng</h1>
                                         <div class="col-7">
                                             <canvas id="barChart" style="width:100%"></canvas>
                                         </div>
@@ -66,7 +65,16 @@
                                             <canvas id="pieChart" style="width:100%"></canvas>
                                         </div>
                                     </div>
-
+                                    <div class="row">
+                                        <h1 class="col-5">Hiển thị kho theo nhóm: </h1>
+                                        <select class="form-control col-4" id="groupValue">
+                                            <option value="brand">Thương hiệu</option>
+                                            <option value="model">Dòng sản phẩm</option>
+                                            <option value="core">Bộ vi xử lý</option>
+                                            <option value="ram">RAM</option>
+                                            <option value="capacity">Bộ nhớ</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -91,13 +99,17 @@
         <!-- App js -->
         <th:block th:replace="/layout/script/app-js :: app-js"/>
 
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
-
+<!--        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>-->
+        <script src="/assets/js/pages/chart.js"></script>
         <script>
             let page = {
                 urls: {
-                    getInventoryGroupByProduct: App.BASER_URL + "/inventories"
-
+                    getInventoryOverView: App.BASER_URL + "/inventories",
+                    getInventoryGroupByBrand: App.BASER_URL + "/inventories/brands",
+                    getInventoryGroupByModel: App.BASER_URL + "/inventories/models",
+                    getInventoryGroupByCore: App.BASER_URL + "/inventories/cores",
+                    getInventoryGroupByRam: App.BASER_URL + "/inventories/rams",
+                    getInventoryGroupByCapacity: App.BASER_URL + "/inventories/capacities",
                 },
                 elements: {
                 },
@@ -110,32 +122,81 @@
                 },
             }
 
-            let inventoryGroupByProduct = [];
-
+            let inventories = [];
             let xValues = [];
             let yValues = [];
             let barColors = [];
 
-            page.commands.getInventoryGroupByProduct = () => {
+            page.commands.getInventoryOverView = () => {
                 return $.ajax({
                     headers: {
                         "accept": "application/json",
                         "content-type": "application/json"
                     },
                     type: "GET",
-                    url: page.urls.getInventoryGroupByProduct,
+                    url: page.urls.getInventoryOverView,
                 })
                     .done((data) => {
-                        inventoryGroupByProduct = data;
+                        inventories = data;
                     })
                     .fail((jqXHR) => {
 
                     });
             }
 
+            let groupName;
+            let ajaxUrl;
+            let inventoryByGroup = [];
+
+            page.commands.getInventoryByGroup = (ajaxUrl) => {
+                return $.ajax({
+                    headers: {
+                        "accept": "application/json",
+                        "content-type": "application/json"
+                    },
+                    type: "GET",
+                    url: ajaxUrl,
+                })
+                    .done((data) => {
+                        inventories = data;
+                    })
+                    .fail((jqXHR) => {
+
+                    });
+            }
+
+            $('#groupValue').on('change', () => {
+                groupName = $('#groupValue').val();
+                switch (groupName) {
+                    case 'brand':
+                        ajaxUrl = page.urls.getInventoryGroupByBrand;
+                        break;
+                    case 'model':
+                        ajaxUrl = page.urls.getInventoryGroupByModel;
+                        break;
+                    case 'core':
+                        ajaxUrl = page.urls.getInventoryGroupByCore;
+                        break;
+                    case 'ram':
+                        ajaxUrl = page.urls.getInventoryGroupByRam;
+                        break;
+                    case 'capacity':
+                        ajaxUrl = page.urls.getInventoryGroupByCapacity;
+                        break;
+                    default:
+                        ajaxUrl = null;
+                }
+                if (ajaxUrl != null) {
+                    page.commands.getInventoryByGroup(ajaxUrl).then()
+                } else {
+
+                }
+
+            })
+
             $(() => {
-                page.commands.getInventoryGroupByProduct().then(() => {
-                    $.each(inventoryGroupByProduct, (index, value) => {
+                page.commands.getInventoryOverView().then(() => {
+                    $.each(inventories, (index, value) => {
                         xValues.push(value.title);
                         yValues.push(value.quantity);
                         barColors.push("#" + ((1<<24)*Math.random() | 0).toString(16));
@@ -162,19 +223,19 @@
                             }
                         }
                     });
-                });
 
-                const pieChart = new Chart($('#pieChart'), {
-                    type: 'pie',
-                    data: {
-                        labels: xValues,
-                        datasets: [{
-                            label: '',
-                            data: yValues,
-                            backgroundColor: barColors,
-                            hoverOffset: 4
-                        }]
-                    }
+                    const pieChart = new Chart($('#pieChart'), {
+                        type: 'pie',
+                        data: {
+                            labels: xValues,
+                            datasets: [{
+                                label: '',
+                                data: yValues,
+                                backgroundColor: barColors,
+                                hoverOffset: 4
+                            }]
+                        }
+                    });
                 });
             });
 

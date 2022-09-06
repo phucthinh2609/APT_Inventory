@@ -9,5 +9,5 @@ import java.util.List;
 public interface InventoryDetailService extends IGeneralService<InventoryDetail> {
     List<InventoryDetailDTO> getAllInventoryDetails();
 
-    List<InventoryDetailDTO> getInventoryGroupByProduct();
+    List<InventoryDetailDTO> getInventoryOverView();
 }

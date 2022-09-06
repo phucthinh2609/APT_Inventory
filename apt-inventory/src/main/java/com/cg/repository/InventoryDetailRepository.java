@@ -1,6 +1,7 @@
 package com.cg.repository;
 
 import com.cg.model.InventoryDetail;
+import com.cg.model.dto.InventoryDTO;
 import com.cg.model.dto.InventoryDetailDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,16 +22,14 @@ public interface InventoryDetailRepository extends JpaRepository<InventoryDetail
     )
     List<InventoryDetailDTO> getAllInventoryDetails();
 
-
     @Query(value = "SELECT new com.cg.model.dto.InventoryDetailDTO (" +
-                "p.title, " +
-                "COUNT(inDe.product) " +
-                ") " +
-            "FROM InventoryDetail AS inDe, Product AS p " +
-            "WHERE inDe.product.id = p.id " +
-                "AND inDe.selled = false " +
-            "GROUP BY inDe.product "
+            "p.title, " +
+            "COUNT(inDe.product) " +
+            ") " +
+        "FROM InventoryDetail AS inDe, Product AS p " +
+        "WHERE inDe.product.id = p.id " +
+        "AND inDe.selled = false " +
+        "GROUP BY inDe.product "
     )
-
-    List<InventoryDetailDTO> getInventoryGroupByProduct();
+    List<InventoryDetailDTO> getInventoryOverView();
 }

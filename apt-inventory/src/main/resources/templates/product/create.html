@@ -82,10 +82,10 @@
                                                 <label for="slug">Slug</label>
                                                 <input id="slug" name="slug" type="text" class="form-control">
                                             </div>
-                                            <div class="form-group">
-                                                <label for="price">Purchase Order Price</label>
-                                                <input id="price" name="price" type="text" class="form-control">
-                                            </div>
+<!--                                            <div class="form-group">-->
+<!--                                                <label for="price">Purchase Order Price</label>-->
+<!--                                                <input id="price" name="price" type="text" class="form-control">-->
+<!--                                            </div>-->
                                         </div>
                                     </div>
                                     <input type="file" id="imageFile" accept="image/jpeg, image/png" required multiple />
@@ -207,7 +207,7 @@
                 title: null,
                 description : null,
                 slug:null,
-                purchaseOrderPrice: null,
+                // purchaseOrderPrice: null,
                 configurationDetail: {}
             }
 
@@ -322,7 +322,7 @@
 
             page.commands.createProduct = () => {
                 computerConfiguration.title = $("#title").val();
-                computerConfiguration.purchaseOrderPrice = +$("#price").val();
+                // computerConfiguration.purchaseOrderPrice = +$("#price").val();
                 computerConfiguration.description = $("#description").val();
                 computerConfiguration.slug = $("#slug").val();
 
@@ -339,7 +339,7 @@
                     return alert("Should be have 3 images");
 
                 formData.append("title", computerConfiguration.title);
-                formData.append("purchaseOrderPrice", computerConfiguration.purchaseOrderPrice);
+                // formData.append("purchaseOrderPrice", computerConfiguration.purchaseOrderPrice);
                 formData.append("description", computerConfiguration.description);
                 formData.append("slug", computerConfiguration.slug);
                 formData.append("configurationDetail", JSON.stringify(computerConfiguration.configurationDetail));
