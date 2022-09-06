@@ -71,8 +71,8 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label for="branch">Laptop Branch</label>
-                                                <input id="branch" name="branch" type="text" class="form-control">
+                                                <label for="brand">Laptop Branch</label>
+                                                <input id="brand" name="brand" type="text" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label for="model">Laptop Model</label>
@@ -200,7 +200,7 @@
             page.elements.explanation = $('#explanation');
             page.elements.multiline = $('#multiline');
 
-            page.elements.branch = $('#branch');
+            page.elements.brand = $('#brand');
             page.elements.model = $('#model');
             page.elements.description = $("#description");
 
@@ -208,7 +208,7 @@
 
             let computerConfiguration = {
                 id: null,
-                branch: null,
+                brand: null,
                 model: null,
                 title: null,
                 description : null,
@@ -271,9 +271,9 @@
             }
 
             page.commands.createProduct = () => {
-                computerConfiguration.branch = page.elements.branch.val().trim();
+                computerConfiguration.brand = page.elements.brand.val().trim();
                 computerConfiguration.model = page.elements.model.val().trim()
-                computerConfiguration.title = page.elements.branch.val().trim() + " " + page.elements.model.val().trim();
+                computerConfiguration.title = page.elements.brand.val().trim() + " " + page.elements.model.val().trim();
                 computerConfiguration.description = page.elements.description.val();
 
                 $.each(computerConfiguration.configurationDetail, function (key, value) {
@@ -285,7 +285,7 @@
 
                 let fileInput = $('#imageFile')[0].files;
 
-                formData.append("branch", computerConfiguration.branch);
+                formData.append("brand", computerConfiguration.brand);
                 formData.append("model", computerConfiguration.model);
                 formData.append("title", computerConfiguration.title);
                 formData.append("description", computerConfiguration.description);
@@ -300,11 +300,11 @@
                     contentType: false,
                     cache: false,
                     processData: false,
-                    url: "http://localhost:8080/api/products",
+                    url: page.urls.doCreate,
                     data: formData
                 })
                 .done((data) => {
-                    console.log("done");
+                    App.SweetAleart.showSuccessAlert("Tạo Sản Phẩm Thành Công");
                 })
                 .fail((jqXHR) => {
                     console.log(jqXHR);
