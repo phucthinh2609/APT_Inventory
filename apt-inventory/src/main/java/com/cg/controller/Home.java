@@ -128,4 +128,11 @@ public class Home {
         return modelAndView;
     }
 
+    @GetMapping("/demo")
+    public ModelAndView showBlogListPagee() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("demoImage");
+        return modelAndView;
+    }
+
 }
