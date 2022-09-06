@@ -32,7 +32,7 @@ public class Product {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    private String branch;
+    private String brand;
 
     private String model;
 
@@ -75,7 +75,7 @@ public class Product {
     public ProductDTO toProductDTO() {
         return new ProductDTO()
                 .setId(id)
-                .setBranch(branch)
+                .setBrand(brand)
                 .setModel(model)
                 .setTitle(title)
                 .setPurchaseOrderPrice(purchaseOrderPrice)

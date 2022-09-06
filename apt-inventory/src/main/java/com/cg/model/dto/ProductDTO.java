@@ -21,7 +21,7 @@ import java.util.List;
 public class ProductDTO implements Serializable {
 
     private String id;
-    private String branch;
+    private String brand;
     private String model;
     private String title;
     private String slug;
@@ -62,7 +62,7 @@ public class ProductDTO implements Serializable {
     public Product toProduct() {
         return new Product()
                 .setId(id)
-                .setBranch(branch)
+                .setBrand(brand)
                 .setModel(model)
                 .setTitle(title)
                 .setSlug(slug)
