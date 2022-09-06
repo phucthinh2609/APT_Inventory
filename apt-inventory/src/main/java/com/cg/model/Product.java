@@ -34,6 +34,8 @@ public class Product {
 
     private String title;
 
+    private String slug;
+
     @Digits(integer = 12, fraction = 0)
     @Column(name = "purchase_order_price")
     private BigDecimal purchaseOrderPrice;
