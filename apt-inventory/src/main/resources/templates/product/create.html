@@ -71,15 +71,20 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label for="metatitle">Title</label>
-                                                <input id="metatitle" name="productname" type="text" class="form-control">
+                                                <label for="firmName">Firm name</label>
+                                                <input id="firmName" name="firmName" type="text" class="form-control">
                                             </div>
                                             <div class="form-group">
-                                                <label for="metakeywords">Description</label>
-                                                <input id="metakeywords" name="manufacturername" type="text" class="form-control">
+                                                <label for="laptopName">Laptop name</label>
+                                                <input id="laptopName" name="laptopName" type="text" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description">Description</label>
+                                                <input id="description" name="description" type="text" class="form-control">
                                             </div>
                                         </div>
                                     </div>
+                                    <input type="file" id="imageFile" accept="image/jpeg, image/png" required multiple />
                                 </form>
 
                                 <div class="form-group">
@@ -109,71 +114,23 @@
                                         <h4 class="card-title">Tech specs</h4>
                                     </div>
                                     <div class="col-sm-8 text-sm-right">
-                                        <button type="button" id="btnCreateTechSpec" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 mr-2 ">
+                                        <button type="button" id="btnShowTechSpecForm" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 mr-2 ">
                                             <i class="mdi mdi-plus mr-1"></i>
                                             Add New Spec
                                         </button>
                                     </div>
                                 </div>
 
-
                                 <div class="row">
                                     <div class="container-fluid">
-                                        <div class="form-group row mb-4">
-                                            <label class="col-form-label col-lg-1">CPU : </label>
-                                            <div class="col-lg-11">
-                                                <input name="productname" type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4">
-                                            <label class="col-form-label col-lg-1">RAM : </label>
-                                            <div class="col-lg-11">
-                                                <input name="productname" type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4">
-                                            <label class="col-form-label col-lg-1">Color : </label>
-                                            <div class="col-lg-11">
-                                                <input name="productname" type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4">
-                                            <label class="col-form-label col-lg-1">Display : </label>
-                                            <div class="col-lg-11">
-                                                <input name="productname" type="text" class="form-control">
-                                            </div>
-                                        </div>
+                                        <form id="frmInputTechSpec">
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- start blog form -->
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title mb-4">Create New Task</h4>
-                                <form class="outer-repeater">
-                                    <div data-repeater-list="outer-group" class="outer">
-                                        <div data-repeater-item="" class="outer">
-                                            <div class="form-group row mb-4">
-                                                <label for="taskname2" class="col-form-label col-lg-12">Task Name</label>
-                                                <div class="col-lg-12">
-                                                    <input id="taskname2" name="taskname" type="text" class="form-control" placeholder="Enter Task Name...">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-4">
-                                                <label class="col-form-label col-lg-12">Task Description</label>
-                                                <div class="col-lg-12">
-                                                    <div class="summernote">Hello Summernote</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Save</button>
+                        <button type="submit" id="btnCreateProduct" class="btn btn-primary mr-1 waves-effect waves-light">Save</button>
                         <button type="submit" class="btn btn-secondary waves-effect">Cancel</button>
 
                     </div>
@@ -212,8 +169,206 @@
 
 
         <script>
-            $('#btnCreateTechSpec').on('click', () => {
-                $('#mdCreateTechSpec').modal('show');
+
+            let page = {
+                urls: {
+                    getAllComputerConfigurationParameters: App.BASER_URL + "/v1/computer-configuration-parameters",
+                    createComputerConfigurationParameter: App.BASER_URL + "/v1/computer-configuration-parameters",
+                    doCreate: App.BASER_URL + "/products"
+
+                },
+                elements: {
+                },
+                loadData: {},
+                commands: {},
+                dialogs: {
+                    elements: {},
+                    commands: {},
+                    alertDanger: {}
+                },
+            }
+
+            page.elements.btnCreateTechSpec = $('#btnCreateTechSpec');
+            page.elements.btnShowTechSpecForm = $('#btnShowTechSpecForm');
+            page.elements.btnCreateProduct = $('#btnCreateProduct');
+
+            page.elements.modalCreateTechSpec = $('#mdCreateTechSpec');
+
+            page.elements.frmInputTechSpec = $('#frmInputTechSpec');
+
+            page.elements.name = $('#techSpecName');
+            page.elements.explanation = $('#explanation');
+            page.elements.multiline = $('#multiline');
+
+            page.elements.firmName = $('#firmName');
+            page.elements.laptopName = $('#laptopName');
+            page.elements.description = $("#description");
+
+            let computerConfigurationParameters = [];
+
+            let computerConfiguration = {
+                id: null,
+                title: null,
+                description : null,
+                slug:null,
+                purchaseOrderPrice: null,
+                configurationDetail: {}
+            }
+
+            page.commands.getAllComputerConfigurationParameters = () => {
+                return $.ajax({
+                    headers: {
+                        "accept": "application/json",
+                        "content-type": "application/json"
+                    },
+                    type: "GET",
+                    url: page.urls.getAllComputerConfigurationParameters,
+                })
+                .done((data) => {
+                    computerConfigurationParameters = data;
+                })
+                .fail((jqXHR) => {
+
+                });
+            }
+
+            page.commands.createTechSpec = () => {
+                let computerConfigurationParameter = {
+                    id: 0,
+                    name: null,
+                    explanation: null,
+                    multiline: false
+                }
+
+                computerConfigurationParameter.name = page.elements.name.val();
+                computerConfigurationParameter.explanation = page.elements.explanation.val();
+                computerConfigurationParameter.multiline = page.elements.multiline.val();
+
+                $.ajax({
+                    headers: {
+                        "accept": "application/json",
+                        "content-type": "application/json"
+                    },
+                    type: "POST",
+                    url: page.urls.createComputerConfigurationParameter,
+                    data: JSON.stringify(computerConfigurationParameter)
+                })
+                .done((data) => {
+                    console.log(data);
+                    page.elements.modalCreateTechSpec.modal('hide');
+                    page.elements.name.val("")
+                    page.elements.explanation.val("");
+                    let str = App.renderInputTechSpecForm(data);
+                    page.elements.frmInputTechSpec.append(str);
+                    App.SweetAleart.showSuccessAlert("Tạo Thông Số Thành Công");
+                })
+                .fail((jqXHR) => {
+                    console.log(jqXHR)
+                });
+
+            }
+
+
+            page.initializeControlEvent = () => {
+                page.elements.btnShowTechSpecForm.on('click', () => {
+                    page.elements.modalCreateTechSpec.modal('show');
+                });
+
+                page.elements.btnCreateTechSpec.on('click', () => {
+                    page.commands.createTechSpec();
+                })
+            }
+
+            $(() => {
+                let lines = 1, maxLines = 5;
+
+                function limitLines(obj, e) {
+                    if (e.keyCode === 13) {
+                        if (obj.rows < maxLines) {
+                            lines++;
+                            $(obj).attr('rows', lines);
+                        }
+                    }
+                }
+
+                function resetLines(obj) {
+                    if ($(obj).val().length === 0) {
+                        lines = 1;
+                        $(obj).attr('rows', lines);
+                    }
+                }
+
+                page.commands.getAllComputerConfigurationParameters().then(() => {
+                    $.each(computerConfigurationParameters, (i, item) => {
+
+                        let key = item.name;
+                        let obj = {}
+
+                        obj[key] = {
+                            explanation: item.explanation
+                        }
+
+                        computerConfiguration.configurationDetail[key] = obj[key];
+
+                        let str = App.renderInputTechSpecForm(item);
+                        let frmInputTechSpec = $('#frmInputTechSpec');
+                        frmInputTechSpec.append(str);
+
+                        let textarea = $('textarea');
+
+                        textarea.on("keydown", function (e) {
+                            return limitLines(this, e);
+                        });
+
+                        textarea.on("input", function () {
+                            return resetLines(this);
+                        });
+                    })
+                });
+
+                page.initializeControlEvent();
+
+            })
+
+            page.commands.createProduct = () => {
+                computerConfiguration.title = page.elements.firmName.val().trim() + " " + page.elements.laptopName.val().trim();
+                computerConfiguration.description = page.elements.description.val();
+
+                $.each(computerConfiguration.configurationDetail, function (key, value) {
+                    computerConfiguration.configurationDetail[key].content = $("#" + key).val();
+                })
+                console.log(computerConfiguration);
+
+                let formData  = new FormData();
+
+                let fileInput = $('#imageFile')[0].files;
+
+                formData.append("title", computerConfiguration.title);
+                formData.append("description", computerConfiguration.description);
+                formData.append("configurationDetail", JSON.stringify(computerConfiguration.configurationDetail));
+
+                fileInput.forEach((file) => {
+                    formData.append("files", file);
+                })
+
+                $.ajax({
+                    type: "POST",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    url: "http://localhost:8080/api/products",
+                    data: formData
+                })
+                .done((data) => {
+                    console.log("done");
+                })
+                .fail((jqXHR) => {
+                    console.log(jqXHR);
+                })
+            }
+
+            page.elements.btnCreateProduct.on('click',() => {
+                page.commands.createProduct();
             })
 
         </script>

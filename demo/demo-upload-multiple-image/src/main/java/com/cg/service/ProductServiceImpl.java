@@ -4,7 +4,6 @@ package com.cg.service;
 import com.cg.exception.DataInputException;
 import com.cg.model.Product;
 import com.cg.model.ProductMedia;
-import com.cg.model.dto.IProductDTO;
 import com.cg.model.dto.ProductDTO;
 import com.cg.model.enums.FileType;
 import com.cg.repository.ProductMediaRepository;
@@ -43,10 +42,10 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll();
     }
 
-    @Override
-    public Iterable<IProductDTO> findAllIProductDTO() {
-        return productRepository.findAllIProductDTO();
-    }
+//    @Override
+//    public Iterable<IProductMediaDTO> findAllIProductDTO() {
+//        return productRepository.findAllIProductDTO();
+//    }
 
     @Override
     public Optional<Product> findById(String id) {
@@ -85,10 +84,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-    @Override
-    public Iterable<IProductDTO> findIProductDTOById(String id) {
-        return productRepository.findIProductDTOById(id);
-    }
+//    @Override
+//    public Iterable<IProductMediaDTO> findIProductDTOById(String id) {
+//        return productRepository.findIProductDTOById(id);
+//    }
 
     private void uploadAndSaveProductImage(ProductDTO productDTO, Product product, ProductMedia productMedia) {
         try {

@@ -2,7 +2,6 @@ package com.cg.service;
 
 
 import com.cg.model.ProductMedia;
-import com.cg.model.dto.ProductMediaDTO;
 import com.cg.repository.ProductMediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,12 @@ public class ProductMediaServiceImpl implements ProductMediaService {
     }
 
     @Override
-    public List<ProductMediaDTO> findAllByProductId(String productId) {
+    public Iterable<ProductMedia> findAllByOrderByProductIdAsc() {
+        return productMediaRepository.findAllByOrderByProductIdAsc();
+    }
+
+    @Override
+    public Iterable<ProductMedia> findAllByProductId(String productId) {
         return productMediaRepository.findAllByProductId(productId);
     }
 
@@ -37,4 +41,6 @@ public class ProductMediaServiceImpl implements ProductMediaService {
     public void delete(ProductMedia productMedia) {
         productMediaRepository.delete(productMedia);
     }
+
+
 }

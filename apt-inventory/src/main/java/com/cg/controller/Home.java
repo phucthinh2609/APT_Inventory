@@ -114,4 +114,18 @@ public class Home {
         return modelAndView;
     }
 
+    @GetMapping("/blogs/create")
+    public ModelAndView showCreateBlogPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("blog/create");
+        return modelAndView;
+    }
+
+    @GetMapping("/blogs")
+    public ModelAndView showBlogListPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("blog/list");
+        return modelAndView;
+    }
+
 }

@@ -15,7 +15,7 @@ public class PurchaseOrder {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @Digits(integer = 12, fraction = 0)
+    @Digits(integer = 15, fraction = 0)
     @Column(name = "total_amount", nullable = false)
     private BigDecimal totalAmount;
 

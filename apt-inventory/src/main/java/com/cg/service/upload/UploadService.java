@@ -1,4 +1,4 @@
-package com.cg.service;
+package com.cg.service.upload;
 
 import org.springframework.web.multipart.MultipartFile;
 
