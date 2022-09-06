@@ -21,6 +21,8 @@ import java.util.List;
 public class ProductDTO implements Serializable {
 
     private String id;
+    private String branch;
+    private String model;
     private String title;
     private String slug;
     private BigDecimal purchaseOrderPrice;
@@ -60,6 +62,8 @@ public class ProductDTO implements Serializable {
     public Product toProduct() {
         return new Product()
                 .setId(id)
+                .setBranch(branch)
+                .setModel(model)
                 .setTitle(title)
                 .setSlug(slug)
                 .setPurchaseOrderPrice(purchaseOrderPrice)

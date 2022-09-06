@@ -10,6 +10,7 @@ import com.cg.model.enums.FileType;
 import com.cg.repository.ProductMediaRepository;
 import com.cg.repository.ProductRepository;
 import com.cg.service.upload.UploadService;
+import com.cg.utils.AppUtils;
 import com.cg.utils.UploadUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private UploadUtils uploadUtils;
+
+    @Autowired
+    private AppUtils appUtils;
 
     private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
     private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
@@ -89,8 +93,10 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         String title = (productDTO.getTitle()).trim().replaceAll("\\s+", " ") + " " + strTitle;
+        String slug = AppUtils.removeNonAlphanumeric(strTitle);
 
-
+        productDTO.setTitle(title);
+        productDTO.setSlug(slug);
 
         Product product = productRepository.save(productDTO.toProduct());
 
