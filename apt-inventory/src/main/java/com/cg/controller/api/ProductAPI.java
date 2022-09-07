@@ -56,12 +56,20 @@ public class ProductAPI {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable String id){
-        Iterable<ProductMedia> productMediaList = productMediaService.findAllByProductId(id);
+    @GetMapping("/{slug}")
+    public ResponseEntity<?> findBySlug(@PathVariable String slug){
+        Optional<Product> currentProduct = productService.findProductBySlug(slug);
+
+        if (!currentProduct.isPresent()) {
+            throw new DataInputException("Product is not found");
+        }
+
+        Iterable<ProductMedia> productMediaList = productMediaService.findAllByProductId(currentProduct.get().getId());
+
         if (productMediaList == null) {
             throw new DataInputException("Product is not found");
         }
+
         HashSet<ProductRender> productRenderList = convertToProductRender(productMediaList);
         return new ResponseEntity<>(productRenderList, HttpStatus.OK);
     }
@@ -70,6 +78,7 @@ public class ProductAPI {
     public ResponseEntity<?> create(@Validated ProductDTO productDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return appUtils.mapErrorToResponse(bindingResult);
+
         try {
             Product createdProduct = productService.create(productDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -121,12 +130,14 @@ public class ProductAPI {
                 productRender = new ProductRender();
                 fileUrls = new HashMap<>();
                 productRender.setId(productMedia.getProduct().getId());
+                productRender.setBrand(productMedia.getProduct().getBrand());
+                productRender.setModel(productMedia.getProduct().getModel());
                 productRender.setTitle(productMedia.getProduct().getTitle());
                 productRender.setPurchaseOrderPrice(productMedia.getProduct().getPurchaseOrderPrice());
                 productRender.setDescription(productMedia.getProduct().getDescription());
                 productRender.setComputerConfigurationParameters(computerConfigurationParameters);
-                productRender.setBussinessStatus(productMedia.getProduct().getBussinessStatus().getValue());
-                productRender.setBlogId(productMedia.getProduct().getBlog().getId());
+                productRender.setBusinessStatus(productMedia.getProduct().getBusinessStatus().getValue());
+//                productRender.setBlogId(productMedia.getProduct().getBlog().getId());
                 fileUrls.put(productMedia.getId(), productMedia.getFileUrl());
             }
             productRender.setFileUrls(fileUrls);
