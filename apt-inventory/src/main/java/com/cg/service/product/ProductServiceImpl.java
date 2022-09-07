@@ -80,11 +80,11 @@ public class ProductServiceImpl implements ProductService {
         String config = productDTO.getConfigurationDetail();
         String[] ary = config.split("\"content\":\"");
         String strTitle = "";
-
-        for (int i = 1;i < ary.length;i++) {
+        int length = 7;
+        for (int i = 1;i < length;i++) {
             int indexValue = ary[i].indexOf("\"");
             ary[i] = ary[i].substring(0,indexValue-1);
-            if (i != ary.length - 1) {
+            if (i != length - 1) {
                 int indexValue1 = ary[i].indexOf(",");
                 ary[i] = ary[i].substring(0,indexValue1);
                 strTitle += ary[i].trim() +"/ ";

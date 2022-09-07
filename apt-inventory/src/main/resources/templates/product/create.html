@@ -257,6 +257,13 @@
                 })
                 .done((data) => {
                     console.log(data);
+                    computerConfiguration.configurationDetail = {
+                        ...computerConfiguration.configurationDetail,
+                        [data.name] : {
+                            explanation: data.explanation
+                        }
+                    }
+                    console.log(computerConfiguration.configurationDetail);
                     page.elements.modalCreateTechSpec.modal('hide');
                     page.elements.name.val("")
                     page.elements.explanation.val("");
