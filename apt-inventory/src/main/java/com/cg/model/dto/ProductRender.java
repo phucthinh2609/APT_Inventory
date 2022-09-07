@@ -19,6 +19,7 @@ public class ProductRender {
     private String brand;
     private String model;
     private String title;
+    private String slug;
     private BigDecimal purchaseOrderPrice;
     private String description;
     private List<ComputerConfigurationParameter> computerConfigurationParameters;

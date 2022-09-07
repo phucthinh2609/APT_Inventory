@@ -3,7 +3,6 @@
 
     <head>
         <title>Product List Page</title>
-
         <!-- Meta -->
         <th:block th:replace="/layout/head/meta :: meta"/>
         <!-- App-favicon -->
@@ -78,7 +77,7 @@
                                         </div>
 
                                         <div class="table-responsive">
-                                            <table class="table table-centered table-nowrap">
+                                            <table id="table--product" class="table table-centered table-nowrap">
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th style="width: 20px;">
@@ -95,131 +94,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                    <td>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                            <label class="custom-control-label" for="customCheck2">&nbsp;</label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <img src="/assets/images/laptop/macbook-1.jpeg" alt="product-img" title="product-img" class="avatar-md">
-                                                    </td>
-                                                    <td>MacBook Air 13 M2 2022/ Gray/ Sliver/ Starlight/ Midnight</td>
-                                                    <td>
-                                                        <span class="badge badge-pill badge-soft-success font-size-12">Selling</span>
-                                                    </td>
-                                                    <td>
-                                                        <!-- Button trigger modal -->
-                                                        <a href="/products/detail" class="btn btn-primary btn-sm btn-rounded">
-                                                            View Details
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <a href="/products/update" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                        <a href="javascript:void(0);" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="mdi mdi-close font-size-18"></i></a>
-                                                    </td>
-                                                </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                                <label class="custom-control-label" for="customCheck2">&nbsp;</label>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <img src="/assets/images/laptop/hp-1.jpeg" alt="product-img" title="product-img" class="avatar-md">
-                                                        </td>
-                                                        <td>HP Laptop 15s-fq5104TU/ i7-1255u/ RAM 8GB/ SSD 512GB</td>
-                                                        <td>
-                                                            <span class="badge badge-pill badge-soft-success font-size-12">Selling</span>
-                                                        </td>
-                                                        <td>
-                                                            <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target=".exampleModal">
-                                                                View Details
-                                                            </button>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0);" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                            <a href="javascript:void(0);" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="mdi mdi-close font-size-18"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                                <label class="custom-control-label" for="customCheck2">&nbsp;</label>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <img src="/assets/images/laptop/lenovo-1.jpeg" alt="product-img" title="product-img" class="avatar-md">
-                                                        </td>
-                                                        <td>Lenovo Legion 5 15ARH7 | 15.6 inch FHD</td>
-                                                        <td>
-                                                            <span class="badge badge-pill badge-soft-danger font-size-12">Sold out</span>
-                                                        </td>
-                                                        <td>
-                                                            <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target=".exampleModal">
-                                                                View Details
-                                                            </button>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0);" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                            <a href="javascript:void(0);" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="mdi mdi-close font-size-18"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                                <label class="custom-control-label" for="customCheck2">&nbsp;</label>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <img src="/assets/images/laptop/asus-1.jpeg" alt="product-img" title="product-img" class="avatar-md">
-                                                        </td>
-                                                        <td>ASUS TUF Gaming A15 FA506Q-SB54/ R5-5600H/ RAM 16GB/ SSD 512GB</td>
-                                                        <td>
-                                                            <span class="badge badge-pill badge-soft-success font-size-12">Selling</span>
-                                                        </td>
-                                                        <td>
-                                                            <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target=".exampleModal">
-                                                                View Details
-                                                            </button>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0);" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                            <a href="javascript:void(0);" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="mdi mdi-close font-size-18"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                                <label class="custom-control-label" for="customCheck2">&nbsp;</label>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <img src="/assets/images/laptop/msi-1.jpeg" alt="product-img" title="product-img" class="avatar-md">
-                                                        </td>
-                                                        <td>MSI GF63 Thin 10SC 468VN</td>
-                                                        <td>
-                                                            <span class="badge badge-pill badge-soft-success font-size-12">Selling</span>
-                                                        </td>
-                                                        <td>
-                                                            <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target=".exampleModal">
-                                                                View Details
-                                                            </button>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0);" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                            <a href="javascript:void(0);" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="mdi mdi-close font-size-18"></i></a>
-                                                        </td>
-                                                    </tr>
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -276,20 +151,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th scope="row">
-                                            <div>
-                                                <img src="assets\images\product\img-7.png" alt="" class="avatar-sm">
-                                            </div>
-                                        </th>
-                                        <td>
-                                            <div>
-                                                <h5 class="text-truncate font-size-14">Wireless Headphone (Black)</h5>
-                                                <p class="text-muted mb-0">$ 225 x 1</p>
-                                            </div>
-                                        </td>
-                                        <td>$ 255</td>
-                                    </tr>
+
                                     <tr>
                                         <th scope="row">
                                             <div>
@@ -345,10 +207,59 @@
         <th:block th:replace="/layout/right-bar :: right-bar"/>
         <!-- End right-bar -->
 
-        <!-- JAVASCRIPT -->
+         JAVASCRIPT
         <th:block th:replace="/layout/script/javascript :: javascript"/>
         <!-- App js -->
         <th:block th:replace="/layout/script/app-js :: app-js"/>
-    </body>
 
+        <script>
+            let page = {
+                urls: {
+                    getAllProduct: App.BASER_URL + "/products"
+                },
+                elements: {
+                },
+                loadData: {},
+                commands: {},
+                dialogs: {
+                    elements: {},
+                    commands: {},
+                    alertDanger: {}
+                },
+            }
+
+            page.elements.tbodyProduct = $('#table--product tbody');
+
+            let products = [];
+            page.commands.getAllProduct = () => {
+                return $.ajax({
+                    headers: {
+                        "accept": "application/json",
+                        "content-type": "application/json"
+                    },
+                    type: "GET",
+                    url: page.urls.getAllProduct,
+                })
+                .done((data) => {
+                    console.log(data);
+                    products = data;
+                })
+                .fail((jqXHR) => {
+                    console.log(jqXHR)
+                });
+            }
+
+            $(() => {
+                page.commands.getAllProduct().then(() => {
+                    $.each(products, (i, item) => {
+                        let str = App.renderProduct(item);
+                        page.elements.tbodyProduct.append(str);
+                    })
+                });
+
+            })
+        </script>
+
+
+    </body>
 </html>

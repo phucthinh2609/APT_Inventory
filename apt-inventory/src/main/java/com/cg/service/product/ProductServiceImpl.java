@@ -99,6 +99,7 @@ public class ProductServiceImpl implements ProductService {
         productDTO.setTitle(title);
         productDTO.setSlug(slug);
         productDTO.setBusinessStatus(EBussinessStatus.NEW_RELEASES);
+
         Product product = productRepository.save(productDTO.toProduct());
 
         for (MultipartFile file : fileList) {

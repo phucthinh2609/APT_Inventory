@@ -19,6 +19,10 @@
         <!-- Main -->
         <th:block th:replace="/layout/head/main :: main"/>
 
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Custom css -->
+        <th:block th:replace="/layout/head/custom-css :: custom-css"/>
+
     </head>
 
     <body data-sidebar="dark">
@@ -90,7 +94,7 @@
                                     <label >Image</label>
                                     <input type="file" id="imageFile" accept="image/jpeg, image/png" required multiple />
 
-                                    <form action="/" method="post" class="dropzone dz-clickable form-group">
+                                    <form action="/upload" method="post" class="dropzone dz-clickable form-group">
 
 <!--                                        <div class="dz-message needsclick">-->
 <!--                                            <div class="mb-3">-->
@@ -136,10 +140,18 @@
                     </div>
                     <!-- container-fluid -->
                 </div>
+
+                <!-- Footer Start -->
+                <footer class="footer">
+                    <th:block th:replace="/layout/head/error-collapse"/>
+                </footer>
+                <!-- End Footer -->
             </div>
             <!-- End Page-content -->
         </div>
         <!-- END layout-wrapper -->
+
+        <div class="loader hide"></div>
 
         <!-- Right Sidebar -->
         <th:block th:replace="/layout/right-bar :: right-bar"/>
@@ -188,6 +200,8 @@
                 },
             }
 
+            page.elements.loader = $(".loader");
+
             page.elements.btnCreateTechSpec = $('#btnCreateTechSpec');
             page.elements.btnShowTechSpecForm = $('#btnShowTechSpecForm');
             page.elements.btnCreateProduct = $('#btnCreateProduct');
@@ -203,6 +217,10 @@
             page.elements.brand = $('#brand');
             page.elements.model = $('#model');
             page.elements.description = $("#description");
+
+            page.elements.footerAccordion = $(".footer section.accordion");
+            page.elements.footerContent = $(".footer section.accordion .content");
+            page.elements.accordionCollapse = $('input[name=collapse]');
 
             let computerConfigurationParameters = [];
 
@@ -263,7 +281,6 @@
                             explanation: data.explanation
                         }
                     }
-                    console.log(computerConfiguration.configurationDetail);
                     page.elements.modalCreateTechSpec.modal('hide');
                     page.elements.name.val("")
                     page.elements.explanation.val("");
@@ -272,42 +289,23 @@
                     App.SweetAleart.showSuccessAlert("Tạo Thông Số Thành Công");
                 })
                 .fail((jqxHR) => {
-                        console.log(jqxHR);
-                        page.dialogs.alertDanger.modalUpdate.html("").removeClass("hide").addClass("show");
-
-                        if (jqxHR.status === 401) {
-                            let msg = App.ERROR_401;
-                            str = `<label id="message-error" class="error" for="message">${msg}</label>`
-
-                            page.dialogs.alertDanger.modalUpdate.append(str);
-                        } else {
-                            if (jqxHR.status === 403) {
-                                let msg = App.ERROR_403;
-                                str = `<label id="message-error" class="error" for="message">${msg}</label>`
-
-                                page.dialogs.alertDanger.modalUpdate.append(str);
-                            } else {
-                                let str = "";
-
-                                if (jqxHR.responseJSON.message) {
-                                    let msg = jqxHR.responseJSON.message;
-
-                                    str = `<label id="message-error" class="error" for="message">${msg}</label>`
-
-                                    page.dialogs.alertDanger.modalUpdate.append(str);
-                                }else if (jqxHR.responseJSON){
-                                    $.each(jqxHR.responseJSON, (key, item) => {
-                                        str = `<label id="message-error" class="error" for="${key}">${item}</label>`
-                                        page.dialogs.alertDanger.modalUpdate.append(str);
-                                    })
-                                }
-                            }
-                        }
+                    console.log(jqxHR);
+                    $.each(jqxHR.responseJSON, (key, item) => {
+                        App.IziToast.showErrorAlert(item)
                     })
+                })
 
             }
 
             page.commands.createProduct = () => {
+                page.elements.loader.removeClass("hide");
+                page.elements.footerAccordion.removeClass("show").addClass("hide");
+                page.elements.footerContent.empty();
+                page.elements.accordionCollapse.prop("checked", false);
+                page.elements.btnCreateProduct.prop('disabled', true);
+
+                page.elements.loader.removeClass("hide");
+
                 computerConfiguration.brand = page.elements.brand.val().trim();
                 computerConfiguration.model = page.elements.model.val().trim();
                 computerConfiguration.title = page.elements.brand.val().trim() + " " + page.elements.model.val().trim();
@@ -340,13 +338,57 @@
                     data: formData
                 })
                 .done((data) => {
+                    page.elements.brand.val("");
+                    page.elements.model.val("");
+                    page.elements.brand.val("");
+                    page.elements.model.val("");
+                    page.elements.description.val("");
+
+                    $.each(computerConfiguration.configurationDetail, function (key, value) {
+                        computerConfiguration.configurationDetail[key].content = $("#" + key).val("");
+                    })
+
                     App.SweetAleart.showSuccessAlert("Tạo Sản Phẩm Thành Công");
                 })
                 .fail((jqxHR) => {
-                    $.each(jqxHR.responseJSON, (key, item) => {
-                        App.IziToast.showErrorAlert(item)
-                    })
+                    console.log(jqxHR)
+                    App.IziToast.showErrorAlert(App.ERROR_400)
+
+                    page.elements.footerAccordion.removeClass("hide").addClass("show");
+                    page.elements.footerContent.empty();
+                    page.elements.accordionCollapse.prop("checked", true);
+
+                    let str = ``;
+
+                    if (jqxHR.status === 401) {
+                        str += `<label id="message-error" class="error">${App.ERROR_401}</label>`;
+                    } else {
+                        if (jqxHR.status === 403) {
+                            str += `<label id="message-error" class="error">${App.ERROR_403}</label>`;
+                        } else {
+                            if (jqxHR.responseJSON) {
+                                if (jqxHR.responseJSON.message) {
+                                    str += `<label id="message-error" class="error" for="message">${jqxHR.responseJSON.message}</label>`;
+                                } else {
+                                    $.each(jqxHR.responseJSON, function (key, value) {
+                                        str += `<label id="${key}-error" class="error" for="${key}">${value}</label>`;
+                                        $("#" + key).addClass("error");
+                                    });
+                                }
+                            } else {
+                                str += `<label id="message-error" class="error">${App.ERROR_500}</label>`;
+                            }
+                        }
+                    }
+
+                    console.log(str)
+
+                    page.elements.footerContent.html(str);
                 })
+                .always(function () {
+                    page.elements.loader.addClass("hide");
+                    page.elements.btnCreateProduct.prop('disabled', false);
+                });
             }
 
             page.initializeControlEvent = () => {
