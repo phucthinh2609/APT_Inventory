@@ -263,7 +263,6 @@
                             explanation: data.explanation
                         }
                     }
-                    console.log(computerConfiguration.configurationDetail);
                     page.elements.modalCreateTechSpec.modal('hide');
                     page.elements.name.val("")
                     page.elements.explanation.val("");
@@ -272,38 +271,11 @@
                     App.SweetAleart.showSuccessAlert("Tạo Thông Số Thành Công");
                 })
                 .fail((jqxHR) => {
-                        console.log(jqxHR);
-                        page.dialogs.alertDanger.modalUpdate.html("").removeClass("hide").addClass("show");
-
-                        if (jqxHR.status === 401) {
-                            let msg = App.ERROR_401;
-                            str = `<label id="message-error" class="error" for="message">${msg}</label>`
-
-                            page.dialogs.alertDanger.modalUpdate.append(str);
-                        } else {
-                            if (jqxHR.status === 403) {
-                                let msg = App.ERROR_403;
-                                str = `<label id="message-error" class="error" for="message">${msg}</label>`
-
-                                page.dialogs.alertDanger.modalUpdate.append(str);
-                            } else {
-                                let str = "";
-
-                                if (jqxHR.responseJSON.message) {
-                                    let msg = jqxHR.responseJSON.message;
-
-                                    str = `<label id="message-error" class="error" for="message">${msg}</label>`
-
-                                    page.dialogs.alertDanger.modalUpdate.append(str);
-                                }else if (jqxHR.responseJSON){
-                                    $.each(jqxHR.responseJSON, (key, item) => {
-                                        str = `<label id="message-error" class="error" for="${key}">${item}</label>`
-                                        page.dialogs.alertDanger.modalUpdate.append(str);
-                                    })
-                                }
-                            }
-                        }
+                    console.log(jqxHR);
+                    $.each(jqxHR.responseJSON, (key, item) => {
+                        App.IziToast.showErrorAlert(item)
                     })
+                })
 
             }
 
