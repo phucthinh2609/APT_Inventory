@@ -96,14 +96,9 @@ public class ProductServiceImpl implements ProductService {
         }
         String title = (productDTO.getTitle()).trim().replaceAll("\\s+", " ") + " " + strTitle;
         String slug = AppUtils.removeNonAlphanumeric(title);
-
-<<<<<<< HEAD
         productDTO.setTitle(title);
         productDTO.setSlug(slug);
-        productDTO.setBusinessStatus(EBussinessStatus.NEW_ARRIVAL);
-
-=======
->>>>>>> 95f52e4a81edff0bf05133929ca5edef0ae44a74
+        productDTO.setBusinessStatus(EBussinessStatus.NEW_RELEASES);
         Product product = productRepository.save(productDTO.toProduct());
 
         for (MultipartFile file : fileList) {
