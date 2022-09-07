@@ -71,8 +71,8 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label for="branch">Laptop Branch</label>
-                                                <input id="branch" name="branch" type="text" class="form-control">
+                                                <label for="brand">Laptop Brand</label>
+                                                <input id="brand" name="brand" type="text" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label for="model">Laptop Model</label>
@@ -84,21 +84,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="file" id="imageFile" accept="image/jpeg, image/png" required multiple />
                                 </form>
 
                                 <div class="form-group">
-                                    <label for="metakeywords">Image</label>
+                                    <label >Image</label>
+                                    <input type="file" id="imageFile" accept="image/jpeg, image/png" required multiple />
 
-                                    <form action="/" method="post" class="dropzone dz-clickable form-group">
+                                    <form action="/upload" method="post" class="dropzone dz-clickable form-group">
 
-                                        <div class="dz-message needsclick">
-                                            <div class="mb-3">
-                                                <i class="display-4 text-muted bx bxs-cloud-upload"></i>
-                                            </div>
+<!--                                        <div class="dz-message needsclick">-->
+<!--                                            <div class="mb-3">-->
+<!--                                                <i class="display-4 text-muted bx bxs-cloud-upload"></i>-->
+<!--                                            </div>-->
 
-                                            <h4>Drop files here or click to upload.</h4>
-                                        </div>
+<!--                                            <h4>Drop files here or click to upload.</h4>-->
+<!--                                        </div>-->
                                     </form>
                                 </div>
                             </div>
@@ -200,7 +200,7 @@
             page.elements.explanation = $('#explanation');
             page.elements.multiline = $('#multiline');
 
-            page.elements.branch = $('#branch');
+            page.elements.brand = $('#brand');
             page.elements.model = $('#model');
             page.elements.description = $("#description");
 
@@ -208,7 +208,7 @@
 
             let computerConfiguration = {
                 id: null,
-                branch: null,
+                brand: null,
                 model: null,
                 title: null,
                 description : null,
@@ -230,7 +230,7 @@
                     computerConfigurationParameters = data;
                 })
                 .fail((jqXHR) => {
-
+                    console.log(jqXHR)
                 });
             }
 
@@ -264,28 +264,57 @@
                     page.elements.frmInputTechSpec.append(str);
                     App.SweetAleart.showSuccessAlert("Tạo Thông Số Thành Công");
                 })
-                .fail((jqXHR) => {
-                    console.log(jqXHR)
-                });
+                .fail((jqxHR) => {
+                        console.log(jqxHR);
+                        page.dialogs.alertDanger.modalUpdate.html("").removeClass("hide").addClass("show");
+
+                        if (jqxHR.status === 401) {
+                            let msg = App.ERROR_401;
+                            str = `<label id="message-error" class="error" for="message">${msg}</label>`
+
+                            page.dialogs.alertDanger.modalUpdate.append(str);
+                        } else {
+                            if (jqxHR.status === 403) {
+                                let msg = App.ERROR_403;
+                                str = `<label id="message-error" class="error" for="message">${msg}</label>`
+
+                                page.dialogs.alertDanger.modalUpdate.append(str);
+                            } else {
+                                let str = "";
+
+                                if (jqxHR.responseJSON.message) {
+                                    let msg = jqxHR.responseJSON.message;
+
+                                    str = `<label id="message-error" class="error" for="message">${msg}</label>`
+
+                                    page.dialogs.alertDanger.modalUpdate.append(str);
+                                }else if (jqxHR.responseJSON){
+                                    $.each(jqxHR.responseJSON, (key, item) => {
+                                        str = `<label id="message-error" class="error" for="${key}">${item}</label>`
+                                        page.dialogs.alertDanger.modalUpdate.append(str);
+                                    })
+                                }
+                            }
+                        }
+                    })
 
             }
 
             page.commands.createProduct = () => {
-                computerConfiguration.branch = page.elements.branch.val().trim();
+                computerConfiguration.brand = page.elements.brand.val().trim();
                 computerConfiguration.model = page.elements.model.val().trim()
-                computerConfiguration.title = page.elements.branch.val().trim() + " " + page.elements.model.val().trim();
+                computerConfiguration.title = page.elements.brand.val().trim() + " " + page.elements.model.val().trim();
                 computerConfiguration.description = page.elements.description.val();
 
                 $.each(computerConfiguration.configurationDetail, function (key, value) {
                     computerConfiguration.configurationDetail[key].content = $("#" + key).val();
                 })
-                console.log(computerConfiguration);
 
                 let formData  = new FormData();
 
                 let fileInput = $('#imageFile')[0].files;
 
-                formData.append("branch", computerConfiguration.branch);
+                formData.append("brand", computerConfiguration.brand);
                 formData.append("model", computerConfiguration.model);
                 formData.append("title", computerConfiguration.title);
                 formData.append("description", computerConfiguration.description);
@@ -300,14 +329,26 @@
                     contentType: false,
                     cache: false,
                     processData: false,
-                    url: "http://localhost:8080/api/products",
+                    url: page.urls.doCreate,
                     data: formData
                 })
                 .done((data) => {
-                    console.log("done");
+                    page.elements.brand.val("");
+                    page.elements.model.val("");
+                    page.elements.brand.val("");
+                    page.elements.model.val("");
+                    page.elements.description.val("");
+
+                    $.each(computerConfiguration.configurationDetail, function (key, value) {
+                        computerConfiguration.configurationDetail[key].content = $("#" + key).val("");
+                    })
+
+                    App.SweetAleart.showSuccessAlert("Tạo Sản Phẩm Thành Công");
                 })
-                .fail((jqXHR) => {
-                    console.log(jqXHR);
+                .fail((jqxHR) => {
+                    $.each(jqxHR.responseJSON, (key, item) => {
+                        App.IziToast.showErrorAlert(item)
+                    })
                 })
             }
 

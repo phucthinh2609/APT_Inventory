@@ -299,4 +299,74 @@
         <th:block th:replace="/layout/script/app-js :: app-js"/>
     </body>
 
+    <script>
+
+        let page = {
+            urls: {
+                getProductBySlug: App.BASER_URL + "/products/",
+            },
+            elements: {
+            },
+            loadData: {},
+            commands: {},
+            dialogs: {
+                elements: {},
+                commands: {},
+                alertDanger: {}
+            },
+        }
+
+        page.elements.btnCreateTechSpec = $('#btnCreateTechSpec');
+        page.elements.btnShowTechSpecForm = $('#btnShowTechSpecForm');
+        page.elements.btnCreateProduct = $('#btnCreateProduct');
+
+
+        let computerConfigurationParameters = [];
+
+        let computerConfiguration = {
+            id: null,
+            brand: null,
+            model: null,
+            title: null,
+            description : null,
+            slug:null,
+            purchaseOrderPrice: null,
+            configurationDetail: {}
+        }
+
+        page.commands.getAllComputerConfigurationParameters = () => {
+            return $.ajax({
+                headers: {
+                    "accept": "application/json",
+                    "content-type": "application/json"
+                },
+                type: "GET",
+                url: page.urls.getAllComputerConfigurationParameters,
+            })
+            .done((data) => {
+                computerConfigurationParameters = data;
+            })
+            .fail((jqxHR) => {
+                $.each(jqxHR.responseJSON, (key, item) => {
+                    App.IziToast.showErrorAlert(item)
+                })
+            })
+        }
+
+
+        page.initializeControlEvent = () => {
+            page.elements.btnShowTechSpecForm.on('click', () => {
+                page.elements.modalCreateTechSpec.modal('show');
+            });
+
+        }
+
+        $(() => {
+
+            page.initializeControlEvent();
+
+        })
+
+    </script>
+
 </html>
