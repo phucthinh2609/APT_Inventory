@@ -46,15 +46,15 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private AppUtils appUtils;
 
-    private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
-    private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
-
-    public static String toSlug(String input) {
-        String noWhitespace = WHITESPACE.matcher(input).replaceAll("-");
-        String normalized = Normalizer.normalize(noWhitespace, Normalizer.Form.NFD);
-        String slug = NONLATIN.matcher(normalized).replaceAll("");
-        return slug.toLowerCase(Locale.ENGLISH);
-    }
+//    private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
+//    private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
+//
+//    public static String toSlug(String input) {
+//        String noWhitespace = WHITESPACE.matcher(input).replaceAll("-");
+//        String normalized = Normalizer.normalize(noWhitespace, Normalizer.Form.NFD);
+//        String slug = NONLATIN.matcher(normalized).replaceAll("");
+//        return slug.toLowerCase(Locale.ENGLISH);
+//    }
 
 
     @Override
@@ -68,6 +68,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Optional<Product> findProductBySlug(String slug) {
+        return productRepository.findProductBySlug(slug);
+    }
+
+    @Override
     public Product create(ProductDTO productDTO) {
 
         List<MultipartFile> fileList = productDTO.getFiles();
@@ -75,7 +80,6 @@ public class ProductServiceImpl implements ProductService {
         String config = productDTO.getConfigurationDetail();
         String[] ary = config.split("\"content\":\"");
         String strTitle = "";
-        String strSlug ="";
 
         for (int i = 1;i < ary.length;i++) {
             int indexValue = ary[i].indexOf("\"");
@@ -84,19 +88,18 @@ public class ProductServiceImpl implements ProductService {
                 int indexValue1 = ary[i].indexOf(",");
                 ary[i] = ary[i].substring(0,indexValue1);
                 strTitle += ary[i].trim() +"/ ";
-                strSlug += ary[i].trim() + " ";
             }else {
                 int indexValue1 = ary[i].indexOf(",");
                 ary[i] = ary[i].substring(0,indexValue1);
                 strTitle += ary[i].trim();
-                strSlug += ary[i].trim();
             }
         }
         String title = (productDTO.getTitle()).trim().replaceAll("\\s+", " ") + " " + strTitle;
-        String slug = AppUtils.removeNonAlphanumeric(strTitle);
+        String slug = AppUtils.removeNonAlphanumeric(title);
 
         productDTO.setTitle(title);
         productDTO.setSlug(slug);
+        productDTO.setBusinessStatus(EBussinessStatus.NEW_ARRIVAL);
 
         Product product = productRepository.save(productDTO.toProduct());
 

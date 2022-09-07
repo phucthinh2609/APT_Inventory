@@ -8,6 +8,7 @@ import org.springframework.validation.FieldError;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @Component
@@ -38,7 +39,7 @@ public class AppUtils {
         }
         while (str.contains("--"));
 
-        return str.trim().toLowerCase();
+        return str.trim().toLowerCase(Locale.ENGLISH);
     }
 
 }

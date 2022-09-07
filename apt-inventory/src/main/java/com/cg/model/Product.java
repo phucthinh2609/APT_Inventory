@@ -52,7 +52,7 @@ public class Product {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "bussiness_status", length = 25)
-    private EBussinessStatus bussinessStatus;
+    private EBussinessStatus businessStatus;
 
     @OneToMany(targetEntity = Inventory.class, mappedBy = "product", fetch = FetchType.EAGER)
     private Set<Inventory> inventories;

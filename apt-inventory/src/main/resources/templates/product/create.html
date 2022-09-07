@@ -71,7 +71,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label for="brand">Laptop Branch</label>
+                                                <label for="brand">Laptop Brand</label>
                                                 <input id="brand" name="brand" type="text" class="form-control">
                                             </div>
                                             <div class="form-group">
@@ -84,21 +84,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="file" id="imageFile" accept="image/jpeg, image/png" required multiple />
                                 </form>
 
                                 <div class="form-group">
-                                    <label for="metakeywords">Image</label>
+                                    <label >Image</label>
+                                    <input type="file" id="imageFile" accept="image/jpeg, image/png" required multiple />
 
                                     <form action="/" method="post" class="dropzone dz-clickable form-group">
 
-                                        <div class="dz-message needsclick">
-                                            <div class="mb-3">
-                                                <i class="display-4 text-muted bx bxs-cloud-upload"></i>
-                                            </div>
+<!--                                        <div class="dz-message needsclick">-->
+<!--                                            <div class="mb-3">-->
+<!--                                                <i class="display-4 text-muted bx bxs-cloud-upload"></i>-->
+<!--                                            </div>-->
 
-                                            <h4>Drop files here or click to upload.</h4>
-                                        </div>
+<!--                                            <h4>Drop files here or click to upload.</h4>-->
+<!--                                        </div>-->
                                     </form>
                                 </div>
                             </div>
@@ -230,7 +230,7 @@
                     computerConfigurationParameters = data;
                 })
                 .fail((jqXHR) => {
-
+                    console.log(jqXHR)
                 });
             }
 
@@ -264,9 +264,39 @@
                     page.elements.frmInputTechSpec.append(str);
                     App.SweetAleart.showSuccessAlert("Tạo Thông Số Thành Công");
                 })
-                .fail((jqXHR) => {
-                    console.log(jqXHR)
-                });
+                .fail((jqxHR) => {
+                        console.log(jqxHR);
+                        page.dialogs.alertDanger.modalUpdate.html("").removeClass("hide").addClass("show");
+
+                        if (jqxHR.status === 401) {
+                            let msg = App.ERROR_401;
+                            str = `<label id="message-error" class="error" for="message">${msg}</label>`
+
+                            page.dialogs.alertDanger.modalUpdate.append(str);
+                        } else {
+                            if (jqxHR.status === 403) {
+                                let msg = App.ERROR_403;
+                                str = `<label id="message-error" class="error" for="message">${msg}</label>`
+
+                                page.dialogs.alertDanger.modalUpdate.append(str);
+                            } else {
+                                let str = "";
+
+                                if (jqxHR.responseJSON.message) {
+                                    let msg = jqxHR.responseJSON.message;
+
+                                    str = `<label id="message-error" class="error" for="message">${msg}</label>`
+
+                                    page.dialogs.alertDanger.modalUpdate.append(str);
+                                }else if (jqxHR.responseJSON){
+                                    $.each(jqxHR.responseJSON, (key, item) => {
+                                        str = `<label id="message-error" class="error" for="${key}">${item}</label>`
+                                        page.dialogs.alertDanger.modalUpdate.append(str);
+                                    })
+                                }
+                            }
+                        }
+                    })
 
             }
 
@@ -279,7 +309,6 @@
                 $.each(computerConfiguration.configurationDetail, function (key, value) {
                     computerConfiguration.configurationDetail[key].content = $("#" + key).val();
                 })
-                console.log(computerConfiguration);
 
                 let formData  = new FormData();
 
@@ -306,8 +335,10 @@
                 .done((data) => {
                     App.SweetAleart.showSuccessAlert("Tạo Sản Phẩm Thành Công");
                 })
-                .fail((jqXHR) => {
-                    console.log(jqXHR);
+                .fail((jqxHR) => {
+                    $.each(jqxHR.responseJSON, (key, item) => {
+                        App.IziToast.showErrorAlert(item)
+                    })
                 })
             }
 

@@ -7,6 +7,7 @@ import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -21,18 +22,25 @@ import java.util.List;
 public class ProductDTO implements Serializable {
 
     private String id;
+
+    @NotBlank(message = "Brand is required")
+    @Size(max = 50, message = "The length of brand must be between 5 and 50 characters")
     private String brand;
+    @NotBlank(message = "Model is required")
+    @Size(max = 50, message = "The length of model must be between 5 and 50 characters")
     private String model;
+
     private String title;
     private String slug;
     private BigDecimal purchaseOrderPrice;
 
     @NotBlank(message = "Description is required")
+    @Size(max = 50, message = "The length of description must be between 5 and 50 characters")
     private String description;
 
     private String configurationDetail;
 
-    private EBussinessStatus bussinessStatus;
+    private EBussinessStatus businessStatus;
 
     private String blogId;
 
@@ -69,7 +77,7 @@ public class ProductDTO implements Serializable {
                 .setPurchaseOrderPrice(purchaseOrderPrice)
                 .setDescription(description)
                 .setConfigurationDetail(JsonToMapConverter.convertToDatabaseColumn(configurationDetail))
-                .setBussinessStatus(bussinessStatus);
+                .setBusinessStatus(businessStatus);
     }
 
     public ProductMedia toProductMedia(Product product) {
