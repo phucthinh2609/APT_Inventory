@@ -12,6 +12,8 @@ public interface ProductService {
 
     Optional<Product> findById(String id);
 
+    Optional<Product> findProductBySlug(String slug);
+
     Product create(ProductDTO productDTO);
 
     void delete(Product product) throws IOException;
