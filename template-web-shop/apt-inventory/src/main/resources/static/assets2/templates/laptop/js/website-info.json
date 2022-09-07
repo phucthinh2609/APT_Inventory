@@ -1,0 +1,7 @@
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "name": "Laptop Thanh Hương",
+  "url": "http://laptopre.vn",
+  "sameAs": ["https://www.facebook.com/ThanhHuongTechnology"]
+}

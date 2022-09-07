@@ -1,0 +1,38 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="nav-menu-mobile-tablet">
+  <nav class="navbar-expand-lg  nav-menumobiletablet">
+    <section>
+      <div class="nav-menu-toggle">
+        <i class="fas fa-bars"></i>
+        <span style="font-size: 12px;">Menu</span>
+      </div>
+    </section>
+    <a class="navbar-brand logo-tab" href="/"><img src="/assets2/templates/laptop/anh/logonew4.png" alt=""></a>
+    <a class="cart-contents navbar-toggler" href="https://laptopre.vn/gio-hang">
+      <i class="fa fa-shopping-cart"></i>
+    </a>
+    <form class="search-mobile w-100" action="https://laptopre.vn/tim-kiem">
+      <div class="input-search"> <button class="btn-mobile" type="submit"><img
+              src="/assets2/templates/laptop/anh/seachform.png" alt="icon-search"></button>
+        <input type="search" aria-label="search" class="search liveSearch" name="title"
+               placeholder="Bạn tìm gì hôm nay?">
+      </div>
+    </form>
+    <div class="searchResult">
+    </div>
+    <div class="address-branch d-flex justify-content-between w-100 d-block d-sm-none">
+      <!--<a href="https://laptopre.vn/cac-diem-ban-hang" class="d-block "> <i class="fa fa-map-marker-alt"></i>-->
+      <!--    <span>Danh sách 6 cửa hàng</span> </a> -->
+      <a data-target="#exampleModal"  data-toggle="modal" class="d-block "> <i class="fa fa-map-marker-alt"></i>
+        <span>Danh sách 6 cửa hàng</span> </a>
+
+
+
+
+
+      <a href="https://laptopre.vn/cau-hoi-thuong-gap" class="d-block "> <i class="fas fa-question"></i>
+        <span>Hotline: 0931 978 999</span> </a>
+    </div>
+  </nav>
+</th:block>

@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <th:block th:replace="/head/shortcut-icon :: shortcut-icon"/>
+  <title>Laptop rẻ - Laptop rẻ Đà Nẵng</title>
+  <th:block th:replace="/head/meta-page :: meta-page"/>
+  <!-- Og Image -->
+  <th:block th:replace="/head/meta-property-page :: meta-property-page"/>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <th:block th:replace="/head/cart/head-script-library-style :: head-script-library-style"/>
+
+  <th:block th:replace="/head/cart/head-css :: head-css"/>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet'" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+  <script src="/assets2/templates/laptop/js/script-functionality.js"></script>
+
+  <script>
+    function hideItem(id, id_nut) {
+      if ($(".hieu_" + id).is(':visible')) {
+        $(".hieu_" + id).hide();
+        document.getElementById(id_nut).innerHTML = "Hiển thị";
+      } else {
+        $(".hieu_" + id).show();
+        document.getElementById(id_nut).innerHTML = "Thu gọn";
+      }
+    }
+
+    function getQty(theForm, rowId) {
+      var qty = theForm.value;
+      var rowId = rowId;
+      $.ajax({
+        // url: "",
+        url: "https://laptopre.vn/cart/update",
+        type: 'POST',
+        cache: false,
+        data: {
+          _token: 'pWsbu3WWpo1b6H9GUgXbVYfAYY5WsuqA05OKsDWs',
+          qty: qty,
+          rowId: rowId,
+        },
+        success: function(data) {
+          $('#total-card-first').html(data);
+          $('#total-card-second').html(data);
+          $('#total-card-third').html(data);
+          $('#total-card-four').html(data);
+        },
+        error: function() {
+          console.log("Có lỗi");
+        }
+      });
+    }
+  </script>
+  <style>
+    .pttt article {
+      display: none;
+    }
+
+    .pttt article p {
+      margin-bottom: 10px;
+    }
+
+    .pttt .form-check {
+      padding: 10px 10px 10px 1.75rem;
+      background: #f6f6f6;
+      margin-bottom: 10px;
+      border: 1px solid #e1e1e1;
+    }
+
+    .pttt article.on {
+      display: block;
+      background: #f6f6f6;
+      padding: 5px 10px;
+      border: 1px solid #e1e1e1;
+      margin-top: 10px;
+    }
+  </style>
+  <meta name="google-site-verification" content="eVRCZHu_Fw8WY88Twsc045pW7nr_ngDPrKum2Fv4rSo" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-63688072-1"></script>
+  <script src="/assets2/templates/laptop/js/function-gtag.js"></script>
+  <th:block th:replace="/head/head-script :: head-script"/>
+</head>
+
+<body>
+<script>
+  dataLayer.push({
+    'event': 'Event_Checkout',
+    'remarketing_data': {
+      'ecomm_prodid': [],
+      'ecomm_totalvalue': 12900000
+    }
+  });
+</script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N58F22L"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- Start Preloader -->
+<div id="preload-block">
+  <div class="square-block"></div>
+</div>
+<!-- Preloader End -->
+
+<!-- Menu Top -->
+<th:block th:replace="/layout/menu-top :: menu-top"/>
+<!-- Kết thúc Menu Top -->
+
+<!-- Menu Bottom -->
+<th:block th:replace="/layout/menu-bottom :: menu-bottom"/>
+
+<!-- mobile and tabet -->
+<th:block th:replace="/layout/nav-menu-wrap :: nav-menu-wrap"/>
+
+<div class="nav-menu-background"></div>
+<th:block th:replace="/layout/nav-menu-mobile-tablet :: nav-menu-mobile-tablet"/>
+<!-- Modal -->
+<th:block th:replace="/layout/example-modal :: example-modal"/>
+<!-- end -->
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-lg-6">
+      <div class="yourCart top-content"><a href="/" class="buymore">Mua thêm sản
+        phẩm khác</a><span>Giỏ hàng của bạn</span>
+      </div>
+      <br>
+      <br>
+      <div class="middleCart">
+        <ul class="listing-cart mb-0">
+
+
+          <li class="product-item">
+            <div class="imgsp"><a href="javascript:void(0)"><img
+                    src="/assets2/upload/picture/picture-1660182067.png"
+                    class=" ls-is-cached lazyloaded"></a>
+            </div>
+            <div class="infosp">
+              <div class="name-price">
+                <div class="name-container">
+                  <a href="https://laptopre.vn/laptop/hp-pavilion-x360-14-ek0013dx-i3-1215u-ram-8gb-ssd-256gb" class="product-item__name">HP Pavilion x360 14-ek0013dx/ i3-1215U/ RAM 8GB/ SSD 256GB </a>
+                  <div class="cauhinh"> HP Pavilion x360 14-ek0013dx/ i3-1215U/ RAM 8GB/ SSD 256GB/ Intel UHD Graphics/ 14.0&quot; FHD Touch/ Mới 100%</div>
+                </div>
+
+                <span>
+                                                                                                    12.900.000₫
+
+                                                <strike>15.000.000₫</strike>
+                                            </span>
+              </div>
+              <div class="clearfix"></div>
+
+
+              <div class="choose-color">
+                <aside class=""><span>Màu:
+
+                                                </span>
+                  <div style="background: #2a313b; width: 22px; height: 19px; display: inline-block; margin-left: 8px;border-radius: 2px;">
+                  </div>
+                </aside>
+                <div class="choosenumber" id="qtt">
+                  <div class="input-group plus-minus-input">
+
+
+                    <input type="number" id="qty" min="0" max="10" value="1" onchange="return getQty(this, 'a965073ce1cdc63430fac0d12d3dd2b5')" name="qty">
+
+
+
+                    <button class="btn-del-item" onclick="window.location.href='https://laptopre.vn/cart/remove/a965073ce1cdc63430fac0d12d3dd2b5'"><i
+                            class="fas fa-times"></i>
+                      Xóa
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="area_promotion zero">
+              <div class="title-promotion">
+                <p class="title"><i class="fas fa-gift" style="color: #0159a0"></i> Sản phẩm khuyến mãi</p>
+                <div class="btn-show-hide">
+                  <button id="hide_a965073ce1cdc63430fac0d12d3dd2b5" onclick='hideItem("a965073ce1cdc63430fac0d12d3dd2b5" , "hide_a965073ce1cdc63430fac0d12d3dd2b5")'>Hiển thị</button>
+                </div>
+              </div>
+
+              <div class="hieu_a965073ce1cdc63430fac0d12d3dd2b5" style="display: none;">
+                <div class="st-promoProduct__item"><label class="img"><img
+                        src="/assets2/upload/picture/picture-1626226853.png"
+                        alt="balo laptop chống sốc">
+                </label>
+                  <div class="info">
+                    <div class="top"><a href="javascript:void(0)" class="text-decoration-none" style="color: #5d5d5d"><span class="name">Tặng ngay
+                                                                        balo laptop chống sốc</span><span class="name"
+                                                                                                          style="font-weight:600;color:#000">,
+                                                                        200.000₫</span></a>
+                    </div>
+                    <div class="center">
+                      <div class="re-price-strike mr-3">
+                        200.000₫
+                      </div>
+                      <div class="re-price re-red ">
+                        0₫
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="st-promoProduct__item"><label class="img"><img
+                        src="/assets2/upload/product/product-1620184164.jpg"
+                        alt="chuột không giây">
+                </label>
+                  <div class="info">
+                    <div class="top"><a href="javascript:void(0)" class="text-decoration-none" style="color: #5d5d5d"><span class="name">Tặng ngay
+                                                                        chuột không giây</span><span class="name"
+                                                                                                     style="font-weight:600;color:#000">,
+                                                                        150.000₫</span></a>
+                    </div>
+                    <div class="center">
+                      <div class="re-price-strike mr-3">
+                        150.000₫
+                      </div>
+                      <div class="re-price re-red ">
+                        0₫
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="st-promoProduct__item"><label class="img"><img
+                        src="/assets2/upload/product/product-1620184259.jpg"
+                        alt="lót chuột Logitech">
+                </label>
+                  <div class="info">
+                    <div class="top"><a href="javascript:void(0)" class="text-decoration-none" style="color: #5d5d5d"><span class="name">Tặng ngay
+                                                                        lót chuột Logitech</span><span class="name"
+                                                                                                       style="font-weight:600;color:#000">,
+                                                                        50.000₫</span></a>
+                    </div>
+                    <div class="center">
+                      <div class="re-price-strike mr-3">
+                        50.000₫
+                      </div>
+                      <div class="re-price re-red ">
+                        0₫
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </li>
+        </ul>
+        <div class="area-total">
+          <div class="total-price"><strong>Tổng
+            tiền:</strong><strong id="total-card-first"> 12.900.000₫</strong></div>
+        </div>
+        <form class="form-customer" action="https://laptopre.vn/order/create" method="post">
+          <input type="hidden" name="_token" value="pWsbu3WWpo1b6H9GUgXbVYfAYY5WsuqA05OKsDWs"> <input type="hidden" value="3200" name="list_config[]">
+          <input type="hidden" value="1" name="list_qty[]">
+          <input type="hidden" value="2" name="list_promotion[]">
+
+          <div class="infor-customer">
+            <h4>THÔNG TIN KHÁCH HÀNG:</h4>
+            <div class="sex-customer">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="anh" name="gender" value="Anh" checked>
+                <label class="form-check-label" for="anh">Anh</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="chi" name="gender" value="Chị">
+                <label class="form-check-label" for="chi">Chị</label>
+              </div>
+            </div>
+
+            <div class="fillinform">
+              <div class="row">
+
+                <div class="col-md-12">
+                  <div class="fillname"><input placeholder="Họ và Tên" maxlength="50" name="name" class="capitalize untouched pristine required" value="">
+                  </div>
+                </div>
+
+
+                <div class="col-md-6">
+                  <div class="fillname"><input placeholder="Email" type="email" name="email" class="untouched pristine required" value="">
+                  </div>
+                </div>
+
+
+                <div class="col-md-6">
+                  <div class="fillname"><input placeholder="Số điện thoại" type="tel" name="phone_number" maxlength="10" class="untouched pristine required" value="">
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+          <div class="choosegetgoods">
+            <h4>Chọn cách thức nhận hàng:</h4>
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#tabs-1" onclick="return getTab('giao-hang')" role="tab">Giao hàng tận
+                  nơi</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tabs-2" onclick="return getTab('sieu-thi')" role="tab">Nhận tại siêu thị</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tabs-3" onclick="return getTab('dia-chi-nuoc-ngoai')" role="tab">Địa chỉ nước ngoài</a>
+              </li>
+
+              <script>
+                function getTab(address) {
+                  $.ajax({
+                    url: "https://laptopre.vn/dom-receive",
+                    type: 'GET',
+                    cache: false,
+                    data: {
+                      address: address
+                    },
+                    success: function(data) {
+                      $('#content-tab').html(data);
+                    },
+                    error: function() {
+                      console.log("Có lỗi");
+                    }
+                  });
+                }
+
+                function getDistrict(theForm) {
+                  var id = theForm.value;
+                  $.ajax({
+                    url: "https://laptopre.vn/get-district",
+                    type: 'GET',
+                    cache: false,
+                    data: {
+                      idCity: id
+                    },
+                    success: function(data) {
+
+                      $('#list_district').html(data);
+
+                    },
+                    error: function() {
+                      console.log("Có lỗi");
+                    }
+                  });
+                }
+
+                function getWard(theForm) {
+                  var id = theForm.value;
+                  $.ajax({
+                    url: "https://laptopre.vn/get-ward",
+                    type: 'GET',
+                    cache: false,
+                    data: {
+                      idDistrict: id
+                    },
+                    success: function(data) {
+                      if (data == '') {
+                        $('.div_phuong').hide();
+                      } else {
+                        $('#list_ward').html(data);
+                      }
+                    },
+                    error: function() {
+                      console.log("Có lỗi");
+                    }
+                  });
+                }
+              </script>
+
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content" id="content-tab">
+              <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                <div class="choose-content current">
+                  <div class="deli-address">
+                    <p>Chọn địa chỉ của bạn</p>
+                    <div class="div_tp">
+                      <div class="select ">
+                        <select class="btn-click" onchange="return getDistrict(this)" name="city_id" id="slct1">
+                          <option value="0">Chọn Tỉnh / Thành phố</option>
+                          <option value="30">
+                            An Giang
+                          </option>
+                          <option value="10">
+                            Bà Rịa Vũng Tàu
+                          </option>
+                          <option value="28">
+                            Bắc Giang
+                          </option>
+                          <option value="62">
+                            Bắc Kạn
+                          </option>
+                          <option value="55">
+                            Bạc Liêu
+                          </option>
+                          <option value="17">
+                            Bắc Ninh
+                          </option>
+                          <option value="37">
+                            Bến Tre
+                          </option>
+                          <option value="4">
+                            Bình Dương
+                          </option>
+                          <option value="25">
+                            Bình Định
+                          </option>
+                          <option value="23">
+                            Bình Phước
+                          </option>
+                          <option value="13">
+                            Bình Thuận
+                          </option>
+                          <option value="39">
+                            Cà Mau
+                          </option>
+                          <option value="12">
+                            Cần Thơ
+                          </option>
+                          <option value="63">
+                            Cao Bằng
+                          </option>
+                          <option value="3">
+                            Đà Nẵng
+                          </option>
+                          <option value="11">
+                            Đắk Lắk
+                          </option>
+                          <option value="38">
+                            Đắk Nông
+                          </option>
+                          <option value="58">
+                            Điện Biên
+                          </option>
+                          <option value="5">
+                            Đồng Nai
+                          </option>
+                          <option value="47">
+                            Đồng Tháp
+                          </option>
+                          <option value="22">
+                            Gia Lai
+                          </option>
+                          <option value="61">
+                            Hà Giang
+                          </option>
+                          <option value="45">
+                            Hà Nam
+                          </option>
+                          <option value="2">
+                            Hà Nội
+                          </option>
+                          <option value="46">
+                            Hà Tĩnh
+                          </option>
+                          <option value="21">
+                            Hải Dương
+                          </option>
+                          <option value="7">
+                            Hải Phòng
+                          </option>
+                          <option value="53">
+                            Hậu Giang
+                          </option>
+                          <option value="1">
+                            Hồ Chí Minh
+                          </option>
+                          <option value="29">
+                            Hòa Bình
+                          </option>
+                          <option value="24">
+                            Hưng Yên
+                          </option>
+                          <option value="6">
+                            Khánh Hòa
+                          </option>
+                          <option value="16">
+                            Kiên Giang
+                          </option>
+                          <option value="49">
+                            Kon Tum
+                          </option>
+                          <option value="59">
+                            Lai Châu
+                          </option>
+                          <option value="14">
+                            Lâm Đồng
+                          </option>
+                          <option value="60">
+                            Lạng Sơn
+                          </option>
+                          <option value="34">
+                            Lào Cai
+                          </option>
+                          <option value="8">
+                            Long An
+                          </option>
+                          <option value="35">
+                            Nam Định
+                          </option>
+                          <option value="20">
+                            Nghệ An
+                          </option>
+                          <option value="41">
+                            Ninh Bình
+                          </option>
+                          <option value="43">
+                            Ninh Thuận
+                          </option>
+                          <option value="42">
+                            Phú Thọ
+                          </option>
+                          <option value="44">
+                            Phú Yên
+                          </option>
+                          <option value="50">
+                            Quảng Bình
+                          </option>
+                          <option value="9">
+                            Quảng Nam
+                          </option>
+                          <option value="36">
+                            Quảng Ngãi
+                          </option>
+                          <option value="18">
+                            Quảng Ninh
+                          </option>
+                          <option value="51">
+                            Quảng Trị
+                          </option>
+                          <option value="48">
+                            Sóc Trăng
+                          </option>
+                          <option value="54">
+                            Sơn La
+                          </option>
+                          <option value="32">
+                            Tây Ninh
+                          </option>
+                          <option value="27">
+                            Thái Bình
+                          </option>
+                          <option value="33">
+                            Thái Nguyên
+                          </option>
+                          <option value="19">
+                            Thanh Hóa
+                          </option>
+                          <option value="15">
+                            Thừa Thiên Huế
+                          </option>
+                          <option value="26">
+                            Tiền Giang
+                          </option>
+                          <option value="52">
+                            Trà Vinh
+                          </option>
+                          <option value="57">
+                            Tuyên Quang
+                          </option>
+                          <option value="40">
+                            Vĩnh Long
+                          </option>
+                          <option value="31">
+                            Vĩnh Phúc
+                          </option>
+                          <option value="56">
+                            Yên Bái
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="div_quan">
+                      <div class="select">
+                        <select class="btn-click" name="district_id" id="list_district" onchange="return getWard(this)">
+                          <option selected="" disabled="">Quận / Huyện</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="div_phuong">
+                      <div class="select"><select class="btn-click" name="ward_id" id="list_ward">
+                        <option selected="" disabled="">Phường / Xã</option>
+                      </select></div>
+                    </div>
+                    <div class="filladdress select"><input placeholder="Số nhà, tên đường" maxlength="255" name="address" class="btn-click untouched pristine required">
+                    </div>
+                  </div>
+                  <div class="anotheroption">
+                    <div class="form-group">
+                      <label for="exampleFormControlTextarea1">Yêu cầu khác ( Không bắt
+                        buộc)</label>
+                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                  </div>
+
+
+                </div>
+                <div class="pt-3 pttt">
+                  <h4>PHƯƠNG THỨC THANH TOÁN:</h4>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="radio" id="cod" name="payment" value="Thanh toán khi giao hàng(COD)" checked>
+                    <label class="form-check-label" for="cod">Thanh toán khi giao hàng(COD)</label>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="radio" id="ck" name="payment" value="Chuyển khoản qua ngân hàng">
+                    <label class="form-check-label" for="ck">Chuyển khoản qua ngân hàng</label>
+                  </div>
+
+
+                  <article class="d-none">
+
+                  </article>
+                  <article>
+                    <div class="text-center" style="font-size:17px">Thông tin ngân hàng</div>
+                    <p>Ngân hàng: Ngân hàng Vietcombank</p>
+                    <p>Tên tài khoản: Lê Thị Thu Hương</p>
+                    <p>Số tài khoản: 0041000188186</p>
+                    <hr>
+                    <p>Ngân hàng: Ngân hàng Techcombank</p>
+                    <p>Tên tài khoản: Trần Nam Thanh</p>
+                    <p>Số tài khoản: 19027558217037</p>
+                    <hr>
+                    <p>Ngân hàng: Ngân hàng MB Bank</p>
+                    <p>Tên tài khoản: Lê Thị Thu Hương</p>
+                    <p>Số tài khoản: 0942191368</p>
+                    <hr>
+                    <p><strong>Cú pháp chuyển khoản:</strong> TT[dấu cách]Mã Đơn Hàng[dấu cách] SĐT</p>
+                    <small>Lưu ý: Mã đơn hàng sẽ hiển thị sau khi bạn đặt hàng thành công</small>
+                  </article>
+
+
+
+                </div>
+
+
+                <div class="pt-3 text-center">
+                  Nhân viên bán hàng sẽ liên hệ lại để xác nhận đơn hàng, trước khi gửi hàng
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="finaltotal">
+            <div class="totalmoney"><strong>Tổng tiền:</strong><strong id="total-card-second">12.900.000₫</strong>
+            </div>
+            <button type="submit"><b
+                    style="text-transform:uppercase">Đặt
+              hàng</b></button><small>Bạn có thể chọn hình thức thanh toán sau khi đặt
+            hàng</small>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+    <div class="col-lg-3 pt-3 sticky-sibar">
+      <div class="card-support mt-4">
+        <div class="card-support-heading">
+          <h5 class="card-support-title">
+            CỘNG GIỎ HÀNG</h5>
+        </div>
+        <div class="card-support-body">
+          <div class="finaltotal stickki p-0">
+            <div class="totalmoney"><strong>Tạm
+              tính:</strong><strong id="total-card-third">12.900.000₫</strong>
+            </div>
+            <div class="totalmoney "><strong>Khuyến mãi:</strong><strong>0₫ </strong></div>
+            <div class="totalmoney"><strong>Tổng
+              tiền:</strong><strong id="total-card-four">12.900.000₫</strong>
+            </div>
+            <!--<button type="button" class=""><b style="text-transform:uppercase">TIẾN HÀNH ĐẶT-->
+            <!--        HÀNG</b></button><small>Bạn có thể chọn hình thức thanh toán sau khi đặt-->
+            <!--    hàng</small>-->
+          </div>
+        </div>
+      </div>
+
+      <div class="st-boxPromo-new d-none">
+        <div class="title">Chọn 1 trong 16 khuyến mãi sau:</div>
+        <ul class="st-boxPromo__list">
+
+
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-2" name="promotion" value="2" checked>
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-2" class="d-inline">Giảm 5% Tối đa 300.000 VNĐ cho khách hàng &quot;Thân quen&quot; (Đã mua máy tại Shop)</label>
+            </div>
+          </li>
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-3" name="promotion" value="3">
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-3" class="d-inline">Giảm giá 300.000 VNĐ cho học sinh, sinh viên (có thẻ HS,SV)</label>
+            </div>
+          </li>
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-7" name="promotion" value="7">
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-7" class="d-inline">Giảm giá 5% tối đa 300.000 VNĐ cho khách có sinh nhật trong tuần Và 200.000 VNĐ SN trong tháng</label>
+            </div>
+          </li>
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-8" name="promotion" value="8">
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-8" class="d-inline">Trả góp lái suất thấp bằng thẻ VISA, MASTERCARD, JCB hoặc HD SAISON</label>
+            </div>
+          </li>
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-9" name="promotion" value="9">
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-9" class="d-inline">Giảm 10% khi nâng cấp Ram, SSD hoặc mua thêm phụ kiện</label>
+            </div>
+          </li>
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-11" name="promotion" value="11">
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-11" class="d-inline">Giảm 3% tối đa 700.000 VNĐ + Free Ship khi mua online trả thẳng</label>
+            </div>
+          </li>
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-12" name="promotion" value="12">
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-12" class="d-inline">Giảm 300K khi mua SSD NVme (Còn 499K 128GB Nvme 128GB Kingmax - Miễn phí lắp cài)</label>
+            </div>
+          </li>
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-13" name="promotion" value="13">
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-13" class="d-inline">Tăng SSD Kingmax Nvme 128GB New 100%</label>
+            </div>
+          </li>
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-14" name="promotion" value="14">
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-14" class="d-inline">Vui X&#039;Mas Giảm thêm 1.000.000 VNĐ tới 29/12/2021</label>
+            </div>
+          </li>
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-15" name="promotion" value="15">
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-15" class="d-inline">Sale to cuối năm: Giảm ngay 5% tối đa 1.000.000 VND tới 30/01/2022</label>
+            </div>
+          </li>
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-16" name="promotion" value="16">
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-16" class="d-inline">Trợ giá đổi laptop 5-10% giá trị laptop cũ cho khách hàng</label>
+            </div>
+          </li>
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-17" name="promotion" value="17">
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-17" class="d-inline">Hỗ trợ thu mua laptop, máy bàn tận nơi, giá cao</label>
+            </div>
+          </li>
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-18" name="promotion" value="18">
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-18" class="d-inline">Hỗ trợ 5-10% Đổi máy, nâng cấp máy cấu hình cao hơn</label>
+            </div>
+          </li>
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-19" name="promotion" value="19">
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-19" class="d-inline">Giảm ngay 5% giá treo màn hình đa năng khi mua cùng màn hình bất kỳ</label>
+            </div>
+          </li>
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-20" name="promotion" value="20">
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-20" class="d-inline">Giảm 10% cáp HDMI Vention cao cấp khi mua kèm màn hình</label>
+            </div>
+          </li>
+          <li>
+            <div class="radio">
+              <input type="radio" id="promotion-21" name="promotion" value="21">
+              <i class="fas fa-gift" style="color: #0159a0"></i>
+              <label for="promotion-21" class="d-inline">Giảm 10% cáp Displayport cao cấp khi mua kèm màn hình</label>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script src="/assets2/templates/laptop/js/home-page/function-increment-decrement.js"></script>
+
+<script>
+  $('[name=tab]').each(function(i, d) {
+    var p = $(this).prop('checked');
+    //   console.log(p);
+    if (p) {
+      $('article').eq(i)
+              .addClass('on');
+    }
+  });
+
+  $('[name=payment]').on('change', function() {
+    var p = $(this).prop('checked');
+
+    var i = $('[name=tab]').index(this);
+
+    $('article').removeClass('on');
+    $('article').eq(i).addClass('on');
+  });
+</script>
+<th:block th:replace="/layout/footer :: footer"/>
+<script src="/assets2/templates/laptop/js/hide-header-on-scroll-down.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+{
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "address": {
+    "@type": "PostalAddress",
+        "addressLocality": "Việt Nam",
+        "addressRegion": "TP Đà Nẵng",
+        "streetAddress": "55a Hàm Nghi, Thạc Gián, Hải Châu, Đà Nẵng 550000"
+},
+    "description": "laptop rẻ Đà Nẵng, Laptop Thanh Hương uy tín tại Đà Nẵng, chuyên các dòng laptop dell, asus, macbook, surface laptop tại Đà Nẵng",
+    "name": "Thanh Hương LaptopZin.Vn- Laptop tốt số #1 Đà Nẵng",
+    "telephone": "096 993 67 77"
+}

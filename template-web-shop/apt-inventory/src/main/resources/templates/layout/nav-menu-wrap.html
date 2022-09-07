@@ -1,0 +1,330 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="nav-menu-wrap">
+    <nav class="nav-menu-wrap">
+        <div class="visual">
+            <a class="avatar" href="#">
+                <div class="avatar__content text-center">
+                    <img src="../../../assets2/templates/laptop/anh/logonew4.png" alt="logo" width="180px">
+                </div>
+            </a>
+        </div>
+
+        <ul class="nav-menu1 nav-csss accordion" id="menu-laptop">
+            <li>
+                <div id="laptopmoi" class="accordion-css">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <a href="https://laptopre.vn/laptop-moi"><i class="fas fa-laptop mr-4"></i> Laptop mới</a>
+
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#laptopmoi-one" aria-expanded="true" aria-controls="laptopmoi-one">
+                                <i class="fas fa-angle-down"></i>
+                            </button>
+
+                        </div>
+
+                        <div id="laptopmoi-one" class="collapse " aria-labelledby="headingOne" data-parent="#menu-laptop">
+                            <div class="card-body">
+                                <ul class="fs-submenu clearfix">
+                                    <li><a href="/laptop-dell"><span>Dell</span></a></li>
+                                    <li><a href="/laptop-asus"><span>Asus</span></a></li>
+                                    <li><a href="/laptop-macbook"><span>Macbook</span></a></li>
+                                    <li><a href="/laptop-hp"><span>HP </span></a></li>
+                                    <li><a href="/laptop-lenovo"><span>Lenovo</span></a></li>
+                                    <li><a href="/laptop-acer"><span>Acer</span></a></li>
+                                    <li><a href="/laptop-msi"><span>Msi</span></a></li>
+                                    <li><a href="/laptop-LG Gram"><span>LG Gram</span></a></li>
+                                    <li style="width: 96%; border-right: none; text-align: center;"><a href="/laptop-microsoft-surface"><span>Microsoft Suface</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li>
+                <div id="laptopcu" class="accordion-css">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <a href="/laptop-cu"><i class="fas fa-laptop mr-4"></i> Laptop cũ</a>
+
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#laptopcu-one" aria-expanded="true" aria-controls="laptopcu-one">
+                                <i class="fas fa-angle-down"></i>
+                            </button>
+
+                        </div>
+
+                        <div id="laptopcu-one" class="collapse " aria-labelledby="headingOne" data-parent="#menu-laptop">
+                            <div class="card-body">
+                                <ul class="fs-submenu clearfix">
+                                    <li><a href="/laptop-dell-cu"><span>Dell cũ</span></a></li>
+                                    <li><a href="/laptop-asus-cu"><span>Asus cũ</span></a></li>
+                                    <li><a href="/laptop-macbook-cu"><span>Macbook cũ</span></a></li>
+                                    <li><a href="/laptop-hp-cu"><span>HP cũ </span></a></li>
+                                    <li><a href="/laptop-lenovo-cu"><span>Lenovo cũ</span></a></li>
+                                    <li><a href="/laptop-acer-cu"><span>Acer cũ</span></a></li>
+                                    <li><a href="/laptop-msi-cu"><span>Msi cũ</span></a></li>
+                                    <li><a href="/laptop-lg-gram-cu"><span>LG Gram cũ</span></a></li>
+                                    <li style="width: 96%; border-right: none; text-align: center;"><a href="/laptop-microsoft-surface-cu"><span>Microsoft Suface cũ</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li>
+                <div id="pc-mayban" class="accordion-css">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <a href="/may-ban"><i class="fas fa-chalkboard-teacher mr-4"></i> PC máy tính bàn </a>
+
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#pc-mayban-one" aria-expanded="true" aria-controls="pc-mayban-one">
+                                <i class="fas fa-angle-down"></i>
+                            </button>
+
+                        </div>
+
+                        <div id="pc-mayban-one" class="collapse " aria-labelledby="headingOne" data-parent="#menu-laptop">
+                            <div class="card-body">
+                                <ul class="fs-submenu clearfix">
+                                    <li><a href="/may-ban-pc-dong-bo"><span>PC đồng bộ</span></a></li>
+                                    <li><a href="/may-ban-pc-lap-rap"><span>PC lắp ráp</span></a></li>
+                                    <li><a href="/may-ban-pc-all-in-one"><span>PC all in one</span></a></li>
+                                    <li><a href="/may-ban-pc-workstation"><span>PC workstation </span></a></li>
+                                    <li style="width: 96%; border-right: none; text-align: center;"><a href="/may-ban-may-chu-server"><span>Máy chủ server </span></a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li>
+                <div id="thietbivanphong" class="accordion-css">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <a href="/thiet-bi-van-phong"><i class="fas fa-print mr-4"></i>Thiết bị văn phòng </a>
+
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#thietbivanphong-one" aria-expanded="true" aria-controls="thietbivanphong-one">
+                                <i class="fas fa-angle-down"></i>
+                            </button>
+
+                        </div>
+
+                        <div id="thietbivanphong-one" class="collapse " aria-labelledby="headingOne" data-parent="#menu-laptop">
+                            <div class="card-body">
+                                <ul class="fs-submenu clearfix">
+                                    <li><a href="/thiet-bi-van-phong-may-in"><span>Máy in</span></a></li>
+                                    <li><a href="/thiet-bi-van-phong-may-in-laser"><span>Máy in Laser</span></a></li>
+                                    <li><a href="/thiet-bi-van-phong-may-in-phun"><span>Máy in phun</span></a></li>
+                                    <li><a href="/thiet-bi-van-phong-may-in-hoa-don"><span>Máy in hoá đơn</span></a></li>
+                                    <li><a href="/thiet-bi-van-phong-may-in-tem-nhan"><span>Máy in tem nhãn</span></a></li>
+                                    <li><a href="/thiet-bi-van-phong-may-in-kim"><span>Máy in kim</span></a></li>
+                                    <li><a href="/thiet-bi-van-phong-may-scan"><span>Máy scan</span></a></li>
+                                    <li><a href="/thiet-bi-van-phong-vat-tu-thay-the-may-in"><span>Vật tư thay thế máy in </span></a></li>
+                                    <li><a href="/thiet-bi-van-phong-may-cham-cong"><span>Máy chấm công </span></a></li>
+                                    <li><a href="/thiet-bi-van-phong-man-hinh"><span>Màn hình </span></a></li>
+                                    <li style="width: 96%; border-right: none; text-align: center;"><a href="/thiet-bi-van-phong-may-photocopy"><span>Máy Photocopy </span></a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li>
+                <div id="thietbimang" class="accordion-css">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <a href="/thiet-bi-mang"><i class="fas fa-network-wired mr-4"></i>Thiết bị mạng </a>
+
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#thietbimang-one" aria-expanded="true" aria-controls="thietbimang-one">
+                                <i class="fas fa-angle-down"></i>
+                            </button>
+
+                        </div>
+
+                        <div id="thietbimang-one" class="collapse " aria-labelledby="headingOne" data-parent="#menu-laptop">
+                            <div class="card-body">
+                                <ul class="fs-submenu clearfix">
+                                    <li><a href="/thiet-bi-mang-bo-phat-song-wifi"><span>Bộ phát sóng wifi  </span></a></li>
+                                    <!-- <li><a href="/thiet-bi-van-phong-may-in-laser"><span>Bộ nhận sóng wifi</span></a></li> -->
+                                    <li><a href="/thiet-bi-mang-bo-kich-mo-rong-song-wifi"><span>Bộ kích mở rộng sóng wifi </span></a></li>
+                                    <li><a href="/thiet-bi-mang-bo-nhan-song-wifi-4g"><span>Bộ nhận sóng wifi 4G  </span></a></li>
+                                    <li><a href="/thiet-bi-mang-bo-chia-mang-switch"><span>Bộ chia mạng HUB/SWITCH   </span></a></li>
+                                    <li><a href="/thiet-bi-mang-tu-mang-tu-rack"><span>Tủ mạng - Tủ rack </span></a></li>
+                                    <li><a href="/thiet-bi-mang-cap-mang"><span>Cáp mạng</span></a></li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li>
+                <div id="linhkienpc" class="accordion-css">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <a href="/linh-kien-pc"><i class="fas fa-database mr-4"></i>Linh kiện máy tính bàn </a>
+
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#linhkienpc-one" aria-expanded="true" aria-controls="linhkienpc-one">
+                                <i class="fas fa-angle-down"></i>
+                            </button>
+
+                        </div>
+
+                        <div id="linhkienpc-one" class="collapse " aria-labelledby="headingOne" data-parent="#menu-laptop">
+                            <div class="card-body">
+                                <ul class="fs-submenu clearfix">
+                                    <li><a href="/linh-kien-pc-bo-xu-ly-cpu"><span>Bộ xử lý - CPU</span></a></li>
+                                    <li><a href="/linh-kien-pc-bo-mach-chu-mainboard"><span>Bo mạch chủ - Mainboard </span></a></li>
+                                    <li><a href="/linh-kien-pc-bo-nho-trong-ram-desktop"><span>Bộ nhớ trong - Ram desktop </span></a></li>
+                                    <li><a href="/linh-kien-pc-card-do-hoa-vga"><span>Card đồ hoạ - VGA</span></a></li>
+                                    <li><a href="/linh-kien-pc-nguon-may-tinh-psu"><span>Nguồn máy tính - PSU  </span></a></li>
+                                    <li><a href="/linh-kien-pc-tan-nhiet-cooling"><span>Tản nhiệt cooling</span></a></li>
+                                    <li style="width: 96%; border-right: none; text-align: center;"><a href="/linh-kien-pc-vo-may-tinh-case"><span>Vỏ máy tính - Case </span></a></li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li>
+                <div id="dienthoai" class="accordion-css">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <a href="https://laptopre.vn/dien-thoai"><i class="fas fa-mobile-alt mr-4"></i> Điện thoại</a>
+
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#dienthoai-one" aria-expanded="true" aria-controls="dienthoai-one">
+                                <i class="fas fa-angle-down"></i>
+                            </button>
+
+                        </div>
+
+                        <div id="dienthoai-one" class="collapse " aria-labelledby="headingOne" data-parent="#menu-laptop">
+                            <div class="card-body">
+                                <ul class="fs-submenu clearfix">
+                                    <li><a href="/dien-thoai-apple-iphone"><span>Apple (iPhone)</span></a></li>
+                                    <li><a href="/dien-thoai-samsung"><span>Samsung</span></a></li>
+                                    <li><a href="/dien-thoai-oppo"><span>OPPO</span></a></li>
+                                    <li><a href="/dien-thoai-xiaomi"><span>Xiaomi</span></a></li>
+                                    <li><a href="/dien-thoai-vivo"><span>Vivo</span></a></li>
+                                    <li><a href="/dien-thoai-realme"><span>Realme</span></a></li>
+                                    <li><a href="/dien-thoai-nokia"><span>Nokia</span></a></li>
+                                    <li><a href="/dien-thoai-huawei"><span>Huawei</span></a></li>
+                                    <li style="width: 96%; border-right: none; text-align: center;"><a href="/dien-thoai-masstel"><span>Masstel</span></a></li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li>
+                <div id="mtb" class="accordion-css">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <a href="/may-tinh-bang"><i class="fas fa-tablet-alt mr-4"></i>Máy tính bảng </a>
+
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#mtb-one" aria-expanded="true" aria-controls="mtb-one">
+                                <i class="fas fa-angle-down"></i>
+                            </button>
+
+                        </div>
+
+                        <div id="mtb-one" class="collapse " aria-labelledby="headingOne" data-parent="#menu-laptop">
+                            <div class="card-body">
+                                <ul class="fs-submenu clearfix">
+                                    <li><a href="/may-tinh-bang-samsung"><span>Samsung</span></a></li>
+                                    <li><a href="/may-tinh-bang-apple-ipad"><span>Apple (iPad) </span></a></li>
+                                    <li><a href="/may-tinh-bang-lenovo"><span>Lenovo</span></a></li>
+                                    <li><a href="/may-tinh-bang-masstel"><span>Masstel</span></a></li>
+                                    <li style="width: 96%; border-right: none; text-align: center;"><a href="/may-tinh-bang-huawei"><span>Huawei</span></a></li>
+
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li><a href="https://laptopre.vn/phu-kien"><i class="far fa-keyboard mr-4"></i> Phụ kiện</a> </li>
+            <li>
+                <div id="linhkienlaptop" class="accordion-css">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <a href="/linh-kien-laptop"><i class="fas fa-stream mr-4"></i>Linh kiện laptop </a>
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#linhkienlaptop-one" aria-expanded="true" aria-controls="linhkienlaptop-one">
+                                <i class="fas fa-angle-down"></i>
+                            </button>
+                        </div>
+
+                        <div id="linhkienlaptop-one" class="collapse " aria-labelledby="headingOne" data-parent="#menu-laptop">
+                            <div class="card-body">
+                                <ul class="fs-submenu clearfix">
+                                    <li><a href="/linh-kien-laptop-pin-laptop-battery"><span>Pin Laptop (battery) | UPS (lưu điện)
+                          </span></a></li>
+                                    <li><a href="/linh-kien-laptop-man-hinh-laptop"><span>Màn hình laptop
+                          </span></a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li><a href="/phu-kien-surface"><i class="fas fa-server mr-4"></i>Phụ kiện Surface </a> </li>
+            <li><a href="https://laptopre.vn/tin-tuc"><i class="fas fa-blog mr-4"></i> Blog</a> </li>
+            <li>
+                <div id="tu-van-bh" class="accordion-css">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <a href="/may-tinh-bang">Tư vấn bán hàng</a>
+
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#tu-van-bh-one" aria-expanded="true" aria-controls="tu-van-bh-one">
+                                <i class="fas fa-angle-down"></i>
+                            </button>
+
+                        </div>
+
+                        <div id="tu-van-bh-one" class="collapse " aria-labelledby="headingOne" data-parent="#menu-laptop">
+                            <div class="card-body ">
+                                <div class="sub">
+                                    <div class="item">
+                                        <span class="span-1">Khách hàng lẻ</span>
+                                        <span>Zalo/Call/Viber:  096 9936 777 - Mr.Bằng</span>
+                                        <span>Zalo/Call/Viber: 096 888 6363 - Mr.Xuân</span>
+                                        <span>Zalo/Call/Viber:  094 219 1368 - Mrs.Hương</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="span-1">Bán hàng doanh nghiệp</span>
+                                        <span>Zalo/Call/Viber: 0949 121 368 - Ms.Hương</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="span-1">Liên hệ hợp tác</span>
+                                        <span>Zalo/Call/Viber: 0931 978 999 - Mr.Thanh</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+        </ul>
+    </nav>
+</th:block>
