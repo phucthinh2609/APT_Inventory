@@ -2,15 +2,15 @@ class App {
     static DOMAIN = location.origin;
     static BASER_URL = this.DOMAIN + "/api";
 
-    static ERROR_400 = "Giao dịch không thành công, vui lòng kiểm tra lại dữ liệu.";
+    static ERROR_400 = "Thao tác không thành công, vui lòng kiểm tra lại dữ liệu.";
     static ERROR_401 = "Access Denied! Invalid credentials.";
     static ERROR_403 = "Access Denied! You are not authorized to perform this function.";
     static ERROR_404 = "An error occurred. Please try again later!";
     static ERROR_500 = "Lưu dữ liệu không thành công, vui lòng liên hệ quản trị hệ thống.";
     static SUCCESS_CREATED = "Successful data generation !";
-    static SUCCESS_UPDATED = "Data update successful !";
-    static SUCCESS_SUSPEND = "Succeeded client suspension !";
-    static SUCCESS_DELETED = "Deleted client suspension !";
+    static SUCCESS_UPDATED = "Info update successful !";
+    static AVATAR_UPDATED_SUCCESS = "Avatar update successful !";
+    static SUCCESS_DELETED = "Delete blog successfully !";
 
 
     static SweetAleart = class {
@@ -20,7 +20,7 @@ class App {
                 title: t,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 1500
+                timer: 4000
             })
         }
 
@@ -29,6 +29,7 @@ class App {
                 icon: 'error',
                 title: 'Warning',
                 text: t,
+                timer: 4000
             })
         }
 
@@ -40,7 +41,7 @@ class App {
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: "Yes, delete it!"
+                confirmButtonText: "Yes, delete it!",
             })
         }
     }
@@ -50,7 +51,7 @@ class App {
             iziToast.success({
                 title: 'SUCCESS',
                 position: 'topRight',
-                timeout: 2500,
+                timeout: 4000,
                 message: title
             })
         }
@@ -59,7 +60,7 @@ class App {
             iziToast.success({
                 title: 'SUCCESS',
                 position: 'bottomLeft',
-                timeout: 2500,
+                timeout: 4000,
                 message: title
             })
         }
@@ -68,7 +69,7 @@ class App {
             iziToast.error({
                 title: 'ERROR',
                 position: 'topRight',
-                timeout: 2500,
+                timeout: 4000,
                 message: title
             })
         }
@@ -77,7 +78,7 @@ class App {
             iziToast.error({
                 title: 'ERROR',
                 position: 'bottomLeft',
-                timeout: 2500,
+                timeout: 4000,
                 message: title
             })
         }
