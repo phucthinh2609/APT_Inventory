@@ -51,7 +51,7 @@ class App {
             iziToast.success({
                 title: 'SUCCESS',
                 position: 'topRight',
-                timeout: 4000,
+                timeout: 1000,
                 message: title
             })
         }
@@ -60,7 +60,7 @@ class App {
             iziToast.success({
                 title: 'SUCCESS',
                 position: 'bottomLeft',
-                timeout: 4000,
+                timeout: 1000,
                 message: title
             })
         }
@@ -129,29 +129,37 @@ class App {
     }
 
     static renderProduct(obj) {
+        let strImg = "";
+
+        $.each(obj.fileUrls, (key, value) => {
+            strImg += `
+                <img src="${value}" alt="product-img" title="product-img" class="avatar-md"> 
+              `;
+            return false;
+        })
+
         let str = `
             <tr>
                 <td>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck2">
-                        <label class="custom-control-label" for="customCheck2">&nbsp;</label>
+                        <input type="checkbox" class="custom-control-input" id="customCheck--${obj.id}">
+                        <label class="custom-control-label" for="customCheck--${obj.id}">&nbsp;</label>
                     </div>
                 </td>
                 <td>
-                    <img src="${obj.fileUrls[0]}" alt="product-img" title="product-img" class="avatar-md">
+                    ${strImg}
                 </td>
-                <td>${obj.title}</td>
+                <td data-bs-toggle="tooltip" title="Hooray!">${obj.title}</td>
                 <td>
                     ${
                         obj.businessStatus != "Ngừng Kinh Doanh" ? `<span class="badge badge-pill badge-soft-success font-size-12">${obj.businessStatus}</span>` : `<span class="badge badge-pill badge-soft-danger font-size-12">${obj.businessStatus}</span>`
                     }
                 </td>
                 <td>
-                    <a href=`/products/detail/${obj.slug}` class=“btn btn-primary btn-sm btn-rounded”>View Details</a>
+                    <a href="/products/${obj.slug}" class="btn btn-primary btn-sm btn-rounded">View Details</a>
                 </td>
                 <td>
-                    <a href="javascript:void(0);" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
-                    <a href="javascript:void(0);" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="mdi mdi-close font-size-18"></i></a>
+                    <a href="/products/update/${obj.slug}" class="mr-3 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
                 </td>
             </tr>
         `;
